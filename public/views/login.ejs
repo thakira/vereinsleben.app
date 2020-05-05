@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<main role="main" class="login">
+
+    <h2 class="vereinsleben">Vereinsleben.App</h2>
+
+    <figure class="teaser">
+        <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="rounded-circle img-fluid">
+    </figure>
+
+    <h1><%= title %></h1>
+
+    <% if (messages.error) { %>
+    <div class="alert alert-danger"><%= messages.error %></div>
+    <% } %>
+
+    <% if (messages.success) { %>
+    <div class="alert alert-success"><%= messages.success %></div>
+    <% } %>
+
+    <form method="POST" action="/login" onsubmit="return checkForm()">
+        <div class="form-group">
+            <label for="email" class="bmd-label-floating">E-Mail Adresse</label>
+            <input type="email" class="form-control" id="email" name="email">
+            <span class="bmd-help">We'll never share your email with anyone else.</span>
+        </div>
+        <div class="form-group">
+            <label for="pwd" class="bmd-label-floating">Passwort</label>
+            <input type="password" class="form-control" id="pwd" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-raised btn-lg">Senden</button>
+    </form>
+
+    <p><a href="/pwdforgot">Passwort vergessen?</a></p>
+
+</main>
+
+<%- include('partials/footer') %>

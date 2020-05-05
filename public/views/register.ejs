@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+
+<main role="main" class="register">
+
+    <h2 class="vereinsleben">Vereinsleben.App</h2>
+
+    <figure class="teaser">
+        <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="rounded-circle img-fluid">
+    </figure>
+
+    <h1><%= title %></h1>
+
+    <% if (messages.error) { %>
+        <div class="alert alert-danger"><%= messages.error %></div>
+    <% } %>
+
+    <form method="POST" action="/register" onsubmit="return checkForm()">
+        <div class="form-group">
+            <label for="vorname" class="bmd-label-floating">Vorname</label>
+            <input type="text" class="form-control" id="vorname" name="vorname" required>
+        </div>
+        <div class="form-group">
+            <label for="nachname" class="bmd-label-floating">Nachname</label>
+            <input type="text" class="form-control" id="nachname" name="nachname" required>
+        </div>
+        <div class="form-group">
+            <label for="email" class="bmd-label-floating">E-Mail Adresse</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <span class="bmd-help">Wir werden Deine Daten niemals an Dritte weitergeben.</span>
+        </div>
+        <div class="form-group">
+            <label for="password" class="bmd-label-floating">Passwort</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="repPwd" class="bmd-label-floating">Passwort wiederholen</label>
+            <input type="password" class="form-control" id="repPwd" name="repPwd" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-raised btn-lg">Senden</button>
+    </form>
+
+    <p><a href="/login">Du hast bereits ein Konto? Anmelden</a></p>
+
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,116 @@
+:root {
+    --primary: rgb(10,82,19);
+    --custom-bg-color: rgb(249,244,232);
+    --custom-primary-color: rgb(10,82,19);
+    --custom-primary-color-raw: 10,82,19;
+
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--custom-bg-color);
+    font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, strong {
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 1.75em;
+    margin-bottom: 1.25em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.25em;
+}
+
+
+
+main {
+    margin: 0 auto;
+}
+
+a, a:focus {
+    color: var(--custom-primary-color);
+    display: inline-block;
+    transition: all .2s ease-in-out;
+}
+
+a:hover {
+    color: #000;
+}
+
+/*** Farbanpassung ***/
+.bmd-btn-fab.btn-primary.custom-file-control:before,
+.btn-group-raised .btn-primary.custom-file-control:before,
+.btn-group-raised .btn.btn-primary,
+.btn-raised.btn-primary.custom-file-control:before,
+.btn.bmd-btn-fab.btn-primary,
+.btn.btn-raised.btn-primary{
+    color: #fff;
+    background-color: var(--custom-primary-color);
+    border-color: var(--custom-primary-color);
+    box-shadow: 0 2px 2px 0 rgba(var(--custom-primary-color-raw), 0.14), 0 3px 1px -2px rgba(var(--custom-primary-color-raw), 0.2), 0 1px 5px 0 rgba(var(--custom-primary-color-raw) 0.12);
+}
+
+.custom-file-control,
+.form-control,
+.is-focused .custom-file-control,
+.is-focused .form-control {
+    background-image: linear-gradient(0deg,var(--custom-primary-color), 2px,rgba(0,150,136,0) 0),
+                        linear-gradient(0deg,rgba(0,0,0,.26) 1px,transparent 0);
+}
+
+.is-focused [class*=" bmd-label"],
+.is-focused [class^=bmd-label] {
+    color: var(--custom-primary-color);
+}
+
+
+/*** Pages ***/
+main.login,
+main.register{
+    max-width: 400px;
+    margin: 0 auto;
+}
+main.login *,
+main.register *{
+    text-align: center;
+}
+
+main.login form .form-group,
+main.register form .form-group{
+    text-align: left;
+}
+
+h2.vereinsleben {
+    margin: 1rem 0;
+    font-size: 1.25em;
+    font-weight: 600;
+    color: var(--custom-primary-color);
+}
+.register figure,
+.login figure {
+    margin-bottom: 2em;
+}
+
+figure.teaser img {
+    max-width: calc(100vw * .35);
+}
+
+/** Bootstrap **/
+.alert-danger {
+    border: 1px solid #7f231c;
+}
