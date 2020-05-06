@@ -1,0 +1,6 @@
+Bei "Zusammenspiel" - wo speichern? zugesagte Termine im User oder zugesagte User im Termin etc.
+Oder Tabellen mit user_id : event_id
+
+type bei Uhrzeit, festgelegter Auswahl, float
+
+Wird automatisch eine gleichnamige Gruppe erzeugt bei Terminerstellung oder andersrum? Oder ist das unabhängig voneinander?
