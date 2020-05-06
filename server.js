@@ -52,7 +52,7 @@ app.use('/auth', authRouter)
 */
 
 // Start server
-app.listen(5000, () => console.log('Server is up'))
+app.listen(3000, () => console.log('Server is up'))
 /*
 const https = require('https')
 const fs = require('fs')
