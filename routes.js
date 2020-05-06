@@ -114,13 +114,15 @@ module.exports = (app, passport) => {
             const email = req.body.email
             const password = req.body.password
             const repPasswd = req.body.repPwd
+            const firstname = req.body.firstname
+            const lastname = req.body.lastname
 
-            if (!email || !password || !repPasswd) {
+            if (!email || !password || !repPasswd || !firstname || !lastname) {
                 console.log('Empty fields')
                 return res.send('Empty fields')
             }
 
-            // Check if email address is already registered
+             // Check if email address is already registered
             const emails = await User.find({ email: email })
 
             // If an entry with desired email address was found, return an error
@@ -133,7 +135,7 @@ module.exports = (app, passport) => {
             const hashedPwd = crypto.createHash('sha256').update(password).digest('hex')
 
             // Store new user
-            await new User({ email: email, password: hashedPwd }).save(error => {
+            await new User({ email: email, password: hashedPwd, firstname: firstname, lastname: lastname }).save(error => {
                 if (error) throw { message: error.errmsg } // Guard clause
 
                 req.flash('success', 'Du hast es fast geschafft. Wir haben Dir eine E-Mail geschickt. Bitte bestätige Deine Identität, indem Du auf den Link darin klickst.')

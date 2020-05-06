@@ -34,7 +34,7 @@ app.set('views', path.join(__dirname, 'public'))
 app.set('view engine', 'ejs')
 
 // MongoDB / Mongoose wrapper
-mongoose.connect('mongodb://localhost:27017/projects', {
+mongoose.connect('mongodb://localhost:27017/siebenberger_strolche', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -52,7 +52,7 @@ app.use('/auth', authRouter)
 */
 
 // Start server
-app.listen(3000, () => console.log('Server is up'))
+app.listen(5000, () => console.log('Server is up'))
 /*
 const https = require('https')
 const fs = require('fs')
