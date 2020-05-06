@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const newsSchema = new Schema({
-    newsTitle: {type: String, require: true},
-    newsText: {type: String, require: true},
+    newsTitle: {type: String, required: true},
+    newsText: {type: String, required: true},
     //Wie speichert man ein Bild in einer DB???
-    newsPicture: {type: Mixed, default: "Logo"},
+    newsPicture: {type: Mixed},
     newsDocument: {type: Mixed},
     newsReleased: {type: Boolean, default: false}
 }, { timestamps: true })
