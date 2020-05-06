@@ -66,6 +66,11 @@ module.exports = (app, passport) => {
         res.render('views/pwdforgot', {title: 'Passwort vergessen'})
     })
 
+    // Password forgot site
+    app.get('/admin-benutzer', (req, res) => {
+        res.render('views/admin-benutzer', {title: 'Admin-Dashboard'})
+    })
+
     // User login
     app.post('/login', passport.authenticate('local', {
         successRedirect: '/dashboard',

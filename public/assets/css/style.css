@@ -12,6 +12,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
 }
 
 body {
@@ -39,7 +40,7 @@ h3 {
 
 
 main {
-    margin: 0 auto;
+    margin: 5em auto 0 auto;
 }
 
 a, a:focus {
@@ -52,32 +53,96 @@ a:hover {
     color: #000;
 }
 
-/*** Farbanpassung ***/
-.bmd-btn-fab.btn-primary.custom-file-control:before,
-.btn-group-raised .btn-primary.custom-file-control:before,
-.btn-group-raised .btn.btn-primary,
-.btn-raised.btn-primary.custom-file-control:before,
-.btn.bmd-btn-fab.btn-primary,
-.btn.btn-raised.btn-primary{
-    color: #fff;
+/*** Button ***/
+.btn-primary {
     background-color: var(--custom-primary-color);
-    border-color: var(--custom-primary-color);
-    box-shadow: 0 2px 2px 0 rgba(var(--custom-primary-color-raw), 0.14), 0 3px 1px -2px rgba(var(--custom-primary-color-raw), 0.2), 0 1px 5px 0 rgba(var(--custom-primary-color-raw) 0.12);
+    color: #fff;
 }
-
-.custom-file-control,
-.form-control,
-.is-focused .custom-file-control,
-.is-focused .form-control {
-    background-image: linear-gradient(0deg,var(--custom-primary-color), 2px,rgba(0,150,136,0) 0),
-                        linear-gradient(0deg,rgba(0,0,0,.26) 1px,transparent 0);
-}
-
 .is-focused [class*=" bmd-label"],
 .is-focused [class^=bmd-label] {
     color: var(--custom-primary-color);
 }
 
+/*** Header ***/
+.branding {
+    display: flex;
+    align-items: center;
+    margin: 0 1em;
+}
+.branding figure {
+    margin: 1em ;
+}
+.branding h1{
+    font-size: 1.45em;
+    color: white;
+    margin: 0;
+}
+
+/*** Navigation ***/
+nav {
+    background: var(--custom-primary-color);
+    line-height: inherit;
+}
+
+@media only screen and (min-width: 601px) {
+    nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+        height: auto;
+        line-height: inherit;
+    }
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/*** Forms ***/
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid var(--custom-primary-color);
+    box-shadow: 0 1px 0 0 var(--custom-primary-color);
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: var(--custom-primary-color);
+}
+
+.input-field .helper-text {
+    display: none;
+}
+
+.input-field  input:focus + label + .helper-text {
+    display: block;
+}
+
+input[type=email]:not(.browser-default).invalid ~ .helper-text[data-error] {
+    display: block;
+}
 
 /*** Pages ***/
 main.login,
@@ -85,14 +150,8 @@ main.register{
     max-width: 400px;
     margin: 0 auto;
 }
-main.login *,
-main.register *{
+main.login>*:not(form){
     text-align: center;
-}
-
-main.login form .form-group,
-main.register form .form-group{
-    text-align: left;
 }
 
 h2.vereinsleben {
@@ -101,14 +160,16 @@ h2.vereinsleben {
     font-weight: 600;
     color: var(--custom-primary-color);
 }
-.register figure,
-.login figure {
-    margin-bottom: 2em;
+img.avatar {
+    width: 10em;
+    border: 2px solid #fff;
 }
 
-figure.teaser img {
-    max-width: calc(100vw * .35);
+img.avatar.small {
+    width: 5em;
 }
+
+
 
 /** Bootstrap **/
 .alert-danger {
