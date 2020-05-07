@@ -1,4 +1,4 @@
-<%- include('partials/header-new') %>
+<%- include('partials/header/header') %>
 
 <nav class="nav-extended">
     <div class="nav-wrapper">
@@ -14,11 +14,8 @@
             </div>
         </div>
 
-        <ul id="nav-mobile" class=" hide-on-med-and-down">
-            <li><a href="#">Menu Item</a></li>
-            <li><a href="#">Menu Item</a></li>
-            <li><a href="/logout" class="btn btn-danger btn-sm">Logout</a></li>
-        </ul>
+        <%- include('partials/nav/mainnav') %>
+
     </div>
     <div class="nav-content">
         <ul id="tabs-swipe"  class="tabs tabs-transparent">
@@ -29,15 +26,11 @@
     </div>
 </nav>
 
-<ul class="sidenav" id="mobile-nav">
-    <li><a href="#">Menu Item</a></li>
-    <li><a href="#">Menu Item</a></li>
-    <li><a href="/logout" class="btn btn-danger btn-sm">Logout</a></li>
-</ul>
+<%- include('partials/nav/sidenav') %>
 
-<div id="tab1" class="col s12">Aktuelles</div>
-<div id="tab2" class="col s12">Termine</div>
-<div id="tab3" class="col s12">Arbeitsstunden</div>
+<div id="tab1" class="col s12"><%- include('components/aktuelles/aktuelles.ejs') %></div>
+<div id="tab2" class="col s12"><%- include('components/termine/termine.ejs') %></div>
+<div id="tab3" class="col s12"><%- include('components/arbeitsstunden/arbeitsstunden.ejs') %></div>
 
-<%- include('partials/footer') %>
+<%- include('partials/footer/footer') %>
 

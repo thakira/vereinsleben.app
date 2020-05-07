@@ -51,25 +51,61 @@ module.exports = (app, passport) => {
         return res.render('views/dashboard', {title: 'Dashboard'})
     })
 
-    // Register site
+    // Register
     app.get('/register', isNotLoggedin, (req, res) => {
         res.render('views/register', {title: 'Registrieren'})
     })
 
-    // Login site
+    // Login
     app.get('/login', isNotLoggedin, (req, res) => {
         res.render('views/login', {title: 'Anmelden'})
     })
 
-    // Password forgot site
+    // Password forgot
     app.get('/pwdforgot', (req, res) => {
         res.render('views/pwdforgot', {title: 'Passwort vergessen'})
     })
 
-    // Password forgot site
-    app.get('/admin-benutzer', (req, res) => {
-        res.render('views/admin-benutzer', {title: 'Admin-Dashboard'})
+    // News
+    app.get('/aktuelles', (req, res) => {
+        res.render('views/aktuelles-site', {title: 'Aktuelles'})
     })
+
+    // Termine
+    app.get('/termine', (req, res) => {
+        res.render('views/termine-site', {title: 'Termine'})
+    })
+
+    // Arbeitsstunden
+    app.get('/arbeitsstunden', (req, res) => {
+        res.render('views/arbeitsstunden-site', {title: 'Arbeitsstunden'})
+    })
+
+    // Mitglieder
+    app.get('/mitglieder', (req, res) => {
+        res.render('views/mitglieder', {title: 'Mitglieder'})
+    })
+
+    // Gruppen
+    app.get('/gruppen', (req, res) => {
+        res.render('views/gruppen', {title: 'Gruppen'})
+    })
+
+    // Einstellungen Verein
+    app.get('/settings-verein', (req, res) => {
+        res.render('views/settings-verein', {title: 'Einstellungen Verein'})
+    })
+
+    // Profil
+    app.get('/profil', (req, res) => {
+        res.render('views/profil', {title: 'Profil'})
+    })
+
+    // Profil
+    app.get('/benachrichtigungen', (req, res) => {
+        res.render('views/notifications', {title: 'Benachrichtigungen'})
+    })
+
 
     // User login
     app.post('/login', passport.authenticate('local', {

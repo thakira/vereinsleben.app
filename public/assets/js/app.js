@@ -15,3 +15,33 @@ function checkForm() {
 
     return true
 }
+
+$(document).ready(function(){
+
+    // Sidenav
+    $('.sidenav').sidenav();
+
+    // Setting Menu
+    $('.dropdown-trigger').dropdown();
+
+    // Tabs
+    $('.tabs').tabs();
+
+    // Swipeable Tabs Demo Init
+    if ($('#tabs-swipe').length) {
+        $('#tabs-swipe').tabs({ swipeable: true });
+    }
+
+    // Fab
+    $('.fixed-action-btn').floatingActionButton();
+    $('.fixed-action-btn.horizontal').floatingActionButton({
+        direction: 'left'
+    });
+    $('.fixed-action-btn.click-to-toggle').floatingActionButton({
+        direction: 'left',
+        hoverEnabled: false
+    });
+    $('.fixed-action-btn.toolbar').floatingActionButton({
+        toolbarEnabled: true
+    });
+});

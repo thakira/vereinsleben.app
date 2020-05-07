@@ -1,0 +1,13 @@
+
+<ul class="sidenav" id="mobile-nav">
+    <li>
+        <div class="user-view">
+            <%- include('../../components/avatar/avatar', {src: 'assets/images/phelina.png'}); %>
+            <a href="#name"><span class="white-text name">John Doe</span></a>
+        </div>
+    </li>
+    <%- include('nav-items') %>
+    <hr>
+    <%- include('nav-settings') %>
+    <li><a href="/logout" class="btn-large white-text">Logout</a></li>
+</ul>

@@ -3,6 +3,7 @@
     --custom-bg-color: rgb(249,244,232);
     --custom-primary-color: rgb(10,82,19);
     --custom-primary-color-raw: 10,82,19;
+    --dark-grey: rgb(51,51,51)
 
 }
 
@@ -53,13 +54,116 @@ a:hover {
     color: #000;
 }
 
+
+
+/*** Alerts ***/
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #155724;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #856404;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #0c5460;
+}
+
 /*** Button ***/
-.btn-primary {
+.btn-primary,
+.btn, .btn-large, .btn-small,
+.btn:focus, .btn-large:focus, .btn-small:focus,
+.btn-floating:focus,
+.btn:hover, .btn-large:hover, .btn-small:hover {
     background-color: var(--custom-primary-color);
     color: #fff;
 }
-.is-focused [class*=" bmd-label"],
-.is-focused [class^=bmd-label] {
+
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+    background-color: rgba(var(--custom-primary-color-raw),.85);
+}
+
+button:focus {
+    outline: none;
+    background-color: rgba(var(--custom-primary-color-raw),.55);
+}
+
+.waves-effect.waves-teal .waves-ripple {
+    background-color: rgba(var(--custom-primary-color-raw),.85);
+}
+
+.sidenav li > a.btn:hover,
+.sidenav li > a.btn-large:hover,
+.sidenav li > a.btn-small:hover,
+.sidenav li > a.btn-large:hover,
+.sidenav li > a.btn-floating:hover{
+    background-color: var(--custom-primary-color);
+}
+
+.fixed-action-btn .fab-backdrop {
+    background-color: var(--custom-primary-color);
+}
+
+/*** Spinner ***/
+.spinner-layer {
+    border-color: var(--custom-primary-color);
+}
+
+/*** Date-Picker  ***/
+/* Date Display */
+.datepicker-date-display {
+    background-color: var(--custom-primary-color);
+}
+
+.datepicker-table td.is-today {
+    color: var(--custom-primary-color);
+}
+
+.datepicker-table td.is-selected {
+    background-color: var(--custom-primary-color);
+}
+
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done {
+    color: var(--custom-primary-color);
+}
+
+.timepicker-digital-display {
+    background-color: var(--custom-primary-color);
+}
+
+.timepicker-canvas line {
+    stroke: var(--custom-primary-color);
+}
+
+.timepicker-canvas-bearing,
+.timepicker-canvas-bg{
+    fill: var(--custom-primary-color);
+}
+
+.timepicker-close {
     color: var(--custom-primary-color);
 }
 
@@ -84,6 +188,17 @@ nav {
     line-height: inherit;
 }
 
+#nav-mobile {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 16px;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+}
+
 @media only screen and (min-width: 601px) {
     nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
         height: auto;
@@ -96,6 +211,14 @@ nav {
     justify-content: space-between;
     align-items: center;
 
+}
+
+.sidenav .user-view {
+    background-color: var(--dark-grey);
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+    color: var(--custom-primary-color);
 }
 
 /*** Forms ***/
@@ -144,13 +267,53 @@ input[type=email]:not(.browser-default).invalid ~ .helper-text[data-error] {
     display: block;
 }
 
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+    border-color: var(--custom-primary-color);
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+    background-color: var(--custom-primary-color);
+}
+
+[type="checkbox"]:checked + span:not(.lever):before {
+    border-right-color: var(--custom-primary-color);
+    border-bottom-color: var(--custom-primary-color);
+}
+
+/* Indeterminate checkbox */
+[type="checkbox"]:indeterminate + span:not(.lever):before {
+    border-right-color: var(--custom-primary-color);
+}
+
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid var(--custom-primary-color);
+    background-color: var(--custom-primary-color);
+}
+
+[type="checkbox"].filled-in.tabbed:checked:focus + span:not(.lever):after {
+    background-color: var(--custom-primary-color);
+    border-color: var(--custom-primary-color);
+}
+
+.switch label input[type=checkbox]:checked + .lever:after {
+    background-color: var(--custom-primary-color);
+}
+
+.select-wrapper input.select-dropdown:focus {
+    border-bottom-color: var(--custom-primary-color);
+}
+
 /*** Pages ***/
 main.login,
 main.register{
     max-width: 400px;
     margin: 0 auto;
 }
-main.login>*:not(form){
+main.login>*:not(.input-field),
+main.register>*:not(.input-field){
     text-align: center;
 }
 
@@ -163,13 +326,22 @@ h2.vereinsleben {
 img.avatar {
     width: 10em;
     border: 2px solid #fff;
+    display: inline-block;
+    margin: 0 auto;
 }
 
 img.avatar.small {
     width: 5em;
 }
 
+.sidenav .user-view .circle {
+    height: 96px;
+    width: 96px;
+}
 
+.dropdown-content {
+    min-width: 240px;
+}
 
 /** Bootstrap **/
 .alert-danger {
