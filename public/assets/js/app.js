@@ -45,3 +45,19 @@ $(document).ready(function(){
         toolbarEnabled: true
     });
 });
+
+/*
+function saveImg (user) {
+const fs = require('fs')
+
+
+imgPath = "./assets/images/phelina.png"
+
+// store an img in binary in mongo
+user.img.data = fs.readFileSync(imgPath);
+user.img.contentType = 'image/png';
+user.save(function (err, user) {
+    if (err) throw err;
+
+    console.error('saved img to mongo');
+}*/

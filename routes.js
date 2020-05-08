@@ -48,7 +48,7 @@ module.exports = (app, passport) => {
 
     // Dashboard
     app.get('/dashboard', isLoggedin, (req, res) => {
-        return res.render('views/dashboard', {title: 'Dashboard'})
+        return res.render('views/dashboard', {title: 'Dashboard', firstname: req.user.firstname, lastname: req.user.lastname})
     })
 
     // Register
@@ -98,12 +98,17 @@ module.exports = (app, passport) => {
 
     // Profil
     app.get('/profil', (req, res) => {
-        res.render('views/profil', {title: 'Profil'})
+        res.render('views/profil', {title: 'Profil', user : req.user})
     })
 
     // Profil
     app.get('/benachrichtigungen', (req, res) => {
         res.render('views/notifications', {title: 'Benachrichtigungen'})
+    })
+
+    // Profil
+    app.get('/avatar', (req, res) => {
+        res.render('views/components/avatar', {title: 'Avatar'})
     })
 
 
