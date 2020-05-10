@@ -199,7 +199,7 @@ module.exports = (app, passport) => {
             <br>
             <a href="http://localhost:5000/verify?token=${secretToken}">http://localhost:5000/verify?token=${secretToken}</a>`
 
-            await mailer.sendEmail('mailbestaetigung@vereinsleben.app', email, 'Vereinsmanager.app: Bitte bestätige Deine E-Mail-Adresse', html )
+            await mailer.sendEmail('mailbestaetigung@vereinsleben.app', email, 'Vereinsleben.app: Bitte bestätige Deine E-Mail-Adresse', html )
 
             req.flash('success', 'Du hast es fast geschafft. Wir haben Dir eine E-Mail geschickt. Bitte bestätige Deine Identität, indem Du auf den Link darin klickst.')
             res.redirect('/login')
