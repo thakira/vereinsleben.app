@@ -7,6 +7,7 @@ const path = require('path')
 const passport = require('passport')
 const app = express()
 
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors())
 app.use(session({
@@ -22,6 +23,7 @@ app.use(flash())
 app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize())
 app.use(passport.session())
+
 
 // Middleware
 app.use((req, res, next) => {

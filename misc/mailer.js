@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
 
 const MAIL_USER  = 'mailbestaetigung@vereinsleben.app'
-const MAIL_PASS = 'ia;;a48EP%8e'
+const MAIL_PASS = 'e?WaagDpJ0RT'
 
 const transport = nodemailer.createTransport({
     host: "de10.fcomet.com",
