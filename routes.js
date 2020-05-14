@@ -102,7 +102,7 @@ module.exports = (app, passport) => {
     })
 
     // Profil
-    app.get('/benachrichtigungen', (req, res) => {
+    app.get('/notifications', (req, res) => {
         res.render('views/notifications', {title: 'Benachrichtigungen'})
     })
 
