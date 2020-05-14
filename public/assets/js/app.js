@@ -16,6 +16,7 @@ function checkForm() {
     return true
 }
 
+
 $(document).ready(function(){
 
     // Sidenav
@@ -45,3 +46,6 @@ $(document).ready(function(){
         toolbarEnabled: true
     });
 });
+
+
+

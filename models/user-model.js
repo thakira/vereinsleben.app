@@ -8,6 +8,8 @@ const userSchema = new Schema({
     lastname: {type: String, required: true},
     phone: {type: String},
     birthday: {type: Date},
+    img: { data: Buffer, contentType: String },
+    secretToken: {type: String},
     //Vereinsmitglied
     member: {type: Boolean, default: false},
     //E-Mail-Adresse verifiziert

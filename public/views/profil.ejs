@@ -1,1 +1,13 @@
-profil
+<%- include('partials/footer/footer') %>
+
+
+<form action="/profil" method="post" enctype="multipart/form-data">
+    <label>Wählen Sie ein Bild von Ihrem Rechner aus.
+        <input name="image" type="file" accept="image/*">
+    </label>
+    <button type="submit" class="btn waves-effect waves-light btn-large">Hochladen</button>
+</form>
+
+<img src=<%=user.img%>/>
+
+<%- include('partials/footer/footer') %>

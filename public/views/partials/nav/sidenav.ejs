@@ -1,9 +1,10 @@
 
+
 <ul class="sidenav" id="mobile-nav">
     <li>
         <div class="user-view">
             <%- include('../../components/avatar/avatar', {src: 'assets/images/phelina.png'}); %>
-            <a href="#name"><span class="white-text name">John Doe</span></a>
+            <a href="#name"><span class="white-text name"><%= firstname%> <%= lastname%></span></a>
         </div>
     </li>
     <%- include('nav-items') %>
