@@ -12,7 +12,6 @@ function checkForm() {
         alert('Empty fields !!!!!!')
         return false
     }
-
     return true
 }
 

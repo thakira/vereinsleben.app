@@ -18,7 +18,6 @@ function isNotLoggedin(req, res, next) {
     next()
 }
 
-
 module.exports = (app, passport) => {
 
     // Username/Password authentication
@@ -94,8 +93,9 @@ module.exports = (app, passport) => {
     })
 
     // Mitglieder
-    app.get('/mitglieder', (req, res) => {
-        res.render('views/mitglieder', {title: 'Mitglieder'})
+    app.get('/mitglieder', async (req, res) => {
+        const users = await User.find({});
+        res.render('views/mitglieder', {users: users, title: 'Mitglieder'})
     })
 
     // Gruppen
@@ -118,11 +118,10 @@ module.exports = (app, passport) => {
         res.render('views/notifications', {title: 'Benachrichtigungen'})
     })
 
-    // Profil
+    // Avatar
     app.get('/avatar', (req, res) => {
         res.render('views/components/avatar', {title: 'Avatar'})
     })
-
 
     // User login
     app.post('/login', passport.authenticate('local', {

@@ -188,6 +188,16 @@ nav {
     line-height: inherit;
 }
 
+nav a,
+nav a:focus,
+nav a:active {
+    color: #fff;
+}
+
+nav a:hover {
+    color: #ddd;
+}
+
 #nav-mobile {
     border: none;
     border-radius: 2px;
