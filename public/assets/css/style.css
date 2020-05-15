@@ -172,6 +172,7 @@ button:focus {
     display: flex;
     align-items: center;
     margin: 0 1em;
+    max-width: 33vw;
 }
 .branding figure {
     margin: 1em ;
@@ -180,6 +181,12 @@ button:focus {
     font-size: 1.45em;
     color: white;
     margin: 0;
+}
+
+@media screen and (max-width: 994px) {
+    .branding{
+        max-width: 100%;
+    }
 }
 
 /*** Navigation ***/
@@ -207,6 +214,22 @@ nav a:hover {
     padding: 0 16px;
     vertical-align: middle;
     -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (max-width: 1400px) {
+    nav .nav-wrapper {
+        align-items: flex-start;
+    }
+    nav.nav-extended >div > ul > li  {
+        text-align: center;
+        margin-top: 1em;
+    }
+    nav.nav-extended i.material-icons {
+        display: block;
+        float: none !important;
+        text-align: center;
+        margin: 0;
+    }
 }
 
 @media only screen and (min-width: 601px) {
@@ -324,13 +347,19 @@ input[type=email]:not(.browser-default).invalid ~ .helper-text[data-error] {
 main {
     max-width: 1600px;
     margin: 0 auto;
+    padding: 1em;
 }
-main.login,
-main.register{
-    max-width: 400px;
+main.standalone {
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-main.login>*:not(.input-field),
-main.register>*:not(.input-field){
+main.standalone .inner{
+    width: 400px;
+}
+main.standalone>*:not(.input-field){
     text-align: center;
 }
 
@@ -362,6 +391,22 @@ img.avatar.small {
 
 table.highlight > tbody > tr:hover {
     background-color: rgba(200, 200, 200, 0.65);
+}
+
+table.highlight > tbody a:hover {
+    color: var(--custom-primary-color);
+    text-decoration: underline;
+}
+
+table.striped > tbody > tr:nth-child(odd) {
+    background-color: rgba(var(--custom-primary-color-raw), 0.15);
+}
+
+
+
+.edit-icons {
+    width:6em;
+    padding: 0;
 }
 
 /** Bootstrap **/

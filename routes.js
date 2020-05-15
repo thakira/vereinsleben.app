@@ -73,49 +73,131 @@ module.exports = (app, passport) => {
     })
 
     // Password forgot
-    app.get('/pwdforgot', (req, res) => {
+    app.get('/pwdforgot', isNotLoggedin, (req, res) => {
         res.render('views/pwdforgot', {title: 'Passwort vergessen'})
     })
 
     // News
-    app.get('/aktuelles', (req, res) => {
-        res.render('views/aktuelles-site', {title: 'Aktuelles'})
+    app.get('/aktuelles', isLoggedin, (req, res) => {
+        res.render('views/aktuelles-site', {title: 'Aktuelles',
+            firstname: req.user.firstname,
+            lastname: req.user.lastname
+        })
     })
 
     // Termine
-    app.get('/termine', (req, res) => {
-        res.render('views/termine-site', {title: 'Termine'})
+    app.get('/termine', isLoggedin, (req, res) => {
+        res.render('views/termine-site', {
+            title: 'Termine',
+            firstname: req.user.firstname,
+            lastname: req.user.lastname
+        })
     })
 
     // Arbeitsstunden
-    app.get('/arbeitsstunden', (req, res) => {
-        res.render('views/arbeitsstunden-site', {title: 'Arbeitsstunden'})
+    app.get('/arbeitsstunden', isLoggedin, (req, res) => {
+        res.render('views/arbeitsstunden-site', {
+            title: 'Arbeitsstunden',
+            firstname: req.user.firstname,
+            lastname: req.user.lastname
+        })
     })
 
     // Mitglieder
-    app.get('/mitglieder', async (req, res) => {
-        const users = await User.find({});
-        res.render('views/mitglieder', {users: users, title: 'Mitglieder'})
+    app.get('/mitglieder', isLoggedin, async (req, res) => {
+        // const users = await User.find({});
+        const users =
+            [{
+                "_id": {
+                    "$oid": "5ebced98e165540f004e05d1"
+                },
+                "member": true,
+                "email": "mail@mkirschen.de",
+                "firstname": "Marcus",
+                "lastname": "Kirschen",
+                "phone" : "0123 456789",
+                "createdAt": {
+                    "$date": "2020-05-14T07:04:56.104Z"
+                }
+            },{
+                "_id": {
+                    "$oid": "5ebd2023c8978454a007a097"
+                },
+                "member": false,
+                "email": "em@mail.de",
+                "firstname": "Emil",
+                "lastname": "Meier",
+                "phone" : "0123 456789",
+                "createdAt": {
+                    "$date": "2020-04-30T07:04:56.104Z"
+                }
+            },{
+                "_id": {
+                    "$oid": "5ebd205bc8978454a007a098"
+                },
+                "member": false,
+                "email": "mw@muster.de",
+                "firstname": "Max",
+                "lastname": "Walter",
+                "phone" : "0123 456789",
+                "createdAt": {
+                    "$date": "2020-05-03T07:04:56.104Z"
+                }
+            },{
+                "_id": {
+                    "$oid": "5ebd206ec8978454a007a099"
+                },
+                "member": false,
+                "email": "bm@muster.de",
+                "firstname": "Brigitte",
+                "lastname": "Muster",
+                "phone" : "0123 456789",
+                "createdAt": {
+                    "$date": "2020-04-19T07:04:56.104Z"
+                }
+            }]
+
+        res.render('views/mitglieder', {
+            title: 'Mitglieder',
+            firstname: req.user.firstname,
+            lastname: req.user.lastname,
+            users: users })
     })
 
     // Gruppen
-    app.get('/gruppen', (req, res) => {
-        res.render('views/gruppen', {title: 'Gruppen'})
+    app.get('/gruppen', isLoggedin, (req, res) => {
+        res.render('views/gruppen', {
+            title: 'Gruppen',
+            firstname: req.user.firstname,
+            lastname: req.user.lastname
+        })
     })
 
     // Einstellungen Verein
-    app.get('/settings-verein', (req, res) => {
-        res.render('views/settings-verein', {title: 'Einstellungen Verein'})
+    app.get('/settings-verein', isLoggedin, (req, res) => {
+        res.render('views/settings-verein', {
+            title: 'Einstellungen Verein',
+            firstname: req.user.firstname,
+            lastname: req.user.lastname
+        })
     })
 
     // Profil
-    app.get('/profil', (req, res) => {
-        res.render('views/profil', {title: 'Profil', user: req.user})
+    app.get('/profil', isLoggedin, (req, res) => {
+        res.render('views/profil', {
+            title: 'Profil', user: req.user,
+            firstname: req.user.firstname,
+            lastname: req.user.lastname
+        })
     })
 
     // Profil
-    app.get('/notifications', (req, res) => {
-        res.render('views/notifications', {title: 'Benachrichtigungen'})
+    app.get('/notifications', isLoggedin, (req, res) => {
+        res.render('views/notifications', {
+            title: 'Benachrichtigungen',
+            firstname: req.user.firstname,
+            lastname: req.user.lastname
+        })
     })
 
     // Avatar

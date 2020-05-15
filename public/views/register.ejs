@@ -1,46 +1,48 @@
-<%- include('partials/header/header') %>
+<%- include('partials/header/header-small') %>
 
-<main role="main" class="register">
+<main role="main" class="standalone">
 
-    <h2 class="vereinsleben">Vereinsleben.App</h2>
+    <div class="inner">
+        <h2 class="vereinsleben">Vereinsleben.App</h2>
 
-    <figure class="teaser">
-        <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="responsive-img circle avatar">
-    </figure>
+        <figure class="teaser">
+            <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="responsive-img circle avatar">
+        </figure>
 
-    <h1><%= title %></h1>
+        <h1><%= title %></h1>
 
-    <% if (messages.error) { %>
-        <div class="alert alert-danger"><%= messages.error %></div>
-    <% } %>
+        <% if (messages.error) { %>
+            <div class="alert alert-danger"><%= messages.error %></div>
+        <% } %>
 
-    <form method="POST" action="/register" onsubmit="return checkForm()">
-        <div class="input-field">
-            <label for="vorname" >Vorname</label>
-            <input type="text" class="validate" id="firstname" name="firstname" required>
-        </div>
-        <div class="input-field">
-            <label for="nachname" >Nachname</label>
-            <input type="text" class="validate" id="lastname" name="lastname" required>
-        </div>
-        <div class="input-field">
-            <label for="email" >E-Mail Adresse</label>
-            <input type="email" class="validate" id="email" name="email" required>
-            <span class="helper-text" data-error="Falsche Eingabe!">Wir werden Deine Daten niemals an Dritte weitergeben.</span>
-        </div>
-        <div class="input-field">
-            <label for="password">Passwort</label>
-            <input type="password" class="validate" id="password" name="password" required>
-        </div>
-        <div class="input-field">
-            <label for="repPwd">Passwort wiederholen</label>
-            <input type="password" class="validate" id="repPwd" name="repPwd" required>
-        </div>
-        <button type="submit" class="btn waves-effect waves-light btn-large">Senden</button>
-    </form>
+        <form method="POST" action="/register" onsubmit="return checkForm()">
+            <div class="input-field">
+                <label for="vorname" >Vorname</label>
+                <input type="text" class="validate" id="firstname" name="firstname" required>
+            </div>
+            <div class="input-field">
+                <label for="nachname" >Nachname</label>
+                <input type="text" class="validate" id="lastname" name="lastname" required>
+            </div>
+            <div class="input-field">
+                <label for="email" >E-Mail Adresse</label>
+                <input type="email" class="validate" id="email" name="email" required>
+                <span class="helper-text" data-error="Falsche Eingabe!">Wir werden Deine Daten niemals an Dritte weitergeben.</span>
+            </div>
+            <div class="input-field">
+                <label for="password">Passwort</label>
+                <input type="password" class="validate" id="password" name="password" required>
+            </div>
+            <div class="input-field">
+                <label for="repPwd">Passwort wiederholen</label>
+                <input type="password" class="validate" id="repPwd" name="repPwd" required>
+            </div>
+            <button type="submit" class="btn waves-effect waves-light btn-large">Senden</button>
+        </form>
 
-    <p><a href="/login">Du hast bereits ein Konto? Anmelden</a></p>
+        <p><a href="/login">Du hast bereits ein Konto? Anmelden</a></p>
 
+    </div> <!-- end .inner -->
 </main>
 
 <%- include('partials/footer/footer') %>

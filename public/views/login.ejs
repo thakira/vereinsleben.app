@@ -1,60 +1,62 @@
-<%- include('partials/header/header') %>
+<%- include('partials/header/header-small') %>
 
-<main role="main" class="login">
+<main role="main" class="standalone">
 
-    <h2 class="vereinsleben">Vereinsleben.App</h2>
+    <div class="inner">
 
-    <figure class="teaser">
-        <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="responsive-img circle avatar">
-    </figure>
+        <h2 class="vereinsleben">Vereinsleben.App</h2>
 
-    <h1><%= title %></h1>
+        <figure class="teaser">
+            <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="responsive-img circle avatar">
+        </figure>
 
-    <% if (messages.error) { %>
-    <div class="alert alert-danger"><%= messages.error %></div>
-    <% } %>
+        <h1><%= title %></h1>
 
-    <% if (messages.success) { %>
-    <div class="alert alert-success"><%= messages.success %></div>
-    <% } %>
+        <% if (messages.error) { %>
+        <div class="alert alert-danger"><%= messages.error %></div>
+        <% } %>
 
-    <form method="POST" action="/login" onsubmit="return checkForm()">
-        <div class="input-field">
-            <input id="email" type="email" name="email" class="validate">
-            <label for="email">E-Mail Adresse</label>
-            <span class="helper-text" data-error="Falsche Eingabe!"></span>
-        </div>
-        <div class="input-field ">
-            <input id="password" type="password" name="password" class="validate">
-            <label for="password">Password</label>
-        </div>
-        <button type="submit" class="btn waves-effect waves-light btn-large">Senden</button>
-    </form>
-    <!--
-    <div class="row">
-        <form class="col s12" method="POST" action="/login" onsubmit="return checkForm()">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="email" type="email" name="email" class="validate">
-                    <label for="email">E-Mail Adresse</label>
-                    <span class="helper-text" data-error="Falsche Eingabe!" data-success="right">Wir werden Ihre Daten nicht an Dritte weitergeben!</span>
-                </div>
+        <% if (messages.success) { %>
+        <div class="alert alert-success"><%= messages.success %></div>
+        <% } %>
+
+        <form method="POST" action="/login" onsubmit="return checkForm()">
+            <div class="input-field">
+                <input id="email" type="email" name="email" class="validate">
+                <label for="email">E-Mail Adresse</label>
+                <span class="helper-text" data-error="Falsche Eingabe!"></span>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="password" type="password" name="password" class="validate">
-                    <label for="password">Password</label>
-                </div>
+            <div class="input-field ">
+                <input id="password" type="password" name="password" class="validate">
+                <label for="password">Password</label>
             </div>
-            <button type="submit" class="btn btn-primary btn-raised btn-lg">Senden</button>
+            <button type="submit" class="btn waves-effect waves-light btn-large">Senden</button>
         </form>
+        <!--
+        <div class="row">
+            <form class="col s12" method="POST" action="/login" onsubmit="return checkForm()">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="email" name="email" class="validate">
+                        <label for="email">E-Mail Adresse</label>
+                        <span class="helper-text" data-error="Falsche Eingabe!" data-success="right">Wir werden Ihre Daten nicht an Dritte weitergeben!</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" type="password" name="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-raised btn-lg">Senden</button>
+            </form>
+        </div>
+        -->
+
+        <p><a href="/pwdforgot">Passwort vergessen?</a></p>
+        <p><a href="/register">Noch kein Konto? Hier registrieren.</a></p>
+
     </div>
-    -->
-
-    <p><a href="/pwdforgot">Passwort vergessen?</a></p>
-    <p><a href="/register">Noch kein Konto? Hier registrieren.</a></p>
-
-
 
 </main>
 

@@ -15,6 +15,16 @@ function checkForm() {
     return true
 }
 
+/*
+const dateToDE = (d) => {
+    let date = new Date(d);
+    let tag = date.getDate().toString().length < 2 ? "0" + date.getDate() : date.getDate();
+    let monat = date.getMonth() + 1;
+    let jahr = date.getFullYear();
+    return tag + "." + monat + "." + jahr;
+}
+*/
+
 
 $(document).ready(function(){
 
