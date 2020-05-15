@@ -1,18 +1,34 @@
-<div>
+<%- include('partials/header/header') %>
 
-    <% for(var i=0; i < users.length; i++) { %>
-    <div class="">
-            <div class="fh5co-listing-copy">
-                <h2>
-                    <%= users[i].firstname%> <%= users[i].lastname%>
-                </h2>
-                <p><%= users[i].email%></p>
-                <span class="icon">
-                    <i class="icon-chevron-right"></i>
-                </span>
-            </div>
+<main>
+    <h1>Übersicht <% title%></h1>
+
+    <div>
+
+        <table class="responsive-table highlight">
+            <thead>
+            <tr>
+                <th>Vorname</th>
+                <th>Name</th>
+                <th>E-Mail</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <% users.forEach( (user) => { %>
+                <tr>
+                    <td><%= user.firstname%></td>
+                    <td><%= user.lastname%></td>
+                    <td><a href="mailto:<%= user.email%>"><%= user.email%></a></td>
+                </tr>
+            <% }) %>
+
+            </tbody>
+        </table>
+
     </div>
+</main>
 
-    <% } %>
 
-</div>
+<%- include('partials/footer/footer') %>
