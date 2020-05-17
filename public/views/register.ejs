@@ -3,46 +3,52 @@
 <main role="main" class="standalone">
 
     <div class="inner">
-        <h2 class="vereinsleben">Vereinsleben.App</h2>
 
-        <figure class="teaser">
-            <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="responsive-img circle avatar">
-        </figure>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="vereinsleben">Vereinsleben.App</h2>
 
-        <h1><%= title %></h1>
+                <figure class="teaser">
+                    <img src="<%= logo%>" alt="Logo Reitverein Siebenberger Strolche e.V." class="rounded-circle avatar">
+                </figure>
 
-        <% if (messages.error) { %>
-            <div class="alert alert-danger"><%= messages.error %></div>
-        <% } %>
+                <h1><%= title %></h1>
 
-        <form method="POST" action="/register" onsubmit="return checkForm()">
-            <div class="input-field">
-                <label for="vorname" >Vorname</label>
-                <input type="text" class="validate" id="firstname" name="firstname" required>
-            </div>
-            <div class="input-field">
-                <label for="nachname" >Nachname</label>
-                <input type="text" class="validate" id="lastname" name="lastname" required>
-            </div>
-            <div class="input-field">
-                <label for="email" >E-Mail Adresse</label>
-                <input type="email" class="validate" id="email" name="email" required>
-                <span class="helper-text" data-error="Falsche Eingabe!">Wir werden Deine Daten niemals an Dritte weitergeben.</span>
-            </div>
-            <div class="input-field">
-                <label for="password">Passwort</label>
-                <input type="password" class="validate" id="password" name="password" required>
-            </div>
-            <div class="input-field">
-                <label for="repPwd">Passwort wiederholen</label>
-                <input type="password" class="validate" id="repPwd" name="repPwd" required>
-            </div>
-            <button type="submit" class="btn waves-effect waves-light btn-large">Senden</button>
-        </form>
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger"><%= messages.error %></div>
+                <% } %>
 
-        <p><a href="/login">Du hast bereits ein Konto? Anmelden</a></p>
+                <form method="POST" action="/register" onsubmit="return checkForm()">
+                    <div class="form-group">
+                        <label for="firstname" class="bmd-label-floating">Vorname</label>
+                        <input name="firstname" type="text" class="form-control" id="firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="bmd-label-floating">Name</label>
+                        <input name="lastname" type="text" class="form-control" id="lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="bmd-label-floating">E-Mail</label>
+                        <input name="email" type="email" class="form-control" id="email" required>
+                        <span class="bmd-help">Wir werden die Daten nicht an Dritte weitergeben!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="bmd-label-floating">Passwort</label>
+                        <input name="password" type="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="repPwd" class="bmd-label-floating">Passwort wiederholen</label>
+                        <input name="repPwd" type="password" class="form-control" id="repPwd" required>
+                    </div>
+                    <button type="submit" href="/logout" class="btn  btn-lg btn-primary">Senden</button>
+                </form>
 
-    </div> <!-- end .inner -->
+                <p><a href="/login">Du hast bereits ein Konto? Anmelden</a></p>
+
+            </div><!-- .card-body -->
+        </div><!-- .card -->
+    </div><!-- .inner -->
+
 </main>
 
 <%- include('partials/footer/footer') %>

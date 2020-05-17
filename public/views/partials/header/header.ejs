@@ -26,32 +26,37 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="assets/css/materialize.css"  media="screen,projection"/>
 
 
-    <link href="/assets/css/style.css" rel="stylesheet">
-    <script defer src="/assets/js/app.js"></script>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
 
-<nav class="nav-extended">
-    <div class="nav-wrapper">
+        <%- include('../nav/sidebar')%>
 
-        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
-        <div class="branding">
-            <figure>
-                <img src="assets/images/rvss-logo.png" class="responsive-img circle avatar small">
-            </figure>
-            <div id="vereinsname">
-                <h1>Reitverein Siebenberger Strolche e.V.</h1>
-            </div>
-        </div>
+                <div class="branding">
+                    <a class="navbar-brand" href="#">
+                        <img src="assets/images/rvss-logo.png" class="img-fluid rounded-circle avatar">
+                        <span id="vereinsname">Reitverein Siebenberger Strolche e.V.</span>
+                    </a>
+                </div>
+                <button id="sidebarCollapse" class="navbar-toggler sidebarCollapse" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        <%- include('../nav/mainnav') %>
+                <%- include('../nav/mainnav')%>
 
-    </div>
-</nav>
-<%- include('../nav/sidenav') %>
+        </nav>

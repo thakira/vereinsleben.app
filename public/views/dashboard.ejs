@@ -1,16 +1,31 @@
 <%- include('partials/header/header') %>
 
-<div class="nav-tabs">
-    <ul id="tabs-swipe"  class="tabs tabs-transparent">
-        <li class="tab"><a class="active" href="#tab1">Aktuelles</a></li>
-        <li class="tab"><a href="#tab2">Termine</a></li>
-        <li class="tab"><a href="#tab3">Arbeitsstunden</a></li>
-    </ul>
-</div>
+<main id="tab-container">
+    <div class="tab-content">
 
-<div id="tab1" class="col s12"><%- include('components/aktuelles/aktuelles.ejs') %></div>
-<div id="tab2" class="col s12"><%- include('components/termine/termine.ejs') %></div>
-<div id="tab3" class="col s12"><%- include('components/arbeitsstunden/arbeitsstunden.ejs') %></div>
+        <!--        News Tab-->
+        <div id="tab1">
+            <%- include('components/aktuelles/aktuelles')%>
+        </div>
+
+        <!--        Termine Tab-->
+        <div id="tab2" style="display: none;">
+            <%- include('components/termine/termine')%>
+        </div>
+
+        <!--         -->
+        <div id="tab3" style="display: none;">
+            <%- include('components/arbeitsstunden/arbeitsstunden')%>
+        </div>
+    </div>
+</main>
+<div class="tab-container" >
+    <div id="material-tabs">
+        <a id="tab1-tab" href="#tab1" class="active">Aktuelles</a>
+        <a id="tab2-tab" href="#tab2">Termine</a>
+        <a id="tab3-tab" href="#tab3">Arbeitsstunden</a>
+    </div>
+</div>
 
 <%- include('partials/footer/footer') %>
 

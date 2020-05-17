@@ -3,33 +3,32 @@
 <main>
     <h1>Übersicht <%= title%></h1>
 
-    <div>
+    <div class="card">
 
-        <table class="striped highlight">
+        <table class="table table-responsive-sm table-responsive-md table-hover">
             <thead>
             <tr>
-                <th>Vorname</th>
-                <th>Name</th>
-                <th>Vereinsmitglied</th>
-                <th>E-Mail</th>
-                <th>Telefon</th>
-                <th>Geburtsdatum</th>
-                <th>Registriert seit</th>
-<!--                <th>Arbeitsstunden</th>-->
+                <th scope="col">Vorname</th>
+                <th scope="col">Name</th>
+                <th scope="col">Geburtsdatum</th>
+                <th scope="col">Vereinsmitglied</th>
+                <th scope="col">E-Mail</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Registriert seit</th>
+                <th scope="col">Arbeitsstunden</th>
                 <th></th>
             </tr>
             </thead>
-
             <tbody>
 
             <% users.forEach( (user) => { %>
                 <tr id="user._id.$oid">
-                    <td><%= user.firstname%></td>
+                    <td scope="row"><%= user.firstname%></td>
                     <td><%= user.lastname%></td>
+                    <td id="<%= user._id.$oid%>birthdate"><%= user.birthday%></td>
                     <td><%= user.member %></td>
                     <td><a href="mailto:<%= user.email%>"><%= user.email%></a></td>
                     <td><%= user.phone%></td>
-                    <td id="<%= user._id.$oid%>birthdate"><%= user.birthday%></td>
                     <td>
                         <%= new Date(user.createdAt.$date).getDate().toString().length < 2
                                 ? "0"+new Date(user.createdAt.$date).getDate()
@@ -37,7 +36,7 @@
                                 ? "0"+ (new Date(user.createdAt.$date).getMonth() + 1)
                                 : new Date(user.createdAt.$date).getMonth().toString()%>.<%= new Date(user.createdAt.$date).getFullYear() %>
                     </td>
-<!--                    <td><%= user.arbeitsstunden%></td>-->
+                    <td><%= user.arbeitsstunden%></td>
                     <td class="edit-icons">
                         <i class="material-icons left">create</i>
                         <i class="material-icons left red-text">delete</i>
@@ -46,20 +45,13 @@
             <% }) %>
             </tbody>
         </table>
+
     </div>
 </main>
 
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large">
-        <i class="large material-icons">add</i>
-    </a>
-    <ul>
-        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-    </ul>
-</div>
+<button type="button" class="btn btn-primary bmd-btn-fab">
+    <i class="material-icons">add</i>
+</button>
 
 
 <%- include('partials/footer/footer') %>

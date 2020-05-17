@@ -4,59 +4,43 @@
 
     <div class="inner">
 
-        <h2 class="vereinsleben">Vereinsleben.App</h2>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="vereinsleben">Vereinsleben.App</h2>
 
-        <figure class="teaser">
-            <img src="/assets/images/rvss-logo.png" alt="Logo Reitverein Siebenberger Strolche e.V." class="responsive-img circle avatar">
-        </figure>
+                <figure class="teaser">
+                    <img src="<%= logo%>" alt="Logo Reitverein Siebenberger Strolche e.V." class="rounded-circle avatar">
+                </figure>
 
-        <h1><%= title %></h1>
+                <h1><%= title %></h1>
 
-        <% if (messages.error) { %>
-        <div class="alert alert-danger"><%= messages.error %></div>
-        <% } %>
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger"><%= messages.error %></div>
+                <% } %>
 
-        <% if (messages.success) { %>
-        <div class="alert alert-success"><%= messages.success %></div>
-        <% } %>
+                <% if (messages.success) { %>
+                    <div class="alert alert-success"><%= messages.success %></div>
+                <% } %>
 
-        <form method="POST" action="/login" onsubmit="return checkForm()">
-            <div class="input-field">
-                <input id="email" type="email" name="email" class="validate">
-                <label for="email">E-Mail Adresse</label>
-                <span class="helper-text" data-error="Falsche Eingabe!"></span>
-            </div>
-            <div class="input-field ">
-                <input id="password" type="password" name="password" class="validate">
-                <label for="password">Password</label>
-            </div>
-            <button type="submit" class="btn waves-effect waves-light btn-large">Senden</button>
-        </form>
-        <!--
-        <div class="row">
-            <form class="col s12" method="POST" action="/login" onsubmit="return checkForm()">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="email" type="email" name="email" class="validate">
-                        <label for="email">E-Mail Adresse</label>
-                        <span class="helper-text" data-error="Falsche Eingabe!" data-success="right">Wir werden Ihre Daten nicht an Dritte weitergeben!</span>
+                <form method="POST" action="/login" onsubmit="return checkForm()">
+                    <div class="form-group">
+                        <label for="inputEmail" class="bmd-label-floating">E-Mail</label>
+                        <input name="email" type="email" class="form-control" id="inputEmail" required>
+                        <span class="bmd-help">Wir werden die Daten nicht an Dritte weitergeben!</span>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="password" type="password" name="password" class="validate">
-                        <label for="password">Password</label>
+                    <div class="form-group">
+                        <label for="inputPassword" class="bmd-label-floating">Password</label>
+                        <input name="password" type="password" class="form-control" id="inputPassword" required>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-raised btn-lg">Senden</button>
-            </form>
-        </div>
-        -->
+                    <button type="submit" href="/logout" class="btn  btn-lg btn-primary">Senden</button>
+                </form>
 
-        <p><a href="/pwdforgot">Passwort vergessen?</a></p>
-        <p><a href="/register">Noch kein Konto? Hier registrieren.</a></p>
+                <p><a href="/pwdforgot">Passwort vergessen?</a></p>
+                <p><a href="/register">Noch kein Konto? Hier registrieren.</a></p>
 
-    </div>
+            </div><!-- .card-body -->
+        </div><!-- .card -->
+    </div><!-- .inner -->
 
 </main>
 
