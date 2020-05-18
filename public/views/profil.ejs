@@ -1,12 +1,84 @@
 <%- include('partials/header/header') %>
-<main>
-    <form action="/profil" method="post" enctype="multipart/form-data">
-        <label>Wählen Sie ein Bild von Ihrem Rechner aus.
-            <input name="image" type="file" accept="image/*">
-        </label>
-        <button type="submit" class="btn waves-effect waves-light btn-large">Hochladen</button>
-    </form>
+<main class="container-fluid">
 
-    <img src=<%=user.img%>/>
+    <div class=" profil-header">
+        <%- include('components/avatar/avatar', {"src": 'assets/images/phelina.png'})%>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h2>Profil</h2>
+                        <button class="btn bmd-btn-icon"><i class="material-icons">edit</i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-row">
+                                <fieldset class="form-group col">
+                                    <label for="firstname" class="bmd-label-static">Vorname</label>
+                                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Phelina" readonly>
+                                </fieldset>
+                                <fieldset class="form-group col">
+                                    <label for="lastname" class="bmd-label-static">Nachname</label>
+                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Kirschen" readonly>
+                                </fieldset>
+                        </div>
+                        <fieldset class="form-group">
+                            <label for="email">E-Mail</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="mail@mkirschen.de" readonly>
+                        </fieldset>
+                        <div class="form-row">
+                            <fieldset class="form-group col">
+                                <label for="phone">Telefon</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="0491 20489530" readonly>
+                            </fieldset>
+                            <fieldset class="form-group col">
+                                <label for="mphone">Mobil</label>
+                                <input type="tel" class="form-control" id="mphone" name="mphone" placeholder="0176 32695747" readonly>
+                            </fieldset>
+                        </div>
+                        <fieldset class="form-group">
+                            <label for="password">Passwort</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="********" readonly>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck" checked disabled>
+                                <label class="form-check-label" for="gridCheck" >Vereinsmitglied</label>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div> <!-- .card-body -->
+            </div><!-- .card -->
+
+            <div class="card">
+                <div class="card-header">
+                    <h6>Meine Gruppen</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Alle</li>
+                        <li class="list-group-item">Reiten Donnerstag 16 Uhr</li>
+                        <li class="list-group-item">Vereinsmitglieder</li>
+                    </ul>
+                </div> <!-- .card-body -->
+            </div> <!-- .card -->
+
+        </div> <!-- .col -->
+    </div><!-- row -->
 </main>
 <%- include('partials/footer/footer') %>
+
+
+
+
+<!--Neues Bild hochladen, wenn auf Profilbild geklickt wird-->
+<!--<form action="/profil" method="post" enctype="multipart/form-data">
+    <label>Wählen Sie ein Bild von Ihrem Rechner aus.
+        <input name="image" type="file" accept="image/*">
+    </label>
+    <button type="submit" class="btn waves-effect waves-light btn-large">Hochladen</button>
+</form>-->

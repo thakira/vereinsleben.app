@@ -1,21 +1,22 @@
 <%- include('partials/header/header') %>
 
 <main>
-    <h1>Übersicht <%= title%></h1>
-
+   <h3> [ noch zu implementieren Filter + Suche ]</h3>
+    <br><br>
     <div class="card">
 
         <table class="table table-responsive-sm table-responsive-md table-hover">
             <thead>
             <tr>
+                <th scope="col">Mitgl.-Nr.</th>
                 <th scope="col">Vorname</th>
                 <th scope="col">Name</th>
-                <th scope="col">Geburtsdatum</th>
-                <th scope="col">Vereinsmitglied</th>
+                <th scope="col">Geburts&shy;datum</th>
+                <th scope="col">Vereins&shy;mitglied</th>
                 <th scope="col">E-Mail</th>
                 <th scope="col">Telefon</th>
                 <th scope="col">Registriert seit</th>
-                <th scope="col">Arbeitsstunden</th>
+                <th scope="col">Arbeits&shy;stunden</th>
                 <th></th>
             </tr>
             </thead>
@@ -23,6 +24,12 @@
 
             <% users.forEach( (user) => { %>
                 <tr id="user._id.$oid">
+                    <td><% if(user.memberNumber) {%>
+                            <%= user.memberNumber%>
+                    <% } else {%>
+                            xxxx
+                        <% }%>
+                    </td>
                     <td scope="row"><%= user.firstname%></td>
                     <td><%= user.lastname%></td>
                     <td id="<%= user._id.$oid%>birthdate"><%= user.birthday%></td>

@@ -180,6 +180,7 @@ hr {
 
 #Dashboard .navbar.bg-primary {
     box-shadow: none;
+    padding-bottom: 0;
 }
 
 .navbar-brand {
@@ -467,6 +468,41 @@ img.avatar.small {
     margin-right: 0;
 }
 
+/*** Profil ***/
+main.container-fluid {
+    padding: 0 15px;
+    max-width: 100%;
+    width: auto;
+}
+.profil-header {
+    background-color: var(--dark-grey);
+    margin: 0 -15px -3.5em -15px;
+    padding: 1.5em 1em 4.5em 1em;
+}
+
+.form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}
+
+.form-control[readonly]:focus {
+    color: inherit;
+    background-color: #fff;
+    border: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+.card {
+    margin-bottom: 1em;
+}
+
+.card-body .list-group-item {
+    background-color: none;
+    padding: .5rem 0;
+    border: none;
+}
+
 /*** Spinner ***/
 .spinner-layer {
     border-color: rgb(var(--primary-color));
@@ -613,4 +649,6 @@ figure {
 
 .avatar {
     border: 2px solid #fff;
+    display: block;
+    margin: 0 auto;
 }

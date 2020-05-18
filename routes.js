@@ -234,6 +234,7 @@ module.exports = (app, passport) => {
                     "$oid": "5ebced98e165540f004e05d1"
                 },
                 "member": true,
+                "memberNumber": 1056,
                 "email": "mail@mkirschen.de",
                 "firstname": "Marcus",
                 "lastname": "Kirschen",
