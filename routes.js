@@ -163,11 +163,10 @@ module.exports = (app, passport) => {
     })
 
     // Dashboard
-    app.get('/dashboard', isLoggedin, (req, res) => {
+    app.get('/dashboard', isLoggedin, async (req, res) => {
         return res.render('views/dashboard', {
             title: 'Dashboard',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname,
+            user: req.user,
             news: news
         })
     })
@@ -201,8 +200,7 @@ module.exports = (app, passport) => {
     // News
     app.get('/aktuelles', isLoggedin, (req, res) => {
         res.render('views/aktuelles-site', {title: 'Aktuelles',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname,
+            user: req.user,
             news: news
         })
     })
@@ -211,8 +209,7 @@ module.exports = (app, passport) => {
     app.get('/termine', isLoggedin, (req, res) => {
         res.render('views/termine-site', {
             title: 'Termine',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname
+            user: req.user
         })
     })
 
@@ -220,8 +217,7 @@ module.exports = (app, passport) => {
     app.get('/arbeitsstunden', isLoggedin, (req, res) => {
         res.render('views/arbeitsstunden-site', {
             title: 'Arbeitsstunden',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname
+            user: req.user
         })
     })
 
@@ -282,8 +278,7 @@ module.exports = (app, passport) => {
 
         res.render('views/mitglieder', {
             title: 'Mitglieder',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname,
+            user: req.user,
             users: users })
     })
 
@@ -291,8 +286,7 @@ module.exports = (app, passport) => {
     app.get('/gruppen', isLoggedin, (req, res) => {
         res.render('views/gruppen', {
             title: 'Gruppen',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname
+            user: req.user
         })
     })
 
@@ -300,8 +294,7 @@ module.exports = (app, passport) => {
     app.get('/settings-verein', isLoggedin, (req, res) => {
         res.render('views/settings-verein', {
             title: 'Einstellungen Verein',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname
+            user: req.user
         })
     })
 
@@ -309,8 +302,7 @@ module.exports = (app, passport) => {
     app.get('/profil', isLoggedin, (req, res) => {
         res.render('views/profil', {
             title: 'Profil', user: req.user,
-            firstname: req.user.firstname,
-            lastname: req.user.lastname
+            user: req.user
         })
     })
 
@@ -318,8 +310,7 @@ module.exports = (app, passport) => {
     app.get('/notifications', isLoggedin, (req, res) => {
         res.render('views/notifications', {
             title: 'Benachrichtigungen',
-            firstname: req.user.firstname,
-            lastname: req.user.lastname
+            user: req.user
         })
     })
 

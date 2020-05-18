@@ -2,13 +2,15 @@
 
     <% if(news) {%>
         <% news.forEach( article => {%>
-            <% if (article.newsType === "image") {%>
-                <%- include('aktuell-image', {article})%>
-            <% } else if (article.newsType === "fullimage") {%>
-                <%- include('aktuell-fullimage', {article})%>
-            <% } else {%>
-                <%- include('aktuell-text', {article})%>
-           <% }%>
+            <% if (article.newsReleased) {%>
+                <% if (article.newsType === "image") {%>
+                    <%- include('aktuell-image', {article})%>
+                <% } else if (article.newsType === "fullimage" ) {%>
+                    <%- include('aktuell-fullimage', {article})%>
+                <% } else {%>
+                    <%- include('aktuell-text', {article})%>
+               <% }%>
+            <% }%>
         <%}) %>
     <% }%>
 
