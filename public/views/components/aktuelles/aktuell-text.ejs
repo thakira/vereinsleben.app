@@ -1,0 +1,9 @@
+<!-- template für News ohne Image -->
+<div class="card"  onclick="alert('Platzhalter für Modal')">
+    <div class="card-body">
+        <h5 class="card-title"><%= article.newsTitle%></h5>
+        <footer>
+            <p class="card-text">Aktuelles vom <%= new Date(article.createdAt.$date).toDateString()%></p>
+        </footer>
+    </div>
+</div>

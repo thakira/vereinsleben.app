@@ -1,1 +1,15 @@
-<p>Aktuelles Content</p>
+<div class="card-columns">
+
+    <% if(news) {%>
+        <% news.forEach( article => {%>
+            <% if (article.newsType === "image") {%>
+                <%- include('aktuell-image', {article})%>
+            <% } else if (article.newsType === "fullimage") {%>
+                <%- include('aktuell-fullimage', {article})%>
+            <% } else {%>
+                <%- include('aktuell-text', {article})%>
+           <% }%>
+        <%}) %>
+    <% }%>
+
+</div> <!-- .container -->
