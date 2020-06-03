@@ -63,7 +63,35 @@ $(document).ready(function(){
         toolbarEnabled: true
     });
 });
+function myfkt(file){
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    let img = new Image();
+    img.src = URL.createObjectURL(file);
+    console.log(img);
+    canvas.width = 200;
+    canvas.height = 200;
+    img.onload = function(){
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(100, 100, 100, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.clip();
 
+        ctx.drawImage(img, 0, 0, 200, 200);
+
+        ctx.beginPath();
+        ctx.arc(0, 0, 100, 0, Math.PI * 2, true);
+        ctx.clip();
+        ctx.closePath();
+        ctx.restore();
+
+        //
+        // let canvas = document.getElementById("canvas");
+        // let thumb = canvas.toDataURL("image/png");
+        // $("#canvas").append('<img width="20" height="20" src='+thumb+'>');
+    }
+}
 $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
