@@ -383,7 +383,7 @@ module.exports = (app, passport) => {
             const secretToken = randomString.generate()
 
             //flag the acccount as inactive
-            const verified = false
+            const verified = true
 
             console.log("User anlegen starten")
 
@@ -406,9 +406,10 @@ module.exports = (app, passport) => {
             <br>
             <a href="http://localhost:80/verify?token=${secretToken}">http://localhost:80/verify?token=${secretToken}</a>`
             console.log("mail created: " + html)
-            await mailer.sendEmail('mailbestaetigung@vereinsleben.app', email, 'Vereinsleben.app: Bitte bestätige Deine E-Mail-Adresse', html)
+            //await mailer.sendEmail('mailbestaetigung@vereinsleben.app', email, 'Vereinsleben.app: Bitte bestätige Deine E-Mail-Adresse', html)
             console.log("mail send")
-            req.flash('success', 'Du hast es fast geschafft. Wir haben Dir eine E-Mail geschickt. Bitte bestätige Deine Identität, indem Du auf den Link darin klickst.')
+            //req.flash('success', 'Du hast es fast geschafft. Wir haben Dir eine E-Mail geschickt. Bitte bestätige Deine Identität, indem Du auf den Link darin klickst.')
+            req.flash('success', 'Du kannst Dich nun anmelden. (Email-Bestätigung wird noch implementiert)')
             res.redirect('/login')
         } catch (exception) {
             req.flash('error', exception.message)
