@@ -354,6 +354,7 @@ module.exports = (app, passport) => {
 
     // Register a new user
     app.post('/register', isNotLoggedin, async (req, res) => {
+        console.log("Register startet.")
         try {
             const email = req.body.email
             const password = req.body.password
@@ -384,6 +385,7 @@ module.exports = (app, passport) => {
             //flag the acccount as inactive
             const verified = false
 
+            console.log("User anlegen starten")
 
             // Store new user
             await new User({
@@ -394,6 +396,7 @@ module.exports = (app, passport) => {
                 verified: verified,
                 secretToken: secretToken
             }).save(error => {
+                console.log("User anlegen erfolgreich")
                 if (error) throw {message: error.errmsg} // Guard clause
             })
             //E-Mail verschicken
@@ -401,10 +404,10 @@ module.exports = (app, passport) => {
             <br>
             Um Deine E-Mail-Adresse zu bestätigen, klicke bitte auf folgenden Link:
             <br>
-            <a href="http://localhost:5000/verify?token=${secretToken}">http://localhost:5000/verify?token=${secretToken}</a>`
-
+            <a href="http://localhost:80/verify?token=${secretToken}">http://localhost:80/verify?token=${secretToken}</a>`
+            console.log("mail created: " + html)
             await mailer.sendEmail('mailbestaetigung@vereinsleben.app', email, 'Vereinsleben.app: Bitte bestätige Deine E-Mail-Adresse', html)
-
+            console.log("mail send")
             req.flash('success', 'Du hast es fast geschafft. Wir haben Dir eine E-Mail geschickt. Bitte bestätige Deine Identität, indem Du auf den Link darin klickst.')
             res.redirect('/login')
         } catch (exception) {

@@ -3,7 +3,7 @@
     <div class="card-body">
         <h5 class="card-title"><%= article.newsTitle%></h5>
         <footer>
-            <p class="card-text">Aktuelles vom <%= new Date(article.createdAt.$date).toDateString()%></p>
+            <p class="card-text">Aktuelles vom <%= new Date(article.createdAt.$date).toLocaleDateString('de-DE')%></p>
         </footer>
     </div>
 </div>

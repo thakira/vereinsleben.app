@@ -28,6 +28,14 @@ const dateToDE = (d) => {
 
 $(document).ready(function(){
 
+    console.log("App gestartet")
+
+    if('service worker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(() => console.log('Service Worker registered'))
+            .catch(error => console.log(error))
+    }
+
     // Sidenav
     $('.sidenav').sidenav();
 
@@ -56,5 +64,52 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function () {
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
 
+    $('#dismiss, .overlay').on('click', function () {
+        $('#sidebar').removeClass('active');
+        $('.overlay').removeClass('active');
+    });
 
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').addClass('active');
+        $('.overlay').addClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+
+    $('body').bootstrapMaterialDesign();
+});
+
+$(document).ready(function() {
+    $('#material-tabs').each(function() {
+
+        var $active, $content, $links = $(this).find('a');
+
+        $active = $($links[0]);
+        $active.addClass('active');
+
+        $content = $($active[0].hash);
+
+        $links.not($active).each(function() {
+            $(this.hash).hide();
+        });
+
+        $(this).on('click', 'a', function(e) {
+
+            $active.removeClass('active');
+            $content.hide();
+
+            $active = $(this);
+            $content = $(this.hash);
+
+            $active.addClass('active');
+            $content.show();
+
+            e.preventDefault();
+        });
+    });
+});
