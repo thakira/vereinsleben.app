@@ -5,14 +5,40 @@ function checkForm() {
     const email = document.querySelector('input[name="email"]').value
     const password = document.querySelector('input[name="password"]').value
 
-    console.log('Übergeben: ' + email + ' ' + password);
-
     if (!email || !password) {
-        console.log('Übergeben: ');
         alert('Empty fields !!!!!!')
         return false
+    } else if(checkForm() && checkRepeat(email, email2) && checkRepeat()) {
+
     }
     return true
+}
+
+function checkRepeat(item, item2, toggleId) {
+    const element = document.querySelector('input[name="' + item + '"]').value
+    const element2 = document.querySelector('input[name="' + item2 + '"]').value
+    if(element != "" && element2 != "" && element != element2) {
+        document.getElementById(toggleId).classList.toggle("invisible")
+    }
+}
+
+// function validateEmail() {
+//     const regExp = "/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/"
+//     if(document.querySelector('input[name="email"]').value.match()) {
+//         document.getElementById("emailAlert").classList.toggle("invisible")
+//     }
+// }
+
+function validateEmail(mail) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!(re.test(mail))) {
+        document.getElementById("emailAlert").classList.remove("invisible")
+        console.log("a: " + re.test(mail))
+    } else {
+        document.getElementById("emailAlert").classList.add("invisible")
+        console.log("b: " + re.test(mail))
+    }
+    return re.test(mail)
 }
 
 /*

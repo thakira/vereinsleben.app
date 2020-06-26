@@ -29,16 +29,24 @@
                     </div>
                     <div class="form-group">
                         <label for="email" class="bmd-label-floating">E-Mail</label>
-                        <input name="email" type="email" class="form-control" id="email" required>
-                        <span class="bmd-help">Wir werden die Daten nicht an Dritte weitergeben!</span>
+                        <input name="email" type="email" class="form-control" id="email" oninput="validateEmail(this.value)" required>
+                        <span id="emailAlert" class="red-text invisible" role="alert">Bitte eine gültige E-Mail-Adresse eingeben!</span>
                     </div>
+
+                    <div class="form-group">
+                        <label for="repEmail" class="bmd-label-floating">E-Mail wiederholen</label>
+                        <input name="repEmail" type="email" class="form-control" id="repEmail" oninput="checkRepeat('email', 'repEmail', 'ern')" required>
+                        <span id="ern" class="red-text invisible">Die E-Mail-Adressen stimmen nicht überein!</span>
+                    </div>
+
                     <div class="form-group">
                         <label for="password" class="bmd-label-floating">Passwort</label>
                         <input name="password" type="password" class="form-control" id="password" required>
                     </div>
                     <div class="form-group">
                         <label for="repPwd" class="bmd-label-floating">Passwort wiederholen</label>
-                        <input name="repPwd" type="password" class="form-control" id="repPwd" required>
+                        <input name="repPwd" type="password" class="form-control" id="repPwd" oninput="checkRepeat('password', 'repPwd', 'prn')" required>
+                        <span id="prn" class="red-text invisible">Die Passwörter stimmen nicht überein!</span>
                     </div>
                     <button type="submit" href="/logout" class="btn  btn-lg btn-primary">Senden</button>
                 </form>
