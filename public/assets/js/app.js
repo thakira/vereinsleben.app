@@ -7,32 +7,25 @@ function checkForm() {
     const password = document.querySelector('input[name="password"]').value
     const password2 = document.querySelector('input[name="repPwd"]').value
 
-    if (!email || !password) {
-        alert('Empty fields !!!!!!')
-        return false
-    }
-
     let check = true;
-
     if(!checkRepeat(password,password2, "prn")) {
         document.querySelector('input[name="repPwd"]').focus()
         check = false
     }
-
     if(!checkRepeat(email, email2, "ern") && !validateEmail(email)) {
         document.querySelector('input[name="email"]').focus()
         check = false
     }
-
+    console.log(check)
     return check
 }
 
-function checkRepeat(item, item2, toggleId) {
-    const element = document.querySelector('input[name="' + item + '"]').value
-    const element2 = document.querySelector('input[name="' + item2 + '"]').value
-    if(element != "" && element2 != "" && element != element2) {
-        document.getElementById(toggleId).classList.toggle("invisible")
+function checkRepeat(value1, value2, toggleId) {
+    if(value1 != "" && value2 != "" && value1 != value2) {
+        document.getElementById(toggleId).classList.remove("invisible")
         return false
+    } else {
+        document.getElementById(toggleId).classList.add("invisible")
     }
     return true
 }
@@ -49,18 +42,21 @@ function validateEmail(mail) {
     return re.test(mail)
 }
 
-/*
-const dateToDE = (d) => {
-    let date = new Date(d);
-    let tag = date.getDate().toString().length < 2 ? "0" + date.getDate() : date.getDate();
-    let monat = date.getMonth() + 1;
-    let jahr = date.getFullYear();
-    return tag + "." + monat + "." + jahr;
+// Date to German Format
+let dates = document.getElementsByClassName("datum");
+if(dates.length>0){
+    for(let e=0; e<dates.length;e++) {
+        let d = new Date(dates[e].getAttribute("del-date"))
+        let tag = d.getDate();
+        tag = (tag<10) ? "0"+tag : tag
+        let monat = d.getMonth() + 1;
+        monat = (monat<10) ? "0"+monat : monat;
+        let jahr = d.getFullYear();
+        dates[e].innerHTML = tag + "." + monat + "." + jahr;
+    }
 }
-*/
 
-
-$(document).ready(function(){
+$(document).ready( function() {
 
     console.log("App gestartet")
 

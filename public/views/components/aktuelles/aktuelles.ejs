@@ -14,4 +14,10 @@
         <%}) %>
     <% }%>
 
-</div> <!-- .container -->
+</div> <!-- .card-columns -->
+
+<% if(user.role === "admin") { %>
+    <%- include('../buttons/floating-add', {dataTarget: "addNewsModal"}) %>
+<% } %>
+
+<%- include(../modals/addNewsModal) %>

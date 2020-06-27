@@ -1,10 +1,12 @@
 <!-- template für News mit Overlay Image -->
-<div id="<%= article._id.$oid%>" class="card bg-dark text-white fullimage"  onclick="alert('Platzhalter für Modal')">
-    <img class="card-img" alt="Card image" src="../../../assets/images/<%= article.newsImg%>" >
+<div id="<%= article._id.$oid%>" class="card bg-dark text-white fullimage" data-toggle="modal" data-target="#newsModal-<%= article._id.$oid%>" >
+    <img class="card-img" alt="Card image" src="../../../assets/images/<%= article.newsImg %>" >
     <div class="card-img-overlay align-bottom">
-        <h5 class="card-title"><%= article.newsTitle%></h5>
+        <h5 class="card-title"><%= article.newsTitle %></h5>
         <footer>
-            <p class="card-text">Aktuelles vom <%= new Date(article.createdAt.$date).toDateString()%></p>
+            <p class="card-text">Aktuelles vom <span class="datum" del-date="<%= article.createdAt.$date %>"></span></p>
         </footer>
     </div>
 </div>
+
+<%- include('../modals/newsModal', {article}) %>

@@ -11,6 +11,8 @@ const userSchema = new Schema({
     birthday: {type: Date},
     img: { data: Buffer, contentType: String },
     secretToken: {type: String},
+    //Rolle
+    role: {type: String, default: "user"},
     //Vereinsmitglied
     member: {type: Boolean, default: false},
     //E-Mail-Adresse verifiziert

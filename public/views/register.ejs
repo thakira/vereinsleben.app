@@ -35,7 +35,7 @@
 
                     <div class="form-group">
                         <label for="repEmail" class="bmd-label-floating">E-Mail wiederholen</label>
-                        <input name="repEmail" type="email" class="form-control" id="repEmail" oninput="checkRepeat('email', 'repEmail', 'ern')" required>
+                        <input name="repEmail" type="email" class="form-control" id="repEmail" oninput="checkRepeat(document.getElementById('email').value, this.value, 'ern')" required>
                         <span id="ern" class="red-text invisible">Die E-Mail-Adressen stimmen nicht überein!</span>
                     </div>
 
@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label for="repPwd" class="bmd-label-floating">Passwort wiederholen</label>
-                        <input name="repPwd" type="password" class="form-control" id="repPwd" oninput="checkRepeat('password', 'repPwd', 'prn')" required>
+                        <input name="repPwd" type="password" class="form-control" id="repPwd" oninput="checkRepeat(document.getElementById('password').value, this.value, 'prn')" required>
                         <span id="prn" class="red-text invisible">Die Passwörter stimmen nicht überein!</span>
                     </div>
                     <button type="submit" href="/logout" class="btn  btn-lg btn-primary">Senden</button>

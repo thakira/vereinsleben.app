@@ -5,12 +5,14 @@ const LocalStrategy = require('passport-local').Strategy
 const randomString = require('randomstring')
 const mailer = require('./misc/mailer')
 const fs = require('fs')
+//import EditorJS from '@editorjs/editorjs';
+//const EditorJS = require('@editorjs/editorjs')
 
 const news =
     [
         {
             "_id": {
-                "$oid": "5ebced98e165540f004e05d1"
+                "$oid": "5ebced9867shgf456f004e05d1"
             },
             "newsTitle": "Card Title 1",
             "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
@@ -31,7 +33,7 @@ const news =
             }
         }, {
         "_id": {
-            "$oid": "5ebced98r137560f004e05d1"
+            "$oid": "5ebced98ghf7456004e05d1"
         },
         "newsTitle": "Card Title 4",
         "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
@@ -52,7 +54,7 @@ const news =
         }
     }, {
             "_id": {
-                "$oid": "5ebced98e134560f004e05d1"
+                "$oid": "5easd3423560f004e05d1"
             },
             "newsTitle": "Card Title 2",
             "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
@@ -73,7 +75,7 @@ const news =
             }
         }, {
         "_id": {
-            "$oid": "5ebced98e162220f004e05d1"
+            "$oid": "5ebcedgas5763780f004e05d1"
         },
         "newsTitle": "Card Title ",
         "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
@@ -94,7 +96,7 @@ const news =
         }
     }, {
         "_id": {
-            "$oid": "5ebced98r137560f004e05d1"
+            "$oid": "5ebce345567560f004e05d1"
         },
         "newsTitle": "Card Title 3",
         "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
@@ -111,7 +113,7 @@ const news =
         "newsReleased": true,
         "newsType": "fullimage",
         "createdAt": {
-            "$date": "2020-04-21T07:04:56.104Z"
+            "$date": "2020-04-01T07:04:56.104Z"
         }
     }
     ]
@@ -178,6 +180,14 @@ module.exports = (app, passport) => {
         res.render('views/register', {
             title: 'Registrieren',
             logo: logo
+        })
+    })
+
+    // Register
+    app.get('/editorjs', isNotLoggedin, (req, res) => {
+        res.render('views/editorjs', {
+            title: 'EditorJS',
+            user: {firstname: "Marcus", nachname: "Kirschen"}
         })
     })
 
@@ -357,12 +367,13 @@ module.exports = (app, passport) => {
         console.log("Register startet.")
         try {
             const email = req.body.email
+            const repEmail = req.body.repEmail
             const password = req.body.password
             const repPasswd = req.body.repPwd
             const firstname = req.body.firstname
             const lastname = req.body.lastname
 
-            if (!email || !password || !repPasswd || !firstname || !lastname) {
+            if (!email || !repEmail || !password || !repPasswd || !firstname || !lastname) {
                 console.log('Empty fields')
                 return res.send('Empty fields')
             }

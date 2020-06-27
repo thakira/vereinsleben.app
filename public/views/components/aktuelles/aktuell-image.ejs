@@ -1,12 +1,12 @@
 <!-- template für News mit Foto -->
-<div id="<%= article._id.$oid%>" class="card image" onclick="alert('Platzhalter für Modal')">
-    <div class="row">
-        <img class="card-img card-image-left col-md-6" alt="Card image cap" src="../../../assets/images/<%= article.newsImg%>" >
-        <div class="card-body col-md-6">
-            <h5 class="card-title"><%= article.newsTitle%></h5>
-            <footer>
-                <p class="card-text">Aktuelles vom <%= new Date(article.createdAt.$date).toDateString()%></p>
-            </footer>
-        </div>
+<div id="<%= article._id.$oid%>" class="card image" data-toggle="modal" data-target="#newsModal-<%= article._id.$oid%>" >
+    <img class="card-image" alt="Card image cap" src="../../../assets/images/<%= article.newsImg%>" >
+    <div class="card-body">
+        <h5 class="card-title"><%= article.newsTitle%></h5>
+        <footer>
+            <p class="card-text">Aktuelles vom <span class="datum" del-date="<%= article.createdAt.$date %>"></span></p>
+        </footer>
     </div>
 </div>
+
+<%- include('../modals/newsModal', {article}) %>
