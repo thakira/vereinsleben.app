@@ -3,15 +3,28 @@
 // Check if fields are not empty
 function checkForm() {
     const email = document.querySelector('input[name="email"]').value
+    const email2 = document.querySelector('input[name="repEmail"]').value
     const password = document.querySelector('input[name="password"]').value
+    const password2 = document.querySelector('input[name="repPwd"]').value
 
     if (!email || !password) {
         alert('Empty fields !!!!!!')
         return false
-    } else if(checkForm() && checkRepeat(email, email2) && checkRepeat()) {
-
     }
-    return true
+
+    let check = true;
+
+    if(!checkRepeat(password,password2, "prn")) {
+        document.querySelector('input[name="repPwd"]').focus()
+        check = false
+    }
+
+    if(!checkRepeat(email, email2, "ern") && !validateEmail(email)) {
+        document.querySelector('input[name="email"]').focus()
+        check = false
+    }
+
+    return check
 }
 
 function checkRepeat(item, item2, toggleId) {
@@ -19,15 +32,10 @@ function checkRepeat(item, item2, toggleId) {
     const element2 = document.querySelector('input[name="' + item2 + '"]').value
     if(element != "" && element2 != "" && element != element2) {
         document.getElementById(toggleId).classList.toggle("invisible")
+        return false
     }
+    return true
 }
-
-// function validateEmail() {
-//     const regExp = "/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/"
-//     if(document.querySelector('input[name="email"]').value.match()) {
-//         document.getElementById("emailAlert").classList.toggle("invisible")
-//     }
-// }
 
 function validateEmail(mail) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
