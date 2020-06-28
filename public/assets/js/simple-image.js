@@ -12,7 +12,7 @@ class SimpleImage {
     }
 
     render(){
-        this.wrapper = document.createElement('div');
+        this.wrapper = document.createElement('figure');
         this.wrapper.classList.add('simple-image');
 
         if (this.data && this.data.url){
@@ -36,7 +36,8 @@ class SimpleImage {
 
     _createImage(url, captionText) {
         const image = document.createElement('img');
-        const caption = document.createElement('div');
+        const caption = document.createElement('figcaption');
+        caption.classList.add('caption')
 
         image.src = url;
         caption.contentEditable = true;

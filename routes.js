@@ -5,8 +5,6 @@ const LocalStrategy = require('passport-local').Strategy
 const randomString = require('randomstring')
 const mailer = require('./misc/mailer')
 const fs = require('fs')
-//import EditorJS from '@editorjs/editorjs';
-//const EditorJS = require('@editorjs/editorjs')
 
 const news =
     [
