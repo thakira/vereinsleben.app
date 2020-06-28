@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.18.0",
+    "@editorjs/header": "^2.5.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",

@@ -129,7 +129,6 @@ function isNotLoggedin(req, res, next) {
 }
 
 module.exports = (app, passport) => {
-
     // Username/Password authentication
     passport.use(new LocalStrategy({
         usernameField: 'email',

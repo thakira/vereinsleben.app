@@ -1,4 +1,5 @@
-const EditorJS = require('@editorjs/editorjs');
+// import EditorJS from '../../../node_modules/@editorjs/editorjs';
+// import Header from '../../../node_modules/@editorjs/header';
 
 const editor = new EditorJS({
     autofocus: true,
@@ -6,7 +7,9 @@ const editor = new EditorJS({
         image: {
             class: SimpleImage,
             inlineToolbar: ['link']
-        }
+        },
+        header: Header,
+        attaches: AttachesTool
     },
     data: {
         time: 1552744582955,

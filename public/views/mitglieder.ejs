@@ -57,7 +57,7 @@
 </main>
 
 <% if(user.role === "admin") { %>
-  <%- include('components/buttons/floating-add', {}) %>
+  <%- include('components/buttons/floating-add', {dataTarget:"mitgliederModal"}) %>
 <% } %>
 
 <%- include('partials/footer/footer') %>

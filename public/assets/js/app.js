@@ -66,33 +66,28 @@ $(document).ready( function() {
             .catch(error => console.log(error))
     }
 
-    // Sidenav
-    $('.sidenav').sidenav();
-
     // Setting Menu
     $('.dropdown-trigger').dropdown();
 
-    // Tabs
-    $('.tabs').tabs();
-
-    // Swipeable Tabs Demo Init
+    // Swipeable Tabs
     if ($('#tabs-swipe').length) {
         $('#tabs-swipe').tabs({ swipeable: true });
     }
 
     // Fab
-    $('.fixed-action-btn').floatingActionButton();
-    $('.fixed-action-btn.horizontal').floatingActionButton({
-        direction: 'left'
-    });
-    $('.fixed-action-btn.click-to-toggle').floatingActionButton({
-        direction: 'left',
-        hoverEnabled: false
-    });
-    $('.fixed-action-btn.toolbar').floatingActionButton({
-        toolbarEnabled: true
-    });
+    // $('.fixed-action-btn').floatingActionButton();
+    // $('.fixed-action-btn.horizontal').floatingActionButton({
+    //     direction: 'left'
+    // });
+    // $('.fixed-action-btn.click-to-toggle').floatingActionButton({
+    //     direction: 'left',
+    //     hoverEnabled: false
+    // });
+    // $('.fixed-action-btn.toolbar').floatingActionButton({
+    //     toolbarEnabled: true
+    // });
 });
+
 function myfkt(file){
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
