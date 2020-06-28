@@ -46,7 +46,7 @@ const news =
         "newsImg": "/beispielfoto-voltigieren.jpg",
         "newsDoc": "",
         "newsReleased": true,
-        "newsType": "fullimage",
+        "newsType": "image",
         "createdAt": {
             "$date": "2020-04-21T07:04:56.104Z"
         }
@@ -109,7 +109,7 @@ const news =
         "newsImg": "/beispielfoto-voltigieren.jpg",
         "newsDoc": "",
         "newsReleased": true,
-        "newsType": "fullimage",
+        "newsType": "image",
         "createdAt": {
             "$date": "2020-04-01T07:04:56.104Z"
         }
