@@ -25,6 +25,7 @@
     "randomstring": "^1.1.5"
   },
   "devDependencies": {
+    "@editorjs/attaches": "^1.0.1",
     "nodemon": "^2.0.4"
   }
 }

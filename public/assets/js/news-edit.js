@@ -1,3 +1,4 @@
+const EditorJS = require('@editorjs/editorjs');
 
 const editor = new EditorJS({
     autofocus: true,
