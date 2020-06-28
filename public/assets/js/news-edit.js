@@ -1,6 +1,3 @@
-// import EditorJS from '../../../node_modules/@editorjs/editorjs';
-// import Header from '../../../node_modules/@editorjs/header';
-
 const editor = new EditorJS({
     autofocus: true,
     tools: {

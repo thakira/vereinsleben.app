@@ -439,6 +439,10 @@ img.avatar.small {
     color: red;
 }
 
+.tableContainer {
+    padding: 1em;
+}
+
 /*** News ***/
 .card:hover {
     cursor: pointer;

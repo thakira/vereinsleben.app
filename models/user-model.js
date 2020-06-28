@@ -8,13 +8,12 @@ const userSchema = new Schema({
     firstname: {type: String, required: true},
     lastname: {type: String, required: true},
     phone: {type: String},
+    mobile: {type: String},
     birthday: {type: Date},
     img: { data: Buffer, contentType: String },
     secretToken: {type: String},
     //Rolle
     role: {type: String, default: "user"},
-    //Vereinsmitglied
-    member: {type: Boolean, default: false},
     //E-Mail-Adresse verifiziert
     verified: {type: Boolean, default: false},
     //Gruppen - standardmässig muß hier beim Registrieren die Gruppe "Alle" hinzugefügt werden.
@@ -22,7 +21,7 @@ const userSchema = new Schema({
     //Einstellungen Benachrichtigungen
     messages: {type: Map},
     // angemeldete Stunden
-    workhours: {type: String},
+    workhours: {type: Number},
     // geleistete Stunden
     worked: {type: Number},
     // angemeldete Termine

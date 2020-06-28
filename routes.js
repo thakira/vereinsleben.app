@@ -181,10 +181,11 @@ module.exports = (app, passport) => {
     })
 
     // Register
-    app.get('/editorjs', isNotLoggedin, (req, res) => {
+    app.get('/editorjs', (req, res) => {
         res.render('views/editorjs', {
             title: 'EditorJS',
             user: {firstname: "Marcus", nachname: "Kirschen"}
+            //user: req.user
         })
     })
 
@@ -236,12 +237,16 @@ module.exports = (app, passport) => {
                 "_id": {
                     "$oid": "5ebced98e165540f004e05d1"
                 },
-                "member": true,
-                "memberNumber": 1056,
-                "email": "mail@mkirschen.de",
                 "firstname": "Marcus",
                 "lastname": "Kirschen",
+                "mobile" : "0123 456789",
                 "phone" : "0123 456789",
+                "email": "mail@mkirschen.de",
+                "birthday": "1983-07-21T00:00:0.104Z",
+                "workhours": 10,
+                "worked": 10,
+                "memberNumber": 1056,
+                "role": "admin",
                 "createdAt": {
                     "$date": "2020-05-14T07:04:56.104Z"
                 }
@@ -249,11 +254,16 @@ module.exports = (app, passport) => {
                 "_id": {
                     "$oid": "5ebd2023c8978454a007a097"
                 },
-                "member": false,
-                "email": "em@mail.de",
                 "firstname": "Emil",
                 "lastname": "Meier",
+                "mobile" : "0123 456789",
                 "phone" : "0123 456789",
+                "email": "em@mail.de",
+                "birthday": "1963-04-18T00:00:0.104Z",
+                "workhours": 10,
+                "worked": 8,
+                "memberNumber": "",
+                "role": "user",
                 "createdAt": {
                     "$date": "2020-04-30T07:04:56.104Z"
                 }
@@ -261,11 +271,16 @@ module.exports = (app, passport) => {
                 "_id": {
                     "$oid": "5ebd205bc8978454a007a098"
                 },
-                "member": false,
-                "email": "mw@muster.de",
-                "firstname": "Max",
-                "lastname": "Walter",
+                "firstname": "Saskia",
+                "lastname": "Meier",
+                "mobile" : "0123 456789",
                 "phone" : "0123 456789",
+                "email": "dm@mail.de",
+                "birthday": "1998-12-11T00:00:0.104Z",
+                "workhours": 10,
+                "worked": 3,
+                "memberNumber": "",
+                "role": "trainer",
                 "createdAt": {
                     "$date": "2020-05-03T07:04:56.104Z"
                 }
@@ -273,11 +288,16 @@ module.exports = (app, passport) => {
                 "_id": {
                     "$oid": "5ebd206ec8978454a007a099"
                 },
-                "member": false,
-                "email": "bm@muster.de",
                 "firstname": "Brigitte",
                 "lastname": "Muster",
+                "mobile" : "0123 456789",
                 "phone" : "0123 456789",
+                "email": "bm@muster.de",
+                "birthday": "2001-01-28T00:00:0.104Z",
+                "workhours": 10,
+                "worked": 6,
+                "memberNumber": "5623",
+                "role": "user",
                 "createdAt": {
                     "$date": "2020-04-19T07:04:56.104Z"
                 }
