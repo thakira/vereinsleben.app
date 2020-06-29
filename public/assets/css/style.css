@@ -656,6 +656,11 @@ label.bmd-label-floating {
     text-align: center;
 }
 
+/*** DataTables ***/
+div#userTable_filter label {
+    font-size: 1em;
+}
+
 /* -- Fullsize modal --*/
 .fullsize.modal {
     padding: 0 !important;
