@@ -193,6 +193,7 @@ img {
     white-space: normal;
     display: flex;
     align-items: center;
+    font-size: 1em;
 }
 
 .navbar-brand img {
@@ -247,6 +248,7 @@ nav ul a:focus {
 @media screen and (max-width: 550px) {
     .branding {
         max-width: 75vw;
+
     }
 }
 /* ---------------------------------------------------
@@ -412,10 +414,14 @@ main.standalone>*:not(.input-field){
 }
 
 h2.vereinsleben {
-    margin: 1rem 0;
-    font-size: 1.25em;
+    margin: 1em 0;
+    font-size: 1.0em;
     font-weight: 600;
     color: var(--primary);
+}
+
+.teaser .avatar {
+    max-width: 40vw;
 }
 
 .branding .avatar {
@@ -662,18 +668,38 @@ div#userTable_filter label {
 }
 
 /* -- Fullsize modal --*/
+
+
+.modal.fade.in {
+    left: 50%;
+}​
+
 .fullsize.modal {
     padding: 0 !important;
 }
 
 .fullsize .modal-dialog.modal-lg {
-    margin: 3.2em 0 0 0;
+    margin: 0;
 }
 
 .fullsize .modal-content {
     width: 100vw;
     min-height: 100vh;
     border-radius: 0;
+    position: relative;
+    animation: animatebottom 0.25s;
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -300px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1;
+    }
 }
 
 .fullsize .modal-content .modal-image-header,
@@ -687,21 +713,22 @@ div#userTable_filter label {
 }
 
 .navbar.modal-nav {
-    justify-content: left;
-}
-
-.navbar.modal-nav {
+    width: 100vw;
     justify-content: left;
 }
 
 .navbar.modal-nav h3 {
-    margin: 0.25em 0;
+    margin: .5em 0;
 }
 
 .navbar.modal-nav button.close {
     color: #fff;
     opacity: 1;
     margin-right: 1em;
+}
+
+.navbar.modal-nav button.close:hover {
+    cursor: pointer;
 }
 
 /* ---------------------------------------------------
