@@ -234,7 +234,7 @@ module.exports = (app, passport) => {
         //let result = await User.find({});
         //console.log("result: " + result);
         const users = await User.find({});
-        //console.log(users);
+        console.log(users);
         /*const users = () => {
             "[" +
             foreach(user in users_db)
@@ -377,7 +377,8 @@ module.exports = (app, passport) => {
         }
     })
 
-    app.put('/mitglieder', isLoggedin, async (req, res) => {
+    app.post('/editMember', async (req, res) => {
+        console.log("editMember")
         try {
             const user = await User.findOne({"_id": req.query['id']})
             if (!user) {
