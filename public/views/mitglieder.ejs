@@ -14,6 +14,16 @@
 <script>
     $(document).ready( function () {
         var editor = new $.fn.dataTable.Editor( {
+            ajax: {
+                edit: {
+                    type: 'PUT',
+                    url:  '/routes'
+                },
+                remove: {
+                    type: 'DELETE',
+                    url:  '/api/staff'
+                }
+            },
             table: '#userTable',
             fields: [
                 { label: 'Vorname', name: 'firstname' },
@@ -37,6 +47,7 @@
             select: true,
             dom: 'Bfrtip',
             columns: [
+                {data: 'id'},
                 { data: 'firstname' },
                 { data: 'lastname' },
                 { data: 'mobile' },
@@ -62,6 +73,7 @@
         <table id="userTable" class="display dt-responsive nowrap" width="100%" data-page-length="25">
             <thead>
             <tr>
+                <th>ID</th>
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Mobil</th>
@@ -76,7 +88,8 @@
             </thead>
             <tbody>
             <% users.forEach( (user) => { %>
-                <tr id="<%= user._id.$oid %>">
+                <tr id="<%= user._id%>">
+                    <td><%= user._id%></td>
                     <td><%= user.firstname%></td>
                     <td><%= user.lastname%></td>
                     <td><%= user.mobile%></td>
@@ -92,11 +105,11 @@
                     </td>
                     <td><%= user.role%></td>
                     <td>
-                        <%= new Date(user.createdAt.$date).getDate().toString().length < 2
-                                ? "0"+new Date(user.createdAt.$date).getDate()
-                                : new Date(user.createdAt.$date).getDate()%>.<%= new Date(user.createdAt.$date).getMonth().toString().length < 2
-                                ? "0"+ (new Date(user.createdAt.$date).getMonth() + 1)
-                                : new Date(user.createdAt.$date).getMonth().toString()%>.<%= new Date(user.createdAt.$date).getFullYear() %>
+                        <%= new Date(user.createdAt).getDate().toString().length < 2
+                                ? "0"+new Date(user.createdAt).getDate()
+                                : new Date(user.createdAt).getDate()%>.<%= new Date(user.createdAt).getMonth().toString().length < 2
+                                ? "0"+ (new Date(user.createdAt).getMonth() + 1)
+                                : new Date(user.createdAt).getMonth().toString()%>.<%= new Date(user.createdAt).getFullYear() %>
                     </td>
                 </tr>
             <% }) %>

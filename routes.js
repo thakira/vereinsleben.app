@@ -231,9 +231,19 @@ module.exports = (app, passport) => {
 
     // Mitglieder
     app.get('/mitglieder', isLoggedin, async (req, res) => {
-        // const users = await User.find({});
-        const users =
-            [{
+        //let result = await User.find({});
+        //console.log("result: " + result);
+        const users = await User.find({});
+        //console.log(users);
+        /*const users = () => {
+            "[" +
+            foreach(user in users_db)
+            {
+                "{"
+
+            }
+        }
+        [{
                 "_id": {
                     "$oid": "5ebced98e165540f004e05d1"
                 },
@@ -301,7 +311,7 @@ module.exports = (app, passport) => {
                 "createdAt": {
                     "$date": "2020-04-19T07:04:56.104Z"
                 }
-            }]
+            }]*/
 
         res.render('views/mitglieder', {
             title: 'Mitglieder',
@@ -367,6 +377,19 @@ module.exports = (app, passport) => {
         }
     })
 
+    app.put('/mitglieder', isLoggedin, async (req, res) => {
+        try {
+            const user = await User.findOne({"_id": req.query['id']})
+            if (!user) {
+                req.flash('error', 'User nicht gefunden')
+            }
+            console.log("DB:" + user.firstname + "req:" + req.query['firstname']);
+            /*if (user.firstname != req.query['firstname']) {
+                user.firstname = req.query['firstname'];*/
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    })
     // User logout
     app.get('/logout', isLoggedin, (req, res) => {
         req.logout()
@@ -377,6 +400,18 @@ module.exports = (app, passport) => {
     // Registration site
     app.get('/register', isNotLoggedin, (req, res) => {
         res.render('views/register')
+    })
+
+    //News hinzufügen
+    app.post('/addNews', async (req, res) => {
+        console.log("post-Route")
+        try {
+            const result = req.body
+            console.log(result)
+            return res.send('Serverantwort')
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
     })
 
     // Register a new user

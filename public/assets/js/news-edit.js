@@ -52,6 +52,7 @@ const URL = 'http://localhost:3000'
 
 saveButton.addEventListener('click', () => {
     editor.save().then( savedData => {
+        console.log("JSON: " + JSON.stringify(savedData, null, 4));
         output.innerHTML = JSON.stringify(savedData, null, 4);
 
         // POST
@@ -62,10 +63,8 @@ saveButton.addEventListener('click', () => {
                     'content': 'application/json; charset=UTF-8'
                 }
             })
-            .then(response => response.json())
-            .then(json => {
-                console.log(json);
-            })
+                         .then(response => response.json())
+            .then(data => console.log(data))
             .catch(err => console.error(err))
     })
 })
