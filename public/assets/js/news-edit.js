@@ -50,15 +50,10 @@ const editor = new EditorJS({
     // }
 })
 
-const saveButton = document.getElementById('save-button');
-const output = document.getElementById('output');
-
 const URL = 'http://localhost:3000'
-
+const saveButton = document.getElementById('save-button');
 saveButton.addEventListener('click', () => {
     editor.save().then( savedData => {
-        output.innerHTML = JSON.stringify(savedData, null, 4);
-        // POST
         fetch(URL+'/addNews', {
                 headers: {
                     'Accept': 'application/json, text/plain, *7*',
@@ -67,7 +62,9 @@ saveButton.addEventListener('click', () => {
                 method: 'POST',
                 body: JSON.stringify(savedData, null, 4)
         })
-            .then(data => console.log(data))
+            .then(
+                $.snackbar({content: 'Beitrag gespeichert!', style: 'toast'})
+            )
             .catch(err => console.error(err))
     })
 })

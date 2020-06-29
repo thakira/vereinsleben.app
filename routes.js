@@ -405,7 +405,6 @@ module.exports = (app, passport) => {
 
     //News hinzufügen
     app.post('/addNews', async (req, res) => {
-        console.log("post-Route")
         try {
             const time = req.body.time
             const blocks = req.body.blocks
@@ -417,18 +416,16 @@ module.exports = (app, passport) => {
                 version: version
             }).save(error => {
                 console.log("Speichern erfolgreich")
-                if(error) throw {
-                    message:error.errmsg
+                if (error) throw {
+                    message: error.errmsg
                 }
             })
-
-            const result = req.body
-            console.log(result)
-            return res.send('Serverantwort')
         } catch (exception) {
             req.flash('error', exception.message)
         }
     })
+
+
 
     // Register a new user
     app.post('/register', isNotLoggedin, async (req, res) => {

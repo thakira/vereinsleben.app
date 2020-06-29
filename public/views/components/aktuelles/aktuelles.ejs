@@ -16,9 +16,9 @@
 
 </div> <!-- .card-columns -->
 
+<%- include('../buttons/floating-add', {dataTarget: "#addNewsModal"}) %>
+<%- include('../modals/modal', {modalType: "addNewsModal"}) %>
 <% if(user.role === "admin") { %>
-    <%- include('../buttons/floating-add', {dataTarget: "#addNewsModal"}) %>
-    <%- include('../modals/modal', {modalType: "addNewsModal"}) %>
 <% } %>
 
 

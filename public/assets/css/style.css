@@ -421,7 +421,7 @@ h2.vereinsleben {
 }
 
 .teaser .avatar {
-    max-width: 40vw;
+    max-width: 15vw;
 }
 
 .branding .avatar {
@@ -572,6 +572,11 @@ main.container-fluid {
 }
 
 /*** Forms ***/
+input {
+    border-width: 1px;
+    border-color: var(--primary);
+}
+
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
@@ -667,19 +672,29 @@ div#userTable_filter label {
     font-size: 1em;
 }
 
+table.dataTable.stripe tbody>tr.odd.selected,
+table.dataTable.stripe tbody>tr.odd>.selected,
+table.dataTable.display tbody>tr.odd.selected,
+table.dataTable.display tbody>tr.odd>.selected {
+    background-color: rgba(var(--primary-color),0.2) !important;
+}
+
+table.dataTable.display tbody>tr.odd.selected>.sorting_1,
+table.dataTable.order-column.stripe tbody>tr.odd.selected>.sorting_1 {
+    background-color: rgba(var(--primary-color),0.3) !important;
+}
+
 /* --  MembersTable --*/
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
     background-color: rgba(var(--primary-color),50); !important;
 }
 
 /* -- Fullsize modal --*/
-
-
 .modal.fade.in {
     left: 50%;
 }​
 
-.fullsize.modal {
+.modal.fullsize {
     padding: 0 !important;
 }
 
@@ -719,7 +734,12 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
 
 .navbar.modal-nav {
     width: 100vw;
-    justify-content: left;
+}
+
+.navbar.modal-nav .container-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .navbar.modal-nav h3 {
@@ -775,4 +795,12 @@ figure {
 
 .simple-image figcaption {
     font-size: 0.8em;
+}
+
+.codex-editor__redactor:after {
+    content: 'Klicke um Inhalt zu erstellen...';
+    font-size: 1.25em;
+    display: block;
+    text-align: center;
+    color: #ddd;
 }
