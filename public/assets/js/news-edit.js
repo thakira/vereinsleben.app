@@ -6,7 +6,12 @@ const editor = new EditorJS({
             class: SimpleImage,
             inlineToolbar: ['link']
         },
-        header: Header,
+        header: {
+            class: Header,
+            config: {
+                placeholder: 'Füge eine Überschrift hinzu'
+            }
+        },
         attaches: AttachesTool
     },
     data: ''
@@ -52,18 +57,16 @@ const URL = 'http://localhost:3000'
 
 saveButton.addEventListener('click', () => {
     editor.save().then( savedData => {
-        console.log("JSON: " + JSON.stringify(savedData, null, 4));
         output.innerHTML = JSON.stringify(savedData, null, 4);
-
         // POST
         fetch(URL+'/addNews', {
-                method: 'POST',
-                body: JSON.stringify(savedData),
                 headers: {
-                    'content': 'application/json; charset=UTF-8'
-                }
-            })
-                         .then(response => response.json())
+                    'Accept': 'application/json, text/plain, *7*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(savedData, null, 4)
+        })
             .then(data => console.log(data))
             .catch(err => console.error(err))
     })
