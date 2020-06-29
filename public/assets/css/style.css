@@ -667,6 +667,11 @@ div#userTable_filter label {
     font-size: 1em;
 }
 
+/* --  MembersTable --*/
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+    background-color: rgba(var(--primary-color),50); !important;
+}
+
 /* -- Fullsize modal --*/
 
 

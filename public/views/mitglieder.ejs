@@ -13,28 +13,56 @@
 
 <script>
     $(document).ready( function () {
+        const URL = "http://127.0.0.1"
         var editor = new $.fn.dataTable.Editor( {
             ajax: {
                 edit: {
-                    type: 'PUT',
-                    url:  '/routes'
+                    type: 'POST',
+                    //url:  URL + '/editMember?id=_id_'
+                    url:  URL + '/editMember',
+                    header: "'content': 'application/json; charset=UTF-8'"
                 },
                 remove: {
                     type: 'DELETE',
-                    url:  '/api/staff'
+                    url:  URL + '/deleteMember'
                 }
             },
             table: '#userTable',
+            i18n: {
+                edit: {
+                    button: "Bearbeiten",
+                    title:  "Eintrag bearbeiten",
+                    submit: "Speichern"
+                },
+                    remove: {
+                        button: "Löschen",
+                        title:  "Eintrag löschen",
+                        submit: "Löschen",
+                        confirm: {
+                            _: "Sind Sie sicher, das sie dieses Mitglied löschen möchten?",
+                            1: "Sind Sie sicher, das sie dieses Mitglied löschen möchten?"
+                        }
+                    }
+                },
             fields: [
                 { label: 'Vorname', name: 'firstname' },
                 { label: 'Nachname',  name: 'lastname' },
                 { label: 'Mobil',  name: 'mobile' },
                 { label: 'Telefon',  name: 'phone' },
                 { label: 'E-Mail',  name: 'email' },
-                { label: 'Geburtstag',  name: 'birthday' },
-                { label: 'Arbeitsstunden',  name: 'workhours' },
+                {
+                    label: 'Geburtstag',
+                    name: 'birthday',
+                    type: 'date'},
                 { label: 'Mitglieds-Nr.',  name: 'memberNumber' },
-                { label: 'Rechte',  name: 'role' }
+                { label: 'Rechte',
+                    name: 'role',
+                    type:  "select",
+                    options: [
+                        { label: "User", value: "user" },
+                        { label: "Trainer",           value: "trainer" },
+                        { label: "Admin",           value: "admin" }
+                        ]}
             ]
         } );
         $('#userTable').DataTable({
@@ -47,7 +75,7 @@
             select: true,
             dom: 'Bfrtip',
             columns: [
-                {data: 'id'},
+                //{data: 'id'},
                 { data: 'firstname' },
                 { data: 'lastname' },
                 { data: 'mobile' },
@@ -73,7 +101,7 @@
         <table id="userTable" class="display dt-responsive nowrap" width="100%" data-page-length="25">
             <thead>
             <tr>
-                <th>ID</th>
+<!--                <th>ID</th>-->
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Mobil</th>
@@ -89,12 +117,12 @@
             <tbody>
             <% users.forEach( (user) => { %>
                 <tr id="<%= user._id%>">
-                    <td><%= user._id%></td>
+<!--                    <td><%= user._id%></td>-->
                     <td><%= user.firstname%></td>
                     <td><%= user.lastname%></td>
                     <td><%= user.mobile%></td>
                     <td><%= user.phone%></td>
-                    <td><a href="mailto:<%= user.email%>"><%= user.email%></a></td>
+                    <td><%= user.email%></td>
                     <td><%= user.birthday%></td>
                     <td><%= user.worked%>/<%= user.workhours%></td>
                     <td><% if(user.memberNumber) {%>
