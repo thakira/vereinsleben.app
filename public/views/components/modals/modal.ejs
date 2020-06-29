@@ -1,22 +1,29 @@
-<div class="modal fade" id="addNewsModal" tabindex="-1" role="dialog" aria-labelledby="addNewsModalLabel" aria-hidden="true">
+<div class="modal fade fullsize" id="<%= modalType %><% if(modalType === "newsModal") {%><%= article._id.$oid %><%}%>" tabindex="-1" role="dialog" aria-labelledby="<%= modalType %>Label" aria-hidden="true">
+
+    <nav class="navbar fixed-top navbar-dark bg-primary modal-nav">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h3>Aktuelles</h3>
+    </nav>
+
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title"><%= article.newsTitle %></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="small">Aktuelles vom <span class="datum" del-date="<%= article.createdAt.$date %>"></span></p>
-                <div class="newsText"><%= article.newsText %></div>
-
-
-            </div>
-            <div class="modal-footer">
-                <!-- Edit Button hier einfügen-->
-            </div>
+            <% if(modalType === "addNewsModal" ) {%>
+                <%- include('./addNewsModal') %>
+            <% } else if (modalType === "newsModal" ) {%>
+                <%- include('./newsModal') %>
+            <% }%>
         </div>
     </div>
 </div>
+
+<% if(modalType === "addNewsModal" ) { console.log("addNewsModal")%>
+
+    <!-- Editorjs load from CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@editorjs/attaches@latest"></script>
+    <script defer src="/assets/js/simple-image.js"></script>
+    <script defer src="/assets/js/news-edit.js"></script>
+<% }%>

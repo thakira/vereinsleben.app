@@ -656,7 +656,48 @@ label.bmd-label-floating {
     text-align: center;
 }
 
+/* -- Fullsize modal --*/
+.fullsize.modal {
+    padding: 0 !important;
+}
 
+.fullsize .modal-dialog.modal-lg {
+    margin: 3.2em 0 0 0;
+}
+
+.fullsize .modal-content {
+    width: 100vw;
+    min-height: 100vh;
+    border-radius: 0;
+}
+
+.fullsize .modal-content .modal-image-header,
+.fullsize .modal-content .modal-header,
+.fullsize .modal-content .modal-body,
+.fullsize .modal-content .modal-footer {
+    width: 100%;
+    max-width:800px;
+    margin: auto;
+    border-radius: 0;
+}
+
+.navbar.modal-nav {
+    justify-content: left;
+}
+
+.navbar.modal-nav {
+    justify-content: left;
+}
+
+.navbar.modal-nav h3 {
+    margin: 0.25em 0;
+}
+
+.navbar.modal-nav button.close {
+    color: #fff;
+    opacity: 1;
+    margin-right: 1em;
+}
 
 /* ---------------------------------------------------
     MEDIA STYLE
