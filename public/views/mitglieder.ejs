@@ -1,154 +1,156 @@
 <%- include('partials/header/header') %>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css"/>
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css"/>
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"/>
-<link rel="stylesheet" href="./assets/datatables/dt-editor/css/editor.dataTables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+<!--<link rel="stylesheet" href="https://unpkg.com/formiojs@latest/dist/formio.full.min.css">-->
+<script src="https://unpkg.com/formiojs@latest/dist/formio.full.min.js"></script>
 
-<script type="text/javascript" src="./assets/datatables/dt-editor/js/dataTables.editor.min.js"></script>
-
-<script>
-    $(document).ready( function () {
-        const URL = "http://127.0.0.1"
-        var editor = new $.fn.dataTable.Editor( {
-            ajax: {
-                edit: {
-                    type: 'POST',
-                    //url:  URL + '/editMember?id=_id_'
-                    url:  URL + '/editMember',
-                    header: "'content': 'application/json; charset=UTF-8'"
-                },
-                remove: {
-                    type: 'DELETE',
-                    url:  URL + '/deleteMember'
-                }
-            },
-            table: '#userTable',
-            i18n: {
-                edit: {
-                    button: "Bearbeiten",
-                    title:  "Eintrag bearbeiten",
-                    submit: "Speichern"
-                },
-                    remove: {
-                        button: "Löschen",
-                        title:  "Eintrag löschen",
-                        submit: "Löschen",
-                        confirm: {
-                            _: "Sind Sie sicher, das sie dieses Mitglied löschen möchten?",
-                            1: "Sind Sie sicher, das sie dieses Mitglied löschen möchten?"
-                        }
-                    }
-                },
-            fields: [
-                { label: 'Vorname', name: 'firstname' },
-                { label: 'Nachname',  name: 'lastname' },
-                { label: 'Mobil',  name: 'mobile' },
-                { label: 'Telefon',  name: 'phone' },
-                { label: 'E-Mail',  name: 'email' },
-                {
-                    label: 'Geburtstag',
-                    name: 'birthday',
-                    type: 'date'},
-                { label: 'Mitglieds-Nr.',  name: 'memberNumber' },
-                { label: 'Rechte',
-                    name: 'role',
-                    type:  "select",
-                    options: [
-                        { label: "User", value: "user" },
-                        { label: "Trainer",           value: "trainer" },
-                        { label: "Admin",           value: "admin" }
-                        ]}
-            ]
-        } );
-        $('#userTable').DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-            },
-            responsive: {
-                details: true
-            },
-            select: true,
-            dom: 'Bfrtip',
-            columns: [
-                //{data: 'id'},
-                { data: 'firstname' },
-                { data: 'lastname' },
-                { data: 'mobile' },
-                { data: 'phone' },
-                { data: 'email' },
-                { data: 'birthday' },
-                { data: 'workhours' },
-                { data: 'memberNumber' },
-                { data: 'role' },
-                { data: 'registered' }
-            ],
-            buttons: [
-                { extend: 'edit',   editor: editor },
-                { extend: 'remove', editor: editor }
-            ]
-        });
-
-    } );
-</script>
 
 <main>
     <div class="card tableContainer">
-        <table id="userTable" class="display dt-responsive nowrap" width="100%" data-page-length="25">
-            <thead>
-            <tr>
-<!--                <th>ID</th>-->
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>Mobil</th>
-                <th>Telefon</th>
-                <th>E-Mail</th>
-                <th>Geburtstag</th>
-                <th>Arbeitsstunden</th>
-                <th>Mitglieds-Nr.</th>
-                <th>Rechte</th>
-                <th>Registriert seit</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% users.forEach( (user) => { %>
-                <tr id="<%= user._id%>">
-<!--                    <td><%= user._id%></td>-->
-                    <td><%= user.firstname%></td>
-                    <td><%= user.lastname%></td>
-                    <td><%= user.mobile%></td>
-                    <td><%= user.phone%></td>
-                    <td><%= user.email%></td>
-                    <td><%= user.birthday%></td>
-                    <td><%= user.worked%>/<%= user.workhours%></td>
-                    <td><% if(user.memberNumber) {%>
-                            <%= user.memberNumber%>
-                        <% } else {%>
-                            xxxx
-                        <% }%>
-                    </td>
-                    <td><%= user.role%></td>
-                    <td>
-                        <%= new Date(user.createdAt).getDate().toString().length < 2
-                                ? "0"+new Date(user.createdAt).getDate()
-                                : new Date(user.createdAt).getDate()%>.<%= new Date(user.createdAt).getMonth().toString().length < 2
-                                ? "0"+ (new Date(user.createdAt).getMonth() + 1)
-                                : new Date(user.createdAt).getMonth().toString()%>.<%= new Date(user.createdAt).getFullYear() %>
-                    </td>
-                </tr>
-            <% }) %>
-            </tbody>
-        </table>
-
+        <div id="formio"></div>
     </div>
 </main>
+<script>
+    Formio.createForm(document.getElementById('formio'), {
+    components: [
+        {
+            label: 'Mitglieder',
+            key: 'members',
+            type: 'editgrid',
+            input: true,
+            templates: {
+                header: '' +
+                        '<div class="row">' +
+                        '  {% util.eachComponent(components, function(component) { %} ' +
+                        '    <div class="col-sm-2">' +
+                        '      <strong>{{ component.label }}</strong>' +
+                        '    </div>' +
+                        '  {% }) %}' +
+                        '</div>',
+                row: '' +
+                        '<div class="row">' +
+                        '  {%util.eachComponent(components, function(component) { %}' +
+                        '    <div class="col-sm-2">' +
+                        '      {{ row[component.key] }}' +
+                        '    </div>' +
+                        '  {% }) %}' +
+                        '  <div class="col-sm-2">' +
+                        '    <div class="btn-group pull-right">' +
+                        '      <div class="btn btn-default btn-sm editRow"><i class="fa fa-edit"></i></div>' +
+                        '      <div class="btn btn-danger btn-sm removeRow"><i class="fa fa-trash"></i></div>' +
+                        '    </div>' +
+                        '  </div>' +
+                        '</div>',
+                footer: ''
+            },
+            components: [
+                {
+                    label: 'First Name',
+                    key: 'firstName',
+                    type: 'textfield',
+                    input: true
+                },
+                {
+                    label: 'Last Name',
+                    key: 'lastName',
+                    type: 'textfield',
+                    input: true
+                },
+                {
+                    label: 'Gender',
+                    key: 'gender',
+                    type: 'select',
+                    input: true,
+                    data: {
+                        values: [
+                            {
+                                value: 'male',
+                                label: 'Male'
+                            },
+                            {
+                                value: 'female',
+                                label: 'Female'
+                            },
+                            {
+                                value: 'other',
+                                label: 'Other'
+                            }
+                        ]
+                    },
+                    dataSrc: 'values',
+                    template: '<span>{{ item.label }}</span>'
+                },
+                {
+                    type: 'checkbox',
+                    label: 'Dependant',
+                    key: 'dependant',
+                    inputType: 'checkbox',
+                    input: true
+                },
+                {
+                    label: 'Birthdate',
+                    key: 'birthdate',
+                    type: 'datetime',
+                    input: true,
+                    format: 'yyyy-MM-dd hh:mm a',
+                    enableDate: true,
+                    enableTime: true,
+                    defaultDate: '',
+                    datepickerMode: 'day',
+                    datePicker: {
+                        showWeeks: true,
+                        startingDay: 0,
+                        initDate: '',
+                        minMode: 'day',
+                        maxMode: 'year',
+                        yearRows: 4,
+                        yearColumns: 5,
+                        datepickerMode: 'day'
+                    },
+                    timePicker: {
+                        hourStep: 1,
+                        minuteStep: 1,
+                        showMeridian: true,
+                        readonlyInput: false,
+                        mousewheel: true,
+                        arrowkeys: true
+                    },
+                    "conditional": {
+                        "eq": "true",
+                        "when": "dependant",
+                        "show": "true"
+                    }
+                }
+            ]
+        }
+    ]
+}).then(function(form) {
+// Provide a default submission.
 
-<% if(user.role === "admin") { %>
-  <%- include('components/buttons/floating-add', {dataTarget:"mitgliederModal"}) %>
-<% } %>
+    form.submission = {
+        data: {
+            members: [
+                {
+                    firstName: 'Joe',
+                    lastName: 'Smith',
+                    gender: 'male',
+                    dependant: true,
+                    birthdate: '1982-05-18'
+                },
+                {
+                    firstName: 'Mary',
+                    lastName: 'Smith',
+                    gender: 'female',
+                    dependant: false,
+                    birthdate: '1979-02-17'
+                }
+            ]
+        }
+    };
+});
+
+</script>
+
+
 
 <%- include('partials/footer/footer') %>

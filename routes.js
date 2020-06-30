@@ -6,6 +6,7 @@ const randomString = require('randomstring')
 const mailer = require('./misc/mailer')
 const fs = require('fs')
 
+
 const news =
     [
         {
@@ -229,12 +230,28 @@ module.exports = (app, passport) => {
         })
     })
 
+    app.get('/getMemberData', async(req, res, next) => {
+        await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
+            if (err) return next(err);
+            users = JSON.stringify({"components": users}, null, 4);
+            //console.log(users);
+            res.send(users);
+        });
+    });
+
     // Mitglieder
+    app.get('/mitglieder', isLoggedin, async(req, res) => {
+        res.render('views/mitglieder', {
+            title: 'Mitglieder',
+            user: req.user
+        })
+    })
+    /*// Mitglieder
     app.get('/mitglieder', isLoggedin, async (req, res) => {
         //let result = await User.find({});
         //console.log("result: " + result);
-        const users = await User.find({});
-        console.log(users);
+        const users = await User.find({});*/
+        //console.log(users);
         /*const users = () => {
             "[" +
             foreach(user in users_db)
@@ -313,11 +330,11 @@ module.exports = (app, passport) => {
                 }
             }]*/
 
-        res.render('views/mitglieder', {
+/*        res.render('views/mitglieder', {
             title: 'Mitglieder',
             user: req.user,
             users: users })
-    })
+    })*/
 
     // Gruppen
     app.get('/gruppen', isLoggedin, (req, res) => {
