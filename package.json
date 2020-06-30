@@ -15,6 +15,7 @@
     "express": "^4.16.4",
     "express-flash": "0.0.2",
     "express-session": "^1.17.1",
+    "formiojs": "^4.10.4",
     "http-errors": "~1.6.3",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.12",

@@ -1,0 +1,141 @@
+<%- include('partials/header/header') %>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css"/>
+<link rel="stylesheet" href="./assets/datatables/dt-editor/css/editor.dataTables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+
+<script type="text/javascript" src="./assets/datatables/dt-editor/js/dataTables.editor.min.js"></script>
+
+
+<script>
+    $(document).ready( function () {
+        const URL = "http://127.0.0.1:3000";
+        const editor = new $.fn.dataTable.Editor({
+            ajax: {
+                edit: {
+                    type: 'POST',
+                    url: URL + '/editMember'
+                },
+                remove: {
+                    type: 'DELETE',
+                    url: URL + '/deleteMember'
+                },
+            },
+            table: '#userTable',
+            i18n: {
+                edit: {
+                    button: "Bearbeiten",
+                    title: "Eintrag bearbeiten",
+                    submit: "Speichern"
+                },
+                remove: {
+                    button: "Löschen",
+                    title: "Eintrag löschen",
+                    submit: "Löschen",
+                    confirm: {
+                        _: "Bist Du sicher, dass Du dieses Mitglied löschen möchtest?",
+                        1: "Bist Du sicher, dass Du dieses Mitglied löschen möchtest?"
+                    }
+                }
+            },
+            fields: [
+                {label: 'Vorname', name: 'firstname'},
+                {label: 'Nachname', name: 'lastname'},
+                {label: 'Mobil', name: 'mobile'},
+                {label: 'Telefon', name: 'phone'},
+                {label: 'E-Mail', name: 'email'},
+                {
+                    label: 'Geburtstag',
+                    name: 'birthday',
+                    type: 'date'
+                },
+                {label: 'Mitglieds-Nr.', name: 'memberNumber'},
+                {
+                    label: 'Rechte',
+                    name: 'role',
+                    type: "select",
+                    options: [
+                        {label: "User", value: "user"},
+                        {label: "Trainer", value: "trainer"},
+                        {label: "Admin", value: "admin"}
+                    ]
+                }
+            ]
+        });
+        $('#userTable').DataTable({
+            ajax: {
+                'type': 'GET',
+                'url': URL + '/getMemberData'
+            },
+            language: {
+                url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json",
+                select: {
+                    rows: {
+                        _: "%d Zeilen ausgewählt",
+                        1: "Eine Zeile ausgewählt"
+                    }
+                }
+            },
+            responsive: {
+                details: true
+            },
+            select: true,
+            columns:
+                [
+                {data: 'firstname', 'name': 'Vorname'},
+                {data: 'lastname', 'name': 'Nachname'},
+                {data: 'mobile', "defaultContent": "", 'name': 'Mobil'},
+                {data: 'phone', "defaultContent": "", 'name': 'Telefon'},
+                {data: 'email', "defaultContent": "", 'name': 'E-Mail'},
+                {data: 'birthday', "defaultContent": "", 'name': 'Geburtstag'},
+                    {data: null ,render: function(data, type, row) {
+                            if (data.workhours == null) {
+                                return "0"
+                            } else {
+                                return data.worked + '/' + data.workhours;
+                            }
+                        }},
+                {data: 'memberNumber', "defaultContent": "xxx", 'name': 'Mitglieds-Nr.'},
+                {data: 'role', 'name': 'Rechte'},
+                {data: 'createdAt', 'name': 'registriert seit'}
+            ],
+            buttons: [
+                { extend: 'edit',   editor: editor },
+                { extend: 'remove', editor: editor }
+            ]
+        });
+
+    });
+</script>
+
+<main>
+    <div class="card tableContainer">
+        <table id="userTable" class="display dt-responsive nowrap" width="100%" data-page-length="25">
+            <thead>
+            <tr>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Mobil</th>
+                <th>Telefon</th>
+                <th>E-Mail</th>
+                <th>Geburtstag</th>
+                <th>Arbeitsstunden</th>
+                <th>Mitglieds-Nr.</th>
+                <th>Rechte</th>
+                <th>registriert seit</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+
+<%- include('partials/footer/footer') %>
