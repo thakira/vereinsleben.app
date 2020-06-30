@@ -6,115 +6,115 @@ const randomString = require('randomstring')
 const mailer = require('./misc/mailer')
 const fs = require('fs')
 
-const news =
-    [
-        {
-            "_id": {
-                "$oid": "5ebced9867shgf456f004e05d1"
-            },
-            "newsTitle": "Card Title 1",
-            "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-                "\n" +
-                "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-                "\n" +
-                "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-                "\n" +
-                "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-                "\n" +
-                "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-            "newsImg": "",
-            "newsDoc": "",
-            "newsReleased": true,
-            "newsType": "text",
-            "createdAt": {
-                "$date": "2020-05-14T07:04:56.104Z"
-            }
-        }, {
-        "_id": {
-            "$oid": "5ebced98ghf7456004e05d1"
-        },
-        "newsTitle": "Card Title 4",
-        "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-            "\n" +
-            "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-            "\n" +
-            "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-            "\n" +
-            "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-            "\n" +
-            "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-        "newsImg": "/beispielfoto-voltigieren.jpg",
-        "newsDoc": "",
-        "newsReleased": true,
-        "newsType": "image",
-        "createdAt": {
-            "$date": "2020-04-21T07:04:56.104Z"
-        }
-    }, {
-            "_id": {
-                "$oid": "5easd3423560f004e05d1"
-            },
-            "newsTitle": "Card Title 2",
-            "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-                "\n" +
-                "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-                "\n" +
-                "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-                "\n" +
-                "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-                "\n" +
-                "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-            "newsImg": "/beispielfoto-voltigieren.jpg",
-            "newsDoc": "",
-            "newsReleased" : true,
-            "newsType": "image",
-            "createdAt": {
-                "$date": "2020-04-21T07:04:56.104Z"
-            }
-        }, {
-        "_id": {
-            "$oid": "5ebcedgas5763780f004e05d1"
-        },
-        "newsTitle": "Card Title ",
-        "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-            "\n" +
-            "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-            "\n" +
-            "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-            "\n" +
-            "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-            "\n" +
-            "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-        "newsImg": "",
-        "newsDoc": "",
-        "newsReleased": true,
-        "newsType": "text",
-        "createdAt": {
-            "$date": "2020-05-14T07:04:56.104Z"
-        }
-    }, {
-        "_id": {
-            "$oid": "5ebce345567560f004e05d1"
-        },
-        "newsTitle": "Card Title 3",
-        "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-            "\n" +
-            "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-            "\n" +
-            "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-            "\n" +
-            "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-            "\n" +
-            "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-        "newsImg": "/beispielfoto-voltigieren.jpg",
-        "newsDoc": "",
-        "newsReleased": true,
-        "newsType": "image",
-        "createdAt": {
-            "$date": "2020-04-01T07:04:56.104Z"
-        }
-    }
-    ]
+// const news =
+//     [
+//         {
+//             "_id": {
+//                 "$oid": "5ebced9867shgf456f004e05d1"
+//             },
+//             "newsTitle": "Card Title 1",
+//             "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
+//                 "\n" +
+//                 "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
+//                 "\n" +
+//                 "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
+//                 "\n" +
+//                 "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
+//                 "\n" +
+//                 "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
+//             "newsImg": "",
+//             "newsDoc": "",
+//             "newsReleased": true,
+//             "newsType": "text",
+//             "createdAt": {
+//                 "$date": "2020-05-14T07:04:56.104Z"
+//             }
+//         }, {
+//         "_id": {
+//             "$oid": "5ebced98ghf7456004e05d1"
+//         },
+//         "newsTitle": "Card Title 4",
+//         "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
+//             "\n" +
+//             "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
+//             "\n" +
+//             "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
+//             "\n" +
+//             "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
+//             "\n" +
+//             "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
+//         "newsImg": "/beispielfoto-voltigieren.jpg",
+//         "newsDoc": "",
+//         "newsReleased": true,
+//         "newsType": "image",
+//         "createdAt": {
+//             "$date": "2020-04-21T07:04:56.104Z"
+//         }
+//     }, {
+//             "_id": {
+//                 "$oid": "5easd3423560f004e05d1"
+//             },
+//             "newsTitle": "Card Title 2",
+//             "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
+//                 "\n" +
+//                 "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
+//                 "\n" +
+//                 "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
+//                 "\n" +
+//                 "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
+//                 "\n" +
+//                 "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
+//             "newsImg": "/beispielfoto-voltigieren.jpg",
+//             "newsDoc": "",
+//             "newsReleased" : true,
+//             "newsType": "image",
+//             "createdAt": {
+//                 "$date": "2020-04-21T07:04:56.104Z"
+//             }
+//         }, {
+//         "_id": {
+//             "$oid": "5ebcedgas5763780f004e05d1"
+//         },
+//         "newsTitle": "Card Title ",
+//         "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
+//             "\n" +
+//             "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
+//             "\n" +
+//             "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
+//             "\n" +
+//             "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
+//             "\n" +
+//             "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
+//         "newsImg": "",
+//         "newsDoc": "",
+//         "newsReleased": true,
+//         "newsType": "text",
+//         "createdAt": {
+//             "$date": "2020-05-14T07:04:56.104Z"
+//         }
+//     }, {
+//         "_id": {
+//             "$oid": "5ebce345567560f004e05d1"
+//         },
+//         "newsTitle": "Card Title 3",
+//         "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
+//             "\n" +
+//             "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
+//             "\n" +
+//             "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
+//             "\n" +
+//             "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
+//             "\n" +
+//             "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
+//         "newsImg": "/beispielfoto-voltigieren.jpg",
+//         "newsDoc": "",
+//         "newsReleased": true,
+//         "newsType": "image",
+//         "createdAt": {
+//             "$date": "2020-04-01T07:04:56.104Z"
+//         }
+//     }
+//     ]
 
 // Check if user is logged in
 function isLoggedin(req, res, next) {
@@ -163,6 +163,8 @@ module.exports = (app, passport) => {
 
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
+        const news = await News.find({});
+        console.log(news)
         return res.render('views/dashboard', {
             title: 'Dashboard',
             user: req.user,
@@ -206,7 +208,8 @@ module.exports = (app, passport) => {
     })
 
     // News
-    app.get('/aktuelles', isLoggedin, (req, res) => {
+    app.get('/aktuelles', isLoggedin, async (req, res) => {
+        const news = await News.find({});
         res.render('views/aktuelles-site', {title: 'Aktuelles',
             user: req.user,
             news: news
@@ -231,92 +234,12 @@ module.exports = (app, passport) => {
 
     // Mitglieder
     app.get('/mitglieder', isLoggedin, async (req, res) => {
-        //let result = await User.find({});
-        //console.log("result: " + result);
         const users = await User.find({});
-        console.log(users);
-        /*const users = () => {
-            "[" +
-            foreach(user in users_db)
-            {
-                "{"
-
-            }
-        }
-        [{
-                "_id": {
-                    "$oid": "5ebced98e165540f004e05d1"
-                },
-                "firstname": "Marcus",
-                "lastname": "Kirschen",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "mail@mkirschen.de",
-                "birthday": "1983-07-21T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 10,
-                "memberNumber": 1056,
-                "role": "admin",
-                "createdAt": {
-                    "$date": "2020-05-14T07:04:56.104Z"
-                }
-            },{
-                "_id": {
-                    "$oid": "5ebd2023c8978454a007a097"
-                },
-                "firstname": "Emil",
-                "lastname": "Meier",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "em@mail.de",
-                "birthday": "1963-04-18T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 8,
-                "memberNumber": "",
-                "role": "user",
-                "createdAt": {
-                    "$date": "2020-04-30T07:04:56.104Z"
-                }
-            },{
-                "_id": {
-                    "$oid": "5ebd205bc8978454a007a098"
-                },
-                "firstname": "Saskia",
-                "lastname": "Meier",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "dm@mail.de",
-                "birthday": "1998-12-11T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 3,
-                "memberNumber": "",
-                "role": "trainer",
-                "createdAt": {
-                    "$date": "2020-05-03T07:04:56.104Z"
-                }
-            },{
-                "_id": {
-                    "$oid": "5ebd206ec8978454a007a099"
-                },
-                "firstname": "Brigitte",
-                "lastname": "Muster",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "bm@muster.de",
-                "birthday": "2001-01-28T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 6,
-                "memberNumber": "5623",
-                "role": "user",
-                "createdAt": {
-                    "$date": "2020-04-19T07:04:56.104Z"
-                }
-            }]*/
-
         res.render('views/mitglieder', {
             title: 'Mitglieder',
             user: req.user,
-            users: users })
+            users: users
+        })
     })
 
     // Gruppen

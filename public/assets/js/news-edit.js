@@ -1,4 +1,3 @@
-
 const editor = new EditorJS({
     autofocus: true,
     tools: {
@@ -14,7 +13,23 @@ const editor = new EditorJS({
         },
         attaches: AttachesTool
     },
-    data: ''
+    data: {
+        blocks: [
+            {
+                type: "header",
+                data: {
+                    text: "Hier den Titel eingeben",
+                    level: 2
+                }
+            },
+            {
+                type: "paragraph",
+                data: {
+                    text: "Hier den Text eingeben"
+                }
+            }
+        ]
+    }
     // data: {
     //     _id: 23745672345276856,
     //     time: 1552744582955,
@@ -50,21 +65,28 @@ const editor = new EditorJS({
     // }
 })
 
+
 const URL = 'http://localhost:3000'
 const saveButton = document.getElementById('save-button');
 saveButton.addEventListener('click', () => {
     editor.save().then( savedData => {
         fetch(URL+'/addNews', {
-                headers: {
-                    'Accept': 'application/json, text/plain, *7*',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify(savedData, null, 4)
+            headers: {
+                'Accept': 'application/json, text/plain, *7*',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(savedData, null, 4)
         })
             .then(
+                console.log(JSON.stringify(savedData, null, 4)),
                 $.snackbar({content: 'Beitrag gespeichert!', style: 'toast'})
             )
-            .catch(err => console.error(err))
+            .catch(
+                err => {
+                    console.error(err)
+                    $.snackbar({content: 'Fehler beim Speichern!', style: 'toast'})
+                }
+            )
     })
 })

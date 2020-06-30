@@ -2,7 +2,7 @@
 
     <% if(news) {%>
         <% news.forEach( article => {%>
-            <% if (article.newsReleased) {%>
+            <% if (true) {%> <!--article.newsReleased-->
                 <% if (article.newsType === "image") {%>
                     <%- include('aktuell-image', {article})%>
                 <% } else if (article.newsType === "fullimage" ) {%>
@@ -20,5 +20,3 @@
 <%- include('../modals/modal', {modalType: "addNewsModal"}) %>
 <% if(user.role === "admin") { %>
 <% } %>
-
-
