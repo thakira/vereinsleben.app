@@ -10,14 +10,14 @@ const schemaOptions = {
     }
 };
 const userSchema = new Schema({
-    memberNumber: {type: Number},
+    memberNumber: {type: Number, default: null},
     email: {type: String, required: true, unique: true },
     password: { type: String, required: true },
     firstname: {type: String, required: true},
     lastname: {type: String, required: true},
-    phone: {type: String},
-    mobile: {type: String},
-    birthday: {type: Date},
+    phone: {type: String, default: ""},
+    mobile: {type: String, default: ""},
+    birthday: {type: Date, default: null},
     img: { data: Buffer, contentType: String },
     secretToken: {type: String},
     //Rolle
@@ -30,9 +30,9 @@ const userSchema = new Schema({
     //Einstellungen Benachrichtigungen
     messages: {type: Map},
     // angemeldete Stunden
-    workhours: {type: Number},
+    workhours: {type: Number, default: 10},
     // geleistete Stunden
-    worked: {type: Number},
+    worked: {type: Number, default: 0},
     // angemeldete Termine
     events: {type:Array}
 }, { timestamps: true })
