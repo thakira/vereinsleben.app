@@ -410,7 +410,7 @@ module.exports = (app, passport) => {
             await user.save()
 
 
-            // var data = JSON.stringify({
+            // varcccccc data = JSON.stringify({
             //     "draw": req.body.draw,
             //     "recordsFiltered": recordsFiltered,
             //     "recordsTotal": recordsTotal,
