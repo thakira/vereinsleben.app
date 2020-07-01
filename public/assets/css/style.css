@@ -433,6 +433,32 @@ img.avatar.small {
     width: 5em;
 }
 
+.profil-header figure.teaser {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 1em auto 2em auto;
+    color: #ddd;
+    height: 8em;
+    max-height:8em;
+    width: 8em;
+    max-width: 8em;
+    border: 2px solid #fff;
+    border-radius: 4em;
+    transition: all .2s ease-in;
+}
+
+.profil-header figure.teaser:hover {
+    cursor:pointer;
+    box-shadow: 0 0 2em #666;
+    background: var(--primary);
+}
+
+.profil-header figure span {
+    padding: 1em;
+}
+
 .dropdown-content {
     min-width: 240px;
 }
@@ -527,6 +553,15 @@ main.container-fluid {
     background-color: none;
     padding: .5rem 0;
     border: none;
+}
+
+.editMode [class*=" bmd-label"],
+.editMode [class^=bmd-label] {
+    color: #000;
+}
+
+.hidden {
+    display: none;
 }
 
 /*** Spinner ***/

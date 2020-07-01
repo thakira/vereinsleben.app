@@ -10,6 +10,7 @@ const schemaOptions = {
     }
 };
 const userSchema = new Schema({
+    firstLogin: {type: Boolean, default:true},
     memberNumber: {type: Number},
     email: {type: String, required: true, unique: true },
     password: { type: String, required: true },

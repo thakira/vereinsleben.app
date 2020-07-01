@@ -88,35 +88,35 @@ $(document).ready( function() {
     // });
 });
 
-function myfkt(file){
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
-    let img = new Image();
-    img.src = URL.createObjectURL(file);
-    console.log(img);
-    canvas.width = 200;
-    canvas.height = 200;
-    img.onload = function(){
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(100, 100, 100, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.clip();
-
-        ctx.drawImage(img, 0, 0, 200, 200);
-
-        ctx.beginPath();
-        ctx.arc(0, 0, 100, 0, Math.PI * 2, true);
-        ctx.clip();
-        ctx.closePath();
-        ctx.restore();
-
-        //
-        // let canvas = document.getElementById("canvas");
-        // let thumb = canvas.toDataURL("image/png");
-        // $("#canvas").append('<img width="20" height="20" src='+thumb+'>');
-    }
-}
+// function myfkt(file){
+//     let canvas = document.getElementById("canvas");
+//     let ctx = canvas.getContext("2d");
+//     let img = new Image();
+//     img.src = URL.createObjectURL(file);
+//     console.log(img);
+//     canvas.width = 200;
+//     canvas.height = 200;
+//     img.onload = function(){
+//         ctx.save();
+//         ctx.beginPath();
+//         ctx.arc(100, 100, 100, 0, Math.PI * 2, true);
+//         ctx.closePath();
+//         ctx.clip();
+//
+//         ctx.drawImage(img, 0, 0, 200, 200);
+//
+//         ctx.beginPath();
+//         ctx.arc(0, 0, 100, 0, Math.PI * 2, true);
+//         ctx.clip();
+//         ctx.closePath();
+//         ctx.restore();
+//
+//         //
+//         // let canvas = document.getElementById("canvas");
+//         // let thumb = canvas.toDataURL("image/png");
+//         // $("#canvas").append('<img width="20" height="20" src='+thumb+'>');
+//     }
+// }
 $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -165,4 +165,103 @@ $(document).ready(function() {
             e.preventDefault();
         });
     });
+
+
+});
+
+$(".cancel-btn").on("click", function() {
+    $('button[type="submit"]').remove();
+    $(".cancel-btn").addClass("hidden")
+    $('.edit-btn').removeClass("hidden");
+    $("input").attr('readonly','');
+    $("#profilForm").removeClass("editMode");
+})
+
+$(".edit-btn").on("click", function () {
+    $(".edit-btn").addClass("hidden");
+    $(".cancel-btn").removeClass("hidden");
+
+    $("input").removeAttr('readonly');
+    $("#profilForm").addClass("editMode").removeClass("readonly");
+
+    let submitBtn = '<button type=\"submit\" class=\"btn btn-primary\" role=\"button\">Speichern</button>';
+    $("#profilForm").append(submitBtn);
+
+    $("#profilForm").submit(function( e ) {
+        e.preventDefault();
+
+        let $form = $(this),
+            fn = $form.find('input[name="firstname"]').val(),
+            ln = $form.find('input[name="lastname"]').val(),
+            em = $form.find('input[name="email"]').val(),
+            b  = $form.find('input[name="birthday"]').val(),
+            t  = $form.find('input[name="phone"]').val(),
+            m  = $form.find('input[name="mobile"]').val(),
+            p  = $form.find('input[name="password"]').val(),
+            url= $form.attr("action");
+
+        if( fn && ln && em ) {
+            let formdata = (p!=null) ? {firstname: fn, lastname:ln, email:em, birthday:b, phone:t, mobile:m, password:p}
+                                      : {firstname: fn, lastname:ln, email:em, phone:t, mobile:m};
+            let posting = $.post(url, formdata, () => {
+                $('button[type="submit"]').remove();
+                $(".cancel-btn").addClass("hidden")
+                $('.edit-btn').removeClass("hidden");
+                $("input").attr('readonly','');
+                $("#profilForm").removeClass("editMode");
+                $.snackbar({content: 'Profil gespeichert!', style: 'toast'})
+            });
+        }
+    })
+})
+
+$('#profilImage').on('click', () => {
+    $('#profilImageModal').modal('show');
+})
+
+
+// Profilbild laden und zuschneiden
+function loadProfilImage(file) {
+    let img = new Image();
+    img.src = URL.createObjectURL(file);
+    $('#imageContainer').append(img);
+}
+
+$(function(){
+    //
+    // $('#jcrop_target').Jcrop({
+    //     onChange: showPreview,
+    //     onSelect: showPreview,
+    //     aspectRatio: 1
+    // });
+
+});
+function showPreview(coords)
+{
+    var rx = 100 / coords.w;
+    var ry = 100 / coords.h;
+
+    $('#preview').css({
+        width: Math.round(rx * 500) + 'px',
+        height: Math.round(ry * 370) + 'px',
+        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+    });
+}
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#profilbild").change(function(){
+    $('.imageContainer').removeClass('hidden');
+    readURL(this);
 });

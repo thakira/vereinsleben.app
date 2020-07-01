@@ -135,8 +135,6 @@ module.exports = (app, passport) => {
         passwordField: 'password'
     }, async (email, password, done) => {
         try {
-            //if (!email || !password) throw { message: 'Empty fields!' }
-
             const hashedPwd = crypto.createHash('sha256').update(password).digest('hex')
             const user = await User.findOne({email: email, password: hashedPwd})
             if (!user) return done(null, false, 'Anmeldung fehlgeschlagen!')
@@ -234,7 +232,7 @@ module.exports = (app, passport) => {
         //let result = await User.find({});
         //console.log("result: " + result);
         const users = await User.find({});
-        console.log(users);
+        //console.log(users);
         /*const users = () => {
             "[" +
             foreach(user in users_db)
@@ -405,6 +403,7 @@ module.exports = (app, passport) => {
 
     //News hinzufügen
     app.post('/addNews', async (req, res) => {
+        console.log('POST: '+req.body)
         try {
             const time = req.body.time
             const blocks = req.body.blocks
@@ -423,6 +422,39 @@ module.exports = (app, passport) => {
         } catch (exception) {
             req.flash('error', exception.message)
         }
+    })
+
+    app.get('/addNews', async (req, res) => {
+        console.log('GET: ' + req)
+        res.send("This is me! ")
+    })
+
+    app.put('/addNews', async (req, res) => {
+        console.log('PUT: ' + req)
+    })
+
+    app.post('/editProfil', isLoggedin, async (req, res) => {
+        try {
+            console.log("POST /editProfil");
+            const userProfil = await User.findOne({_id: req.user._id})
+
+            userProfil.firstname = req.body.firstname
+            userProfil.lastname = req.body.lastname
+            userProfil.email = req.body.email
+            userProfil.phone = req.body.phone
+            userProfil.mobile = req.body.mobile
+            userProfil.birthday = req.body.birthday
+            userProfil.password = (req.body.password.length>0)
+                ? crypto.createHash('sha256').update(req.body.password).digest('hex')
+             : req.user.password
+
+            await userProfil.save()
+            res.send("Profil gespeichert")
+        } catch (e) {
+            console.log(e)
+            res.send("Fehler beim Speichern")
+        }
+
     })
 
 

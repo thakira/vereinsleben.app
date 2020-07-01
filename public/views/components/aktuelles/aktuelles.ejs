@@ -4,11 +4,11 @@
         <% news.forEach( article => {%>
             <% if (true) {%> <!--article.newsReleased-->
                 <% if (article.newsType === "image") {%>
-                    <%- include('aktuell-image', {article})%>
+                    <%- //include('aktuell-image', {article})%>
                 <% } else if (article.newsType === "fullimage" ) {%>
-                    <%- include('aktuell-fullimage', {article})%>
+                    <%- //include('aktuell-fullimage', {article})%>
                 <% } else {%>
-                    <%- include('aktuell-text', {article})%>
+                    <%- //include('aktuell-text', {article})%>
                <% }%>
             <% }%>
         <%}) %>
