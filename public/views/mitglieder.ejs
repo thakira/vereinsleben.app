@@ -4,6 +4,17 @@
 <!--<link rel="stylesheet" href="https://unpkg.com/formiojs@latest/dist/formio.full.min.css">-->
 <script src="https://unpkg.com/formiojs@latest/dist/formio.full.min.js"></script>
 
+<script>
+    const res = () => {
+    fetch('http://localhost:3000/getMemberData')
+        .then(response => response.json())
+        .then(data => function(data){
+            let allMembers = data.results;
+        });
+    }
+
+</script>
+
 
 <main>
     <div class="card tableContainer">
@@ -14,7 +25,7 @@
     Formio.createForm(document.getElementById('formio'), {
     components: [
         {
-            label: 'Mitglieder',
+            label: "",
             key: 'members',
             type: 'editgrid',
             input: true,
@@ -45,60 +56,47 @@
             },
             components: [
                 {
-                    label: 'First Name',
+                    label: 'Vorname',
                     key: 'firstName',
                     type: 'textfield',
                     input: true
                 },
                 {
-                    label: 'Last Name',
+                    label: 'Nachname',
                     key: 'lastName',
                     type: 'textfield',
                     input: true
                 },
                 {
-                    label: 'Gender',
-                    key: 'gender',
-                    type: 'select',
-                    input: true,
-                    data: {
-                        values: [
-                            {
-                                value: 'male',
-                                label: 'Male'
-                            },
-                            {
-                                value: 'female',
-                                label: 'Female'
-                            },
-                            {
-                                value: 'other',
-                                label: 'Other'
-                            }
-                        ]
-                    },
-                    dataSrc: 'values',
-                    template: '<span>{{ item.label }}</span>'
-                },
-                {
-                    type: 'checkbox',
-                    label: 'Dependant',
-                    key: 'dependant',
-                    inputType: 'checkbox',
+                    label: 'Mobil',
+                    key: 'mobile',
+                    type: 'textfield',
                     input: true
                 },
                 {
-                    label: 'Birthdate',
-                    key: 'birthdate',
-                    type: 'datetime',
+                    label: 'Telefon',
+                    key: 'phone',
+                    inputType: 'textfield',
+                    input: true
+                },
+                {
+                    label: 'E-Mail',
+                    key: 'email',
+                    inputType: 'textfield',
+                    input: true
+                },
+                {
+                    label: 'Geburtstag',
+                    key: 'birthday',
+                    type: 'day',
                     input: true,
-                    format: 'yyyy-MM-dd hh:mm a',
+                    format: 'dd-mm-yyyy',
                     enableDate: true,
-                    enableTime: true,
+                    enableTime: false,
                     defaultDate: '',
                     datepickerMode: 'day',
                     datePicker: {
-                        showWeeks: true,
+                        showWeeks: false,
                         startingDay: 0,
                         initDate: '',
                         minMode: 'day',
@@ -106,20 +104,51 @@
                         yearRows: 4,
                         yearColumns: 5,
                         datepickerMode: 'day'
-                    },
-                    timePicker: {
-                        hourStep: 1,
-                        minuteStep: 1,
-                        showMeridian: true,
-                        readonlyInput: false,
-                        mousewheel: true,
-                        arrowkeys: true
-                    },
-                    "conditional": {
-                        "eq": "true",
-                        "when": "dependant",
-                        "show": "true"
                     }
+                    },
+                    {
+                    label: 'Arbeitsstunden',
+                    key: 'worked',
+
+                    inputType: 'number',
+                    input: false
+                    },
+                {
+                    label: 'Mitglieds-Nr.',
+                    key: 'memberNumber',
+                    inputType: 'number',
+                    input: true
+                },
+                {
+                    label: 'Rechte',
+                    key: 'role',
+                    type: 'select',
+                    input: true,
+                    data: {
+                        values: [
+                            {
+                                value: 'user',
+                                label: 'User'
+                            },
+                            {
+                                value: 'trainer',
+                                label: 'Trainer'
+                            },
+                            {
+                                value: 'admin',
+                                label: 'Admin'
+                            }
+                        ]
+                    },
+                    dataSrc: 'values',
+                    template: '<span>{{ item.label }}</span>'
+                    },
+                {
+                    label: 'registriert seit',
+                    key: 'createdAt',
+                    type: 'day',
+                    format: 'dd-mm-yyyy',
+                    input: false
                 }
             ]
         }
@@ -127,27 +156,28 @@
 }).then(function(form) {
 // Provide a default submission.
 
-    form.submission = {
-        data: {
-            members: [
-                {
-                    firstName: 'Joe',
-                    lastName: 'Smith',
-                    gender: 'male',
-                    dependant: true,
-                    birthdate: '1982-05-18'
-                },
-                {
-                    firstName: 'Mary',
-                    lastName: 'Smith',
-                    gender: 'female',
-                    dependant: false,
-                    birthdate: '1979-02-17'
-                }
-            ]
-        }
-    };
-});
+        form.submission =
+            { allMembers }
+            /*data: {
+                members: [
+                    {
+                        firstName: 'Joe',
+                        lastName: 'Smith',
+                        gender: 'male',
+                        dependant: true,
+                        birthdate: '1982-05-18'
+                    },
+                    {
+                        firstName: 'Mary',
+                        lastName: 'Smith',
+                        gender: 'female',
+                        dependant: false,
+                        birthdate: '1979-02-17'
+                    }
+                ]
+            }
+        };*/
+    });
 
 </script>
 

@@ -369,7 +369,7 @@ module.exports = (app, passport) => {
     app.get('/getMemberData', async(req, res, next) => {
         await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
             if (err) return next(err);
-            users = JSON.stringify({"components": users}, null, 4);
+            users = JSON.stringify({"data":{"members": users}}, null, 4);
             //console.log(users);
             res.send(users);
         });
