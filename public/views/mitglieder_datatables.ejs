@@ -13,11 +13,15 @@
 
 
 <script>
+
+
+
     $(document).ready( function () {
         const URL = "http://127.0.0.1:3000";
         const editor = new $.fn.dataTable.Editor({
             table: '#userTable',
-            /*ajax: {
+            idSrc:  '_id',
+            ajax: {
                 edit: {
                     type: 'POST',
                     url: URL + '/editMember',
@@ -43,8 +47,9 @@
                         1: "Bist Du sicher, dass Du dieses Mitglied löschen möchtest?",
                     },
                 },
-            },*/
+            },
             fields: [
+                {label : 'ID', name: '_id'},
                 {label: 'Vorname', name: 'firstname'},
                 {label: 'Nachname', name: 'lastname'},
                 {label: 'Mobil', name: 'mobile'},
@@ -73,7 +78,7 @@
                 'type': 'GET',
                 'url': URL + '/getMemberData',
             },
-/*            language: {
+            language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json",
                 select: {
                     rows: {
@@ -81,7 +86,7 @@
                         1: "Eine Zeile ausgewählt",
                     },
                 },
-            },*/
+            },
             responsive: {
                 details: true
             },
