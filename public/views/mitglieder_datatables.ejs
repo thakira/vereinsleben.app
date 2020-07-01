@@ -16,22 +16,23 @@
     $(document).ready( function () {
         const URL = "http://127.0.0.1:3000";
         const editor = new $.fn.dataTable.Editor({
-            ajax: {
+            table: '#userTable',
+            /*ajax: {
                 edit: {
                     type: 'POST',
-                    url: URL + '/editMember'
+                    url: URL + '/editMember',
                 },
                 remove: {
                     type: 'DELETE',
-                    url: URL + '/deleteMember'
+                    url: URL + '/deleteMember',
                 },
             },
-            table: '#userTable',
+
             i18n: {
                 edit: {
                     button: "Bearbeiten",
                     title: "Eintrag bearbeiten",
-                    submit: "Speichern"
+                    submit: "Speichern",
                 },
                 remove: {
                     button: "Löschen",
@@ -39,21 +40,21 @@
                     submit: "Löschen",
                     confirm: {
                         _: "Bist Du sicher, dass Du dieses Mitglied löschen möchtest?",
-                        1: "Bist Du sicher, dass Du dieses Mitglied löschen möchtest?"
-                    }
-                }
-            },
+                        1: "Bist Du sicher, dass Du dieses Mitglied löschen möchtest?",
+                    },
+                },
+            },*/
             fields: [
                 {label: 'Vorname', name: 'firstname'},
                 {label: 'Nachname', name: 'lastname'},
                 {label: 'Mobil', name: 'mobile'},
                 {label: 'Telefon', name: 'phone'},
                 {label: 'E-Mail', name: 'email'},
-                {
+                    {
                     label: 'Geburtstag',
                     name: 'birthday',
-                    type: 'date'
-                },
+                    type: 'date',
+                    },
                 {label: 'Mitglieds-Nr.', name: 'memberNumber'},
                 {
                     label: 'Rechte',
@@ -62,29 +63,34 @@
                     options: [
                         {label: "User", value: "user"},
                         {label: "Trainer", value: "trainer"},
-                        {label: "Admin", value: "admin"}
-                    ]
-                }
-            ]
+                        {label: "Admin", value: "admin"},
+                    ],
+                },
+            ],
         });
         $('#userTable').DataTable({
             ajax: {
                 'type': 'GET',
-                'url': URL + '/getMemberData'
+                'url': URL + '/getMemberData',
             },
-            language: {
+/*            language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json",
                 select: {
                     rows: {
                         _: "%d Zeilen ausgewählt",
-                        1: "Eine Zeile ausgewählt"
-                    }
-                }
-            },
+                        1: "Eine Zeile ausgewählt",
+                    },
+                },
+            },*/
             responsive: {
                 details: true
             },
             select: true,
+            dom: 'Bfrtip',
+            buttons: [
+                { extend: 'edit',   editor: editor },
+                { extend: 'remove', editor: editor },
+            ],
             columns:
                 [
                 {data: 'firstname', 'name': 'Vorname'},
@@ -104,11 +110,7 @@
                 {data: 'role', 'name': 'Rechte'},
                 {data: 'createdAt', 'name': 'registriert seit'}
             ],
-            buttons: [
-                { extend: 'edit',   editor: editor },
-                { extend: 'remove', editor: editor }
-            ]
-        });
+        })
 
     });
 </script>

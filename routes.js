@@ -369,7 +369,7 @@ module.exports = (app, passport) => {
     app.get('/getMemberData', async(req, res, next) => {
         await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
             if (err) return next(err);
-            users = JSON.stringify({"data":{"members": users}}, null, 4);
+            users = JSON.stringify({"data": users}, null, 4);
             //console.log(users);
             res.send(users);
         });
@@ -378,6 +378,14 @@ module.exports = (app, passport) => {
     // Mitglieder
     app.get('/mitglieder', isLoggedin, async(req, res) => {
         res.render('views/mitglieder', {
+            title: 'Mitglieder',
+            user: req.user
+        })
+    })
+
+    // Mitglieder
+    app.get('/mitglieder_datatables', isLoggedin, async(req, res) => {
+        res.render('views/mitglieder_datatables', {
             title: 'Mitglieder',
             user: req.user
         })

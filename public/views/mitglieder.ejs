@@ -1,7 +1,7 @@
 <%- include('partials/header/header') %>
-<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://unpkg.com/formiojs@latest/dist/formio.full.min.css">-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="https://unpkg.com/formiojs@latest/dist/formio.full.min.css">
 <script src="https://unpkg.com/formiojs@latest/dist/formio.full.min.js"></script>
 
 <script>
@@ -11,7 +11,7 @@
             fetch('http://localhost:3000/getMemberData')
                 .then((response) => response.json())
                 .then((json) => {
-                    let allMembers = json.data.members;
+                    let allMembers = json.data;
                     resolve(allMembers);
                 })
                 .catch((error) => {
@@ -171,7 +171,7 @@
                     await getMembersPromise()
             }
         };
-        form.on('saveRow', function(submission) {
+        form.onsubmit('', function(submission) {
             console.log('Submission was made!', submission);
         });
     });
