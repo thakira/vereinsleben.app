@@ -9,6 +9,8 @@ const app = express()
 
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use("/croppie",express.static(path.join(__dirname, 'node_modules/croppie/')))
+
 app.use(cors())
 app.use(session({
     resave: false,

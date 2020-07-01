@@ -225,7 +225,19 @@ function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#profibild').attr('src', e.target.result);
+            $('#profilbild').attr('src', e.target.result);
+            $('#profilbild').croppie({
+                enableExif: true,
+                viewport: {
+                    width: 200,
+                    height:200,
+                    type: 'circle'
+                },
+                boundary: {
+                    width:300,
+                    height: 300
+                }
+            });
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -234,24 +246,4 @@ function readURL(input) {
 $("#profilbildInput").change(function(){
     $('.imageContainer').removeClass('hidden');
     readURL(this);
-    $('#profibild').Jcrop({
-        // onChange: showPreview,
-        // onSelect: showPreview,
-        aspectRatio: 1
-    })
 });
-
-
-
-function showPreview(coords)
-{
-    var rx = 100 / coords.w;
-    var ry = 100 / coords.h;
-
-    $('#preview').css({
-        width: Math.round(rx * 500) + 'px',
-        height: Math.round(ry * 370) + 'px',
-        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-        marginTop: '-' + Math.round(ry * coords.y) + 'px'
-    });
-}

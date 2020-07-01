@@ -369,8 +369,7 @@ module.exports = (app, passport) => {
     app.get('/getMemberData', async(req, res, next) => {
         await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
             if (err) return next(err);
-            users = JSON.stringify({"data": users}, null, 4);
-            //console.log(users);
+            users = JSON.stringify({"data": users});
             res.send(users);
         });
     });
@@ -409,6 +408,22 @@ module.exports = (app, passport) => {
             user.memberNumber = req.body.data[id].memberNumber
             user.role = req.body.data[id].role
             await user.save()
+
+
+            // var data = JSON.stringify({
+            //     "draw": req.body.draw,
+            //     "recordsFiltered": recordsFiltered,
+            //     "recordsTotal": recordsTotal,
+            //     "data": results
+            // });
+            // res.send(data);
+
+            const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
+            let data = JSON.stringify({
+                "draw": req.body.draw,
+                "data": users
+            });
+            res.send(data);
             //res.redirect('/mitglieder_datatables')
             //console.log("DB:" + user.firstname + ", req:" + first_name);
             /*if (user.firstname != req.query['firstname']) {
@@ -445,6 +460,29 @@ module.exports = (app, passport) => {
             title: 'Profil', user: req.user,
             user: req.user
         })
+    })
+
+    app.post('/editProfil', isLoggedin, async (req, res) => {
+        console.log("Hallo im editProfil")
+        try {
+            const user = await User.findOne({"_id": req.user._id})
+            user.firstname = req.body.firstname
+            user.lastname = req.body.lastname
+            user.mobile = req.body.mobile
+            user.phone = req.body.phone
+            user.email = req.body.email
+            user.birthday = req.body.birthday
+            user.password = (req.password > 0) ? req.password : user.password
+            console.log("Hallo vorm await save")
+            await user.save()
+                .then(res.send("OK"))
+            console.log("Hallo nach save")
+
+        }
+        catch (exception) {
+            req.flash('error', exception.message)
+            res.send("NOT OK")
+        }
     })
 
     app.get('/notifications', isLoggedin, (req, res) => {
