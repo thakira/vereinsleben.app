@@ -392,109 +392,33 @@ module.exports = (app, passport) => {
     })
 
     app.post('/editMember', async (req, res) => {
-        console.log("editMember")
+        //console.log("editMember")
+        let id = (Object.keys(req.body.data)[0]);
+
         try {
-            const user = await User.findOne({"_id": req.query['id']})
+            const user = await User.findOne({"_id": (Object.keys(req.body.data)[0])})
             if (!user) {
                 req.flash('error', 'User nicht gefunden')
             }
-            console.log("DB:" + user.firstname + "req:" + req.query['firstname']);
+            user.firstname = req.body.data[id].firstname
+            user.last_name = req.body.data[id].lastname
+            user.mobile = req.body.data[id].mobile
+            user.phone = req.body.data[id].phone
+            user.email = req.body.data[id].email
+            user.birthday = req.body.data[id].birthday
+            user.memberNumber = req.body.data[id].memberNumber
+            user.role = req.body.data[id].role
+            await user.save()
+            //res.redirect('/mitglieder_datatables')
+            //console.log("DB:" + user.firstname + ", req:" + first_name);
             /*if (user.firstname != req.query['firstname']) {
                 user.firstname = req.query['firstname'];*/
         } catch (exception) {
             req.flash('error', exception.message)
+            //res.redirect('/mitglieder_datatables')
         }
+
     })
-
-    /*// Mitglieder
-    app.get('/mitglieder', isLoggedin, async (req, res) => {
-        //let result = await User.find({});
-        //console.log("result: " + result);
-        const users = await User.find({});*/
-        //console.log(users);
-        /*const users = () => {
-            "[" +
-            foreach(user in users_db)
-            {
-                "{"
-
-            }
-        }
-        [{
-                "_id": {
-                    "$oid": "5ebced98e165540f004e05d1"
-                },
-                "firstname": "Marcus",
-                "lastname": "Kirschen",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "mail@mkirschen.de",
-                "birthday": "1983-07-21T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 10,
-                "memberNumber": 1056,
-                "role": "admin",
-                "createdAt": {
-                    "$date": "2020-05-14T07:04:56.104Z"
-                }
-            },{
-                "_id": {
-                    "$oid": "5ebd2023c8978454a007a097"
-                },
-                "firstname": "Emil",
-                "lastname": "Meier",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "em@mail.de",
-                "birthday": "1963-04-18T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 8,
-                "memberNumber": "",
-                "role": "user",
-                "createdAt": {
-                    "$date": "2020-04-30T07:04:56.104Z"
-                }
-            },{
-                "_id": {
-                    "$oid": "5ebd205bc8978454a007a098"
-                },
-                "firstname": "Saskia",
-                "lastname": "Meier",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "dm@mail.de",
-                "birthday": "1998-12-11T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 3,
-                "memberNumber": "",
-                "role": "trainer",
-                "createdAt": {
-                    "$date": "2020-05-03T07:04:56.104Z"
-                }
-            },{
-                "_id": {
-                    "$oid": "5ebd206ec8978454a007a099"
-                },
-                "firstname": "Brigitte",
-                "lastname": "Muster",
-                "mobile" : "0123 456789",
-                "phone" : "0123 456789",
-                "email": "bm@muster.de",
-                "birthday": "2001-01-28T00:00:0.104Z",
-                "workhours": 10,
-                "worked": 6,
-                "memberNumber": "5623",
-                "role": "user",
-                "createdAt": {
-                    "$date": "2020-04-19T07:04:56.104Z"
-                }
-            }]*/
-
-/*        res.render('views/mitglieder', {
-            title: 'Mitglieder',
-            user: req.user,
-            users: users })
-    })*/
 
     // ********************************************************************************************
 
