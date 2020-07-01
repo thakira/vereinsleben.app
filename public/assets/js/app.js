@@ -221,21 +221,28 @@ $('#profilImage').on('click', () => {
 
 
 // Profilbild laden und zuschneiden
-function loadProfilImage(file) {
-    let img = new Image();
-    img.src = URL.createObjectURL(file);
-    $('#imageContainer').append(img);
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#profibild').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
-$(function(){
-    //
-    // $('#jcrop_target').Jcrop({
-    //     onChange: showPreview,
-    //     onSelect: showPreview,
-    //     aspectRatio: 1
-    // });
-
+$("#profilbildInput").change(function(){
+    $('.imageContainer').removeClass('hidden');
+    readURL(this);
+    $('#profibild').Jcrop({
+        // onChange: showPreview,
+        // onSelect: showPreview,
+        aspectRatio: 1
+    })
 });
+
+
+
 function showPreview(coords)
 {
     var rx = 100 / coords.w;
@@ -248,20 +255,3 @@ function showPreview(coords)
         marginTop: '-' + Math.round(ry * coords.y) + 'px'
     });
 }
-
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-$("#profilbild").change(function(){
-    $('.imageContainer').removeClass('hidden');
-    readURL(this);
-});
