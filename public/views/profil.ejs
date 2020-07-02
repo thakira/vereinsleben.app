@@ -3,9 +3,9 @@
 
     <div class=" profil-header">
         <figure id="profilImage" class="teaser">
-            <% if(user.image) { %>
-                <img src="user.image" class="rounded-circle avatar">
-                <i class="material-icons">edit</i>
+            <% if(user.img) { %>
+                <img src="<%= user.img%>" class="rounded-circle avatar">
+                <i class="material-icons hidden">edit</i>
         <% } else {%>
             <span>Füge ein Profilbild hinzu.</span>
         <% } %>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form id="profilForm" action="/editProfil" class="readonly">
+                    <form id="profilForm" action="/editprofil" class="readonly">
                         <div class="form-row">
                                 <fieldset class="form-group col">
                                     <label for="firstname" class="bmd-label-static">Vorname</label>
@@ -86,26 +86,6 @@
     </div><!-- row -->
 </main>
 
-<div id="profilImageModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="profilImageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">Profilbild ändern</div>
-            <div class="modal-body"><!--Neues Bild hochladen, wenn auf Profilbild geklickt wird-->
-                <form action="/profilImage" method="post" enctype="multipart/form-data">
-                    <div class="form-row">
-                        <fieldset class="form-group col">
-                            <label for="profilbildInput">Wähle ein Bild aus</label>
-                            <input id="profilbildInput" name="image" type="file" accept="image/*">
-                        </fieldset>
-                    </div>
-<!--                    <button type="submit" class="btn waves-effect waves-light btn-large">Hochladen</button>-->
-                </form>
-                <div class="imageContainer hidden" style="margin: 0 auto;">
-                    <img id="profilbild" src="#" alt="your image" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<%- include('components/modals/modal', {modalType:'changeImageModal'}) %>
 
 <%- include('partials/footer/footer') %>

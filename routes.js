@@ -462,8 +462,7 @@ module.exports = (app, passport) => {
         })
     })
 
-    app.post('/editProfil', isLoggedin, async (req, res) => {
-        console.log("Hallo im editProfil")
+    app.post('/editprofil', isLoggedin, async (req, res) => {
         try {
             const user = await User.findOne({"_id": req.user._id})
             user.firstname = req.body.firstname
@@ -473,11 +472,21 @@ module.exports = (app, passport) => {
             user.email = req.body.email
             user.birthday = req.body.birthday
             user.password = (req.password > 0) ? req.password : user.password
-            console.log("Hallo vorm await save")
             await user.save()
-                .then(res.send("OK"))
-            console.log("Hallo nach save")
+            res.send("OK")
+        }
+        catch (exception) {
+            req.flash('error', exception.message)
+            res.send("NOT OK")
+        }
+    })
 
+    app.post('/profilimage', isLoggedin, async (req, res) => {
+        try {
+            const user = await User.findOne({"_id": req.user._id})
+            user.img = req.body.img
+            await user.save()
+            res.send("OK")
         }
         catch (exception) {
             req.flash('error', exception.message)

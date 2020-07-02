@@ -440,13 +440,14 @@ img.avatar.small {
     text-align: center;
     margin: 1em auto 2em auto;
     color: #ddd;
-    height: 8em;
-    max-height:8em;
-    width: 8em;
-    max-width: 8em;
+    height: 10em;
+    max-height:810em;
+    width: 10em;
+    max-width: 10em;
     border: 2px solid #fff;
-    border-radius: 4em;
+    border-radius: 5em;
     transition: all .2s ease-in;
+    overflow: hidden;
 }
 
 .profil-header figure.teaser:hover {
@@ -455,8 +456,28 @@ img.avatar.small {
     background: var(--primary);
 }
 
+.profil-header figure img.avatar {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
 .profil-header figure span {
     padding: 1em;
+}
+
+input#profilbildInput {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#changeImageModal .modal-content {
+    background: var(--dark-grey);
+    text-align: center;
 }
 
 .dropdown-content {

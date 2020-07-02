@@ -19,7 +19,7 @@ const userSchema = new Schema({
     phone: {type: String},
     mobile: {type: String},
     birthday: {type: Date},
-    img: { data: Buffer, contentType: String },
+    img: { type: String },
     secretToken: {type: String},
     //Rolle
     role: {type: String, required: true, enum:['user', 'admin', 'trainer'], default:'user'},

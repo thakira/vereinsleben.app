@@ -216,9 +216,8 @@ $(".edit-btn").on("click", function () {
 })
 
 $('#profilImage').on('click', () => {
-    $('#profilImageModal').modal('show');
+    $('#changeImageModal').modal('show');
 })
-
 
 // Profilbild laden und zuschneiden
 function readURL(input) {
@@ -247,3 +246,17 @@ $("#profilbildInput").change(function(){
     $('.imageContainer').removeClass('hidden');
     readURL(this);
 });
+
+$('#saveProfilImage').on('click', function(ev) {
+    $('#profilbild').croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+    }).then(function(resp) {
+        $('#profilbild').attr('src', resp);
+
+        $.post('/profilimage', {img: resp}, () => {
+            $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
+        });
+        $('#profilbild').croppie('destroy')
+    });
+})
