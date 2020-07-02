@@ -16,7 +16,6 @@
                     url: URL + '/deleteMember',
                 },
             },
-
             i18n: {
                 edit: {
                     button: "Bearbeiten",
@@ -34,7 +33,6 @@
                 },
             },
             fields: [
-                {label : 'ID', name: '_id'},
                 {label: 'Vorname', name: 'firstname'},
                 {label: 'Nachname', name: 'lastname'},
                 {label: 'Mobil', name: 'mobile'},
@@ -91,9 +89,8 @@
                 {data: 'phone', "defaultContent": "", 'name': 'Telefon'},
                 {data: 'email', "defaultContent": "", 'name': 'E-Mail'},
                 {
-                    data: 'birthday',
-                    type: 'datetime',
-                    render: function (data, type, row) { return data ? moment(data).format('DD.MM.YYYY') : ''; }
+                    data: null,
+                    render: function (data, type, row) { return data.birthday ? moment(data.birthday).format('DD.MM.YYYY') : ''; }
                 },
                 {data: null ,render: function(data, type, row) {
                         if (data.workhours == null) {

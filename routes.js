@@ -501,22 +501,6 @@ module.exports = (app, passport) => {
         })
     })
 
-    // // Upload a picture
-    // app.post('/profil', isLoggedin, upload.single('image'), async (req, res) => {
-    //     console.log(req.file)
-    //     try {
-    //         const encImg = req.file.toString('base64');
-    //         req.user.img = encImg
-    //         //req.user.img.contentType = 'image/png';
-    //         req.user.save();
-    //         req.flash('error', exception.message)
-    //         return res.redirect('/profil')
-    //     } catch (exception) {
-    //         req.flash('error', exception.message)
-    //         return res.redirect('/profil')
-    //     }
-    // })
-
     // Upload a picture
     app.post('/profil', isLoggedin, async (req, res) => {
         try {
@@ -532,10 +516,4 @@ module.exports = (app, passport) => {
             return res.redirect('/profil')
         }
     })
-
-// *********************************************************************************************
-
-
-
-
 }

@@ -169,7 +169,7 @@ $(document).ready(function() {
 
 });
 
-$(".cancel-btn").on("click", function() {
+$(".cancel-btn").on("click", () => {
     $('button[type="submit"]').remove();
     $(".cancel-btn").addClass("hidden")
     $('.edit-btn').removeClass("hidden");
@@ -177,7 +177,7 @@ $(".cancel-btn").on("click", function() {
     $("#profilForm").removeClass("editMode");
 })
 
-$(".edit-btn").on("click", function () {
+$(".edit-btn").on("click",  () => {
     $(".edit-btn").addClass("hidden");
     $(".cancel-btn").removeClass("hidden");
 
@@ -199,18 +199,18 @@ $(".edit-btn").on("click", function () {
             m  = $form.find('input[name="mobile"]').val(),
             p  = $form.find('input[name="password"]').val(),
             url= $form.attr("action");
-
+        console.log($form.find('input[name="birthday"]').val())
         if( fn && ln && em ) {
             let formdata = (p!=null) ? {firstname: fn, lastname:ln, email:em, birthday:b, phone:t, mobile:m, password:p}
-                                      : {firstname: fn, lastname:ln, email:em, phone:t, mobile:m};
+                                      : {firstname: fn, lastname:ln, email:em, birthday:b, phone:t, mobile:m};
             let posting = $.post(url, formdata, () => {
                 $('button[type="submit"]').remove();
                 $(".cancel-btn").addClass("hidden")
                 $('.edit-btn').removeClass("hidden");
                 $("input").attr('readonly','');
                 $("#profilForm").removeClass("editMode");
-                $.snackbar({content: 'Profil gespeichert!', style: 'toast'})
             });
+            $.snackbar({content: 'Profil gespeichert!', style: 'toast'})
         }
     })
 })
@@ -253,10 +253,11 @@ $('#saveProfilImage').on('click', function(ev) {
         size: 'viewport'
     }).then(function(resp) {
         $('#profilbild').attr('src', resp);
+        $('#profilImage img').attr('src', resp);
+        // $('#profilbild').croppie('destroy');
+        $('#changeImageModal').modal('toggle');
+        $.post('/profilimage', {img: resp});
 
-        $.post('/profilimage', {img: resp}, () => {
-            $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
-        });
-        $('#profilbild').croppie('destroy')
+        $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
     });
 })

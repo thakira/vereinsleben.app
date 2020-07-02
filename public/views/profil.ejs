@@ -42,7 +42,9 @@
                             </fieldset>
                             <fieldset class="form-group col">
                                 <label for="birthday">Geburtstag</label>
-                                <input type="date" class="form-control" id="birthday" name="birthday" value="<%= user.birthday%>" readonly>
+                                <input type="date" class="form-control" id="birthday" name="birthday"
+                                       value="<%= (user.birthday).getFullYear()%>-<%= ("0"+(((user.birthday).getMonth())+1)).slice(-2) %>-<%= ("0"+(user.birthday).getDate()).slice(-2) %>" readonly>
+
                             </fieldset>
                         </div>
                         <div class="form-row">
@@ -69,18 +71,18 @@
                 </div> <!-- .card-body -->
             </div><!-- .card -->
 
-            <div class="card">
-                <div class="card-header">
-                    <h6>Meine Gruppen</h6>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">Alle</li>
-                        <li class="list-group-item">Reiten Donnerstag 16 Uhr</li>
-                        <li class="list-group-item">Vereinsmitglieder</li>
-                    </ul>
-                </div> <!-- .card-body -->
-            </div> <!-- .card -->
+<!--            <div class="card">-->
+<!--                <div class="card-header">-->
+<!--                    <h6>Meine Gruppen</h6>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <ul class="list-group">-->
+<!--                        <li class="list-group-item">Alle</li>-->
+<!--                        <li class="list-group-item">Reiten Donnerstag 16 Uhr</li>-->
+<!--                        <li class="list-group-item">Vereinsmitglieder</li>-->
+<!--                    </ul>-->
+<!--                </div> &lt;!&ndash; .card-body &ndash;&gt;-->
+<!--            </div> &lt;!&ndash; .card &ndash;&gt;-->
 
         </div> <!-- .col -->
     </div><!-- row -->

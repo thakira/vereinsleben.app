@@ -444,10 +444,10 @@ img.avatar.small {
     max-height:810em;
     width: 10em;
     max-width: 10em;
-    border: 2px solid #fff;
     border-radius: 5em;
     transition: all .2s ease-in;
     overflow: hidden;
+    background: #fff;
 }
 
 .profil-header figure.teaser:hover {
