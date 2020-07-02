@@ -385,8 +385,12 @@ module.exports = (app, passport) => {
     app.get('/getMemberData', async(req, res, next) => {
         await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
             if (err) return next(err);
-            users = JSON.stringify({"data": users});
-            res.send(users);
+ //           users = JSON.stringify({"data": users});
+            let data = JSON.stringify({
+                "draw": req.body.draw,
+                "data": users
+            });
+            res.send(data);
         });
     });
 
@@ -398,13 +402,6 @@ module.exports = (app, passport) => {
         })
     })
 
-    // Mitglieder
-    app.get('/mitglieder_datatables', isLoggedin, async(req, res) => {
-        res.render('views/mitglieder_datatables', {
-            title: 'Mitglieder',
-            user: req.user
-        })
-    })
 
     app.post('/editMember', async (req, res) => {
         //console.log("editMember")
@@ -426,14 +423,6 @@ module.exports = (app, passport) => {
             await user.save()
 
 
-            // varcccccc data = JSON.stringify({
-            //     "draw": req.body.draw,
-            //     "recordsFiltered": recordsFiltered,
-            //     "recordsTotal": recordsTotal,
-            //     "data": results
-            // });
-            // res.send(data);
-
             const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
             let data = JSON.stringify({
                 "draw": req.body.draw,
@@ -449,6 +438,22 @@ module.exports = (app, passport) => {
             //res.redirect('/mitglieder_datatables')
         }
 
+    })
+
+    app.delete('/deleteMember', async (req, res) => {
+        try {
+            await User.findOneAndDelete({"_id": (Object.keys(req.query.data)[0])})
+
+            const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
+            let data = JSON.stringify({
+                "draw": req.body.draw,
+                "data": users
+            });
+            res.send(data);
+        } catch (exception) {
+                req.flash('error', exception.message)
+                res.send("NOT OK")
+            }
     })
 
     // ********************************************************************************************
