@@ -1,3 +1,4 @@
+
 $(document).ready( function () {
     const URL = "http://127.0.0.1:3000";
     const editor = new $.fn.dataTable.Editor({
@@ -41,8 +42,12 @@ $(document).ready( function () {
                 label: 'Geburtstag',
                 name: 'birthday',
                 type: 'datetime',
-
-
+                format: 'L',
+                opts: {
+                    yearRange:100,
+                    displayFormat:'DD.MM.YYYY',
+                    wireFormat: 'YYYY-MM-DD',
+                }
             },
             {label: 'Mitglieds-Nr.', name: 'memberNumber'},
             {

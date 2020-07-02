@@ -18,7 +18,7 @@ const userSchema = new Schema({
     lastname: {type: String, required: true},
     phone: {type: String},
     mobile: {type: String},
-    birthday: {type: Date},
+    birthday: {type: Date, default: ""},
     img: { type: String },
     secretToken: {type: String},
     //Rolle
