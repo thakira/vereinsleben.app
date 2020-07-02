@@ -18,7 +18,7 @@
 
 <script>
     $(document).ready( function () {
-        var editor = new $.fn.dataTable.Editor( {
+        const editor = new $.fn.dataTable.Editor( {
             table: '#userTable',
             fields: [
                 { label: 'Vorname', name: 'firstname' },
@@ -41,6 +41,10 @@
             },
             select: true,
             dom: 'Bfrtip',
+            buttons: [
+            { extend: 'edit',   editor: editor },
+            { extend: 'remove', editor: editor },
+            ],
             columns: [
                 { data: 'firstname' },
                 { data: 'lastname' },
@@ -52,10 +56,6 @@
                 { data: 'memberNumber' },
                 { data: 'role' },
                 { data: 'registered' }
-            ],
-            buttons: [
-                { extend: 'edit',   editor: editor },
-                { extend: 'remove', editor: editor }
             ]
         });
 

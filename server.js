@@ -47,6 +47,7 @@ mongoose.connect('mongodb://localhost:27017/siebenberger_strolche', {
 mongoose.connection.on('error', () => console.log('Connection failed'))
 mongoose.connection.once('open', () => console.log('Connection established'))
 
+
 // Routes
 require('./routes')(app, passport )
 
