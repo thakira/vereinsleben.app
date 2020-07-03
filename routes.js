@@ -240,7 +240,7 @@ module.exports = (app, passport) => {
             const newsReleased = req.body.newsReleased
             const newsImg = req.body.newsImg
 
-            let newsArray = {
+            let newsJson = {
                 newsType : newsType,
                 newsTitle : newsTitle,
                 newsText : newsText,
@@ -248,7 +248,7 @@ module.exports = (app, passport) => {
                 newsImg: newsImg
             }
 
-            await new News(newsArray).save(error => {
+            await new News(newsJson).save(error => {
                 console.log("Speichern erfolgreich")
                 if (error) throw {
                     message: error.errmsg
@@ -300,7 +300,6 @@ module.exports = (app, passport) => {
             user.memberNumber = req.body.data[id].memberNumber
             user.role = req.body.data[id].role
             await user.save()
-
 
             const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
             let data = JSON.stringify({
