@@ -43,10 +43,11 @@ $(document).ready( function () {
                 name: 'birthday',
                 type: 'datetime',
                 format: 'L',
+                displayFormat:'DD.MM.YYYY',
+                wireFormat: 'YYYY-MM-DD',
                 opts: {
                     yearRange:100,
-                    displayFormat:'DD.MM.YYYY',
-                    wireFormat: 'YYYY-MM-DD',
+
                 }
             },
             {label: 'Mitglieds-Nr.', name: 'memberNumber'},

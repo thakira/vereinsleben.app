@@ -167,15 +167,13 @@ module.exports = (app, passport) => {
 
     // *** Login ***
     app.get('/login', isNotLoggedin, async (req, res) => {
-
-        let myClub = await Club.findById("5efe219bd59a8a49902b90fd")
+        let myClub = await Club.findById("5efdb4cf61a5215f7853c2c0")
         res.render('views/login', {
             title: 'Anmelden',
             logo: myClub.logo
-
-            //logo : Club.findById("5efdb4cf61a5215f7853c2c0", 'logo', function (err, club) {})
         })
     })
+
 
     // *** User login ***
     app.post('/login', passport.authenticate('local', {
