@@ -1,4 +1,5 @@
 'use strict'
+
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
         .register('sw.js')
@@ -14,6 +15,7 @@ window.addEventListener('beforeinstallprompt', function(event){
 
 /*//Code, wenn man Installationsaufruf zu einem anderen Zeitpunkt starten möchte
 // ggf. wichtig wenn Install über Navigation
+let installPrompt;
 if(installPrompt) {
     installPrompt.prompt();
     installPrompt.userChoice.then(function(choiceResult) {

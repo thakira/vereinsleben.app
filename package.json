@@ -1,9 +1,9 @@
 {
   "name": "vereinsmanager",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www -c-1"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.18.0",
@@ -30,5 +30,6 @@
   "devDependencies": {
     "@editorjs/attaches": "^1.0.1",
     "nodemon": "^2.0.4"
+
   }
 }
