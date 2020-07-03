@@ -2,14 +2,18 @@
 <main class="container-fluid">
 
     <div class=" profil-header">
-        <figure id="profilImage" class="teaser">
+
             <% if(user.img) { %>
+             <figure id="profilImage" class="teaser" style="">
                 <img src="<%= user.img%>" class="rounded-circle avatar">
                 <i class="material-icons hidden">edit</i>
+             </figure>
         <% } else {%>
-            <span>Füge ein Profilbild hinzu.</span>
+            <figure id="profilImage" class="teaser">
+                <span>Füge ein Profilbild hinzu.</span>
+            </figure>
         <% } %>
-        </figure>
+
 
     </div>
 
@@ -26,14 +30,14 @@
                 <div class="card-body">
                     <form id="profilForm" action="/editprofil" class="readonly">
                         <div class="form-row">
-                                <fieldset class="form-group col">
-                                    <label for="firstname" class="bmd-label-static">Vorname</label>
-                                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Vorname" value="<%= user.firstname %>" readonly required>
-                                </fieldset>
-                                <fieldset class="form-group col">
-                                    <label for="lastname" class="bmd-label-static">Nachname</label>
-                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Nachname" value="<%= user.lastname%>" readonly required>
-                                </fieldset>
+                            <fieldset class="form-group col">
+                                <label for="firstname" class="bmd-label-static">Vorname</label>
+                                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Vorname" value="<%= user.firstname %>" readonly required>
+                            </fieldset>
+                            <fieldset class="form-group col">
+                                <label for="lastname" class="bmd-label-static">Nachname</label>
+                                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Nachname" value="<%= user.lastname%>" readonly required>
+                            </fieldset>
                         </div>
                         <div class="form-row">
                             <fieldset class="form-group col">
@@ -43,7 +47,7 @@
                             <fieldset class="form-group col">
                                 <label for="birthday">Geburtstag</label>
                                 <input type="date" class="form-control" id="birthday" name="birthday"
-                                       value="<%= (user.birthday).getFullYear()%>-<%= ("0"+(((user.birthday).getMonth())+1)).slice(-2) %>-<%= ("0"+(user.birthday).getDate()).slice(-2) %>" readonly>
+                                       value="<% if(user.birthday) {%><%= (user.birthday).getFullYear()%>-<%= ("0"+(((user.birthday).getMonth())+1)).slice(-2) %>-<%= ("0"+(user.birthday).getDate()).slice(-2) %><%}%>" readonly>
 
                             </fieldset>
                         </div>

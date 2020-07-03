@@ -87,7 +87,7 @@ module.exports = (app, passport) => {
 
     // Register
     app.get('/register', isNotLoggedin, async (req, res) => {
-        let myClub = await Club.findById("5efdb4cf61a5215f7853c2c0")
+        let myClub = await Club.findById("5efe219bd59a8a49902b90fd")
         res.render('views/register', {
             title: 'Registrieren',
             logo: myClub.logo
@@ -390,7 +390,6 @@ module.exports = (app, passport) => {
     app.get('/getMemberData', async(req, res, next) => {
         await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
             if (err) return next(err);
- //           users = JSON.stringify({"data": users});
             let data = JSON.stringify({
                 "draw": req.body.draw,
                 "data": users
@@ -409,7 +408,6 @@ module.exports = (app, passport) => {
 
 
     app.post('/editMember', async (req, res) => {
-        //console.log("editMember")
         let id = (Object.keys(req.body.data)[0]);
 
         try {

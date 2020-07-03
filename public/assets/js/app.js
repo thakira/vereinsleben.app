@@ -261,3 +261,4 @@ $('#saveProfilImage').on('click', function(ev) {
         $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
     });
 })
+
