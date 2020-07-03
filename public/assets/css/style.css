@@ -331,6 +331,20 @@ button.btn.btn-primary.bmd-btn-fab {
     bottom: 1em;
 }
 
+/* ---------------------------------------------------
+    Toast
+ */
+.snackbar.toast {
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    border: none;
+    margin: 1em;
+}
+
+.snackbar-content {
+    text-align: center;
+}
 
 /* ---------------------------------------------------
     PURE CSS TABS AND TAB-CONTENT

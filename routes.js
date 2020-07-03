@@ -368,20 +368,21 @@ module.exports = (app, passport) => {
 //News hinzufügen
     app.post('/addNews', async (req, res) => {
         try {
-            const time = req.body.time
-            const blocks = req.body.blocks
-            const version = req.body.version
-
-            await new News({
-                time: time,
-                blocks: blocks,
-                version: version
-            }).save(error => {
-                console.log("Speichern erfolgreich")
-                if (error) throw {
-                    message: error.errmsg
-                }
-            })
+            console.log(JSON.stringify(req.body))
+            // const time = req.body.time
+            // const blocks = req.body.blocks
+            // const version = req.body.version
+            //
+            // await new News({
+            //     time: time,
+            //     blocks: blocks,
+            //     version: version
+            // }).save(error => {
+            //     console.log("Speichern erfolgreich")
+            //     if (error) throw {
+            //         message: error.errmsg
+            //     }
+            // })
         } catch (exception) {
             req.flash('error', exception.message)
         }
