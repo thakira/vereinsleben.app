@@ -1,7 +1,14 @@
 {
   "name": "Vereinsleben.App",
   "short_name": "Vereinsleben",
-  "icons": [
+  "start_url": "/",
+  "scope": ".",
+  "display": "standalone",
+  "background-color" : "#F9F4E8",
+  "theme-color" : "#0a5213",
+  "description": "Behalte stets den Überblick über das Leben in Deinem Verein",
+  "lang": "de-DE",
+   "icons": [
     {
       "src": "./assets/images/icon-48x48.png",
       "sizes":"48x48",
@@ -27,6 +34,5 @@
       "sizes":"512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "/index.html"
+  ]
 }

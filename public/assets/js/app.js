@@ -1,5 +1,32 @@
 'use strict'
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+        .register('sw.js')
+        .then(function() {
+            console.log('Service worker registered!');
+        });
+}
 
+window.addEventListener('beforeinstallprompt', function(event){
+    const installPrompt = event;
+    return true
+})
+
+/*//Code, wenn man Installationsaufruf zu einem anderen Zeitpunkt starten möchte
+// ggf. wichtig wenn Install über Navigation
+if(installPrompt) {
+    installPrompt.prompt();
+    installPrompt.userChoice.then(function(choiceResult) {
+        console.log(choiceResult.outcome);
+        if(choiceResult.outcome === 'dismissed') {
+            console.log('User cancelled the installation');
+        }else {
+            console.log('User added to home screen')
+        }
+    });
+    installPrompt = null;
+}
+}*/
 // Check if fields are not empty
 function checkForm() {
     const email = document.querySelector('input[name="email"]').value
