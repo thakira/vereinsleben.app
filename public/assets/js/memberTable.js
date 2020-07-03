@@ -32,7 +32,6 @@ $(document).ready( function () {
             },
         },
         fields: [
-            {label : 'ID', name: '_id'},
             {label: 'Vorname', name: 'firstname'},
             {label: 'Nachname', name: 'lastname'},
             {label: 'Mobil', name: 'mobile'},
@@ -41,14 +40,14 @@ $(document).ready( function () {
             {
                 label: 'Geburtstag',
                 name: 'birthday',
-                type: 'datetime',
-                format: 'L',
+/*                type: 'datetime',
+/!*                format: 'L',
                 displayFormat:'DD.MM.YYYY',
-                wireFormat: 'YYYY-MM-DD',
+                wireFormat: 'YYYY-MM-DD',*!/
                 opts: {
                     yearRange:100,
 
-                }
+                }*/
             },
             {label: 'Mitglieds-Nr.', name: 'memberNumber'},
             {

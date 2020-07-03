@@ -10,7 +10,8 @@ const schemaOptions = {
     }
 };
 const clubSchema = new Schema({
-    clubName: {type: String, required: true, unique:true },
+    clubName: {type: String },
+    shortName: {type: String, required: true, unique:true },
     email: {type: String },
     phone: {type: String},
     logo: {type: String },
