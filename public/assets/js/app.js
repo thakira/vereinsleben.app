@@ -89,7 +89,7 @@ $(document).ready( function() {
 
     console.log("App gestartet")
 
-    if('service worker' in navigator) {
+    if ('service worker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
             .then(() => console.log('Service Worker registered'))
             .catch(error => console.log(error))
@@ -100,53 +100,9 @@ $(document).ready( function() {
 
     // Swipeable Tabs
     if ($('#tabs-swipe').length) {
-        $('#tabs-swipe').tabs({ swipeable: true });
+        $('#tabs-swipe').tabs({swipeable: true});
     }
 
-    // Fab
-    // $('.fixed-action-btn').floatingActionButton();
-    // $('.fixed-action-btn.horizontal').floatingActionButton({
-    //     direction: 'left'
-    // });
-    // $('.fixed-action-btn.click-to-toggle').floatingActionButton({
-    //     direction: 'left',
-    //     hoverEnabled: false
-    // });
-    // $('.fixed-action-btn.toolbar').floatingActionButton({
-    //     toolbarEnabled: true
-    // });
-});
-
-// function myfkt(file){
-//     let canvas = document.getElementById("canvas");
-//     let ctx = canvas.getContext("2d");
-//     let img = new Image();
-//     img.src = URL.createObjectURL(file);
-//     console.log(img);
-//     canvas.width = 200;
-//     canvas.height = 200;
-//     img.onload = function(){
-//         ctx.save();
-//         ctx.beginPath();
-//         ctx.arc(100, 100, 100, 0, Math.PI * 2, true);
-//         ctx.closePath();
-//         ctx.clip();
-//
-//         ctx.drawImage(img, 0, 0, 200, 200);
-//
-//         ctx.beginPath();
-//         ctx.arc(0, 0, 100, 0, Math.PI * 2, true);
-//         ctx.clip();
-//         ctx.closePath();
-//         ctx.restore();
-//
-//         //
-//         // let canvas = document.getElementById("canvas");
-//         // let thumb = canvas.toDataURL("image/png");
-//         // $("#canvas").append('<img width="20" height="20" src='+thumb+'>');
-//     }
-// }
-$(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });
@@ -290,3 +246,7 @@ $('#saveProfilImage').on('click', function(ev) {
         $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
     });
 })
+
+function sayHello() {
+    console.log("Say hello world!!!!")
+}

@@ -331,6 +331,20 @@ button.btn.btn-primary.bmd-btn-fab {
     bottom: 1em;
 }
 
+/* ---------------------------------------------------
+    Toast
+ */
+.snackbar.toast {
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    border: none;
+    margin: 1em;
+}
+
+.snackbar-content {
+    text-align: center;
+}
 
 /* ---------------------------------------------------
     PURE CSS TABS AND TAB-CONTENT
@@ -447,7 +461,6 @@ img.avatar.small {
     border-radius: 5em;
     transition: all .2s ease-in;
     overflow: hidden;
-    background: #fff;
 }
 
 .profil-header figure.teaser:hover {
@@ -571,7 +584,7 @@ main.container-fluid {
 }
 
 .card-body .list-group-item {
-    background-color: none;
+    background: none;
     padding: .5rem 0;
     border: none;
 }
@@ -724,6 +737,10 @@ label.bmd-label-floating {
     text-align: center;
 }
 
+.custom-file-label::after {
+    content: "Auswählen";
+}
+
 /*** DataTables ***/
 div#userTable_filter label {
     font-size: 1em;
@@ -747,9 +764,8 @@ table.dataTable.order-column.stripe tbody>tr.odd.selected>.sorting_1 {
     background-color: rgba(var(--primary-color),0.3) !important;
 }
 
-/* --  MembersTable --*/
-table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
-    background-color: rgba(var(--primary-color),50); !important;
+.DTE_Field.DTE_Field_Type_text.DTE_Field_Name_birthday {
+    display: none;
 }
 
 /* -- Fullsize modal --*/
