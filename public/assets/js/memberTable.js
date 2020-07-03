@@ -1,6 +1,8 @@
 
+
 $(document).ready( function () {
     const URL = "http://127.0.0.1:3000";
+    //const URL = "https://et-inf.fho-emden.de:15117"
     const editor = new $.fn.dataTable.Editor({
         table: '#userTable',
         idSrc:  '_id',
@@ -39,7 +41,7 @@ $(document).ready( function () {
             {label: 'E-Mail', name: 'email'},
             {
                 label: 'Geburtstag',
-                name: 'birthday',
+                name: 'birthday'
 /*                type: 'datetime',
 /!*                format: 'L',
                 displayFormat:'DD.MM.YYYY',
