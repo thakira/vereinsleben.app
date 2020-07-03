@@ -55,6 +55,7 @@ module.exports = (app, passport) => {
 
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
+        const news = await News.find();
         return res.render('views/dashboard', {
             title: 'Dashboard',
             user: req.user,
@@ -238,151 +239,40 @@ module.exports = (app, passport) => {
     })
 
     // *** NEWS ***
-    const news =
-        [
-            {
-                "_id": {
-                    "$oid": "5ebced9867shgf456f004e05d1"
-                },
-                "newsTitle": "Card Title 1",
-                "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-                    "\n" +
-                    "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-                    "\n" +
-                    "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-                    "\n" +
-                    "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-                    "\n" +
-                    "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-                "newsImg": "",
-                "newsDoc": "",
-                "newsReleased": true,
-                "newsType": "text",
-                "createdAt": {
-                    "$date": "2020-05-14T07:04:56.104Z"
-                }
-            }, {
-            "_id": {
-                "$oid": "5ebced98ghf7456004e05d1"
-            },
-            "newsTitle": "Card Title 4",
-            "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-                "\n" +
-                "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-                "\n" +
-                "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-                "\n" +
-                "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-                "\n" +
-                "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-            "newsImg": "/beispielfoto-voltigieren.jpg",
-            "newsDoc": "",
-            "newsReleased": true,
-            "newsType": "image",
-            "createdAt": {
-                "$date": "2020-04-21T07:04:56.104Z"
-            }
-        }, {
-            "_id": {
-                "$oid": "5easd3423560f004e05d1"
-            },
-            "newsTitle": "Card Title 2",
-            "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-                "\n" +
-                "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-                "\n" +
-                "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-                "\n" +
-                "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-                "\n" +
-                "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-            "newsImg": "/beispielfoto-voltigieren.jpg",
-            "newsDoc": "",
-            "newsReleased" : true,
-            "newsType": "image",
-            "createdAt": {
-                "$date": "2020-04-21T07:04:56.104Z"
-            }
-        }, {
-            "_id": {
-                "$oid": "5ebcedgas5763780f004e05d1"
-            },
-            "newsTitle": "Card Title ",
-            "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-                "\n" +
-                "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-                "\n" +
-                "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-                "\n" +
-                "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-                "\n" +
-                "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-            "newsImg": "",
-            "newsDoc": "",
-            "newsReleased": true,
-            "newsType": "text",
-            "createdAt": {
-                "$date": "2020-05-14T07:04:56.104Z"
-            }
-        }, {
-            "_id": {
-                "$oid": "5ebce345567560f004e05d1"
-            },
-            "newsTitle": "Card Title 3",
-            "newsText": "Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans.\n" +
-                "\n" +
-                "Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen.\n" +
-                "\n" +
-                "Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.\n" +
-                "\n" +
-                "Der große Oxmox riet ihr davon ab, da es dort wimmele von bösen Kommata, wilden Fragezeichen und hinterhältigen Semikoli, doch das Blindtextchen ließ sich nicht beirren. Es packte seine sieben Versalien, schob sich sein Initial in den Gürtel und machte sich auf den Weg.\n" +
-                "\n" +
-                "Als es die ersten Hügel des Kursivgebirges erklommen hatte, warf es einen letzten Blick zurück auf die Skyline seiner Heimatstadt Buchstabhausen, die Headline von Alphabetdorf und die Subline seiner eigenen Straße, der Zeilengasse. Wehmütig lief ihm eine rhetorische Frage über die Wange, dann setzte es seinen Weg fort. Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie",
-            "newsImg": "/beispielfoto-voltigieren.jpg",
-            "newsDoc": "",
-            "newsReleased": true,
-            "newsType": "image",
-            "createdAt": {
-                "$date": "2020-04-01T07:04:56.104Z"
-            }
-        }
-        ]
+    app.get('/aktuelles', isLoggedin, async (req, res) => {
 
-// Editorjs
-    app.get('/editorjs', (req, res) => {
-        res.render('views/editorjs', {
-            title: 'EditorJS',
-            user: {firstname: "Marcus", nachname: "Kirschen"}
-            //user: req.user
-        })
-    })
+        const artikel = await News.find();
 
-// News
-    app.get('/aktuelles', isLoggedin, (req, res) => {
-        res.render('views/aktuelles-site', {title: 'Aktuelles',
+        res.render('views/aktuelles-site', {
+            title: 'Aktuelles',
             user: req.user,
-            news: news
+            news: artikel
         })
     })
 
 //News hinzufügen
     app.post('/addNews', async (req, res) => {
         try {
-            console.log(JSON.stringify(req.body))
-            // const time = req.body.time
-            // const blocks = req.body.blocks
-            // const version = req.body.version
-            //
-            // await new News({
-            //     time: time,
-            //     blocks: blocks,
-            //     version: version
-            // }).save(error => {
-            //     console.log("Speichern erfolgreich")
-            //     if (error) throw {
-            //         message: error.errmsg
-            //     }
-            // })
+            const newsType = req.body.newsType
+            const newsTitle = req.body.newsTitle
+            const newsText = req.body.newsText
+            const newsReleased = req.body.newsReleased
+            const newsImg = req.body.newsImg
+
+            let newsArray = {
+                newsType : newsType,
+                newsTitle : newsTitle,
+                newsText : newsText,
+                newsReleased : newsReleased,
+                newsImg: newsImg
+            }
+
+            await new News(newsArray).save(error => {
+                console.log("Speichern erfolgreich")
+                if (error) throw {
+                    message: error.errmsg
+                }
+            })
         } catch (exception) {
             req.flash('error', exception.message)
         }
@@ -531,18 +421,18 @@ module.exports = (app, passport) => {
     })
 
     // Upload a picture
-    app.post('/profil', isLoggedin, async (req, res) => {
-        try {
-            req.user.img = fs.readAsDataURL(req.file)
-            //const encImg = req.file.toString('base64');
-            //req.user.img = encImg
-            //req.user.img.contentType = 'image/png';
-            req.user.save();
-            req.flash('success', "Dein Bild wurde hochgeladen")
-            return res.redirect('/profil')
-        } catch (exception) {
-            req.flash('error', exception.message)
-            return res.redirect('/profil')
-        }
-    })
+    // app.post('/profil', isLoggedin, async (req, res) => {
+    //     try {
+    //         req.user.img = fs.readAsDataURL(req.file)
+    //         //const encImg = req.file.toString('base64');
+    //         //req.user.img = encImg
+    //         //req.user.img.contentType = 'image/png';
+    //         req.user.save();
+    //         req.flash('success', "Dein Bild wurde hochgeladen")
+    //         return res.redirect('/profil')
+    //     } catch (exception) {
+    //         req.flash('error', exception.message)
+    //         return res.redirect('/profil')
+    //     }
+    // })
 }

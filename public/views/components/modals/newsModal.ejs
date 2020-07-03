@@ -6,17 +6,17 @@
         <h3>Aktuelles</h3>
     </div>
 </nav>
-<% if(article.newsType != "text") {%>
+<% if(article.hasOwnProperty('newsImg')) {%>
     <div class="modal-image-header">
-        <img class="card-img" alt="Card image" src="../../../assets/images/<%= article.newsImg %>" >
+        <img class="card-img" alt="Card image" src="<%= article.newsImg %>" >
     </div>
 <% } %>
 <div class="modal-header">
     <h5 class="modal-title"><%= article.newsTitle %></h5>
 </div>
 <div class="modal-body">
-    <p class="small">Aktuelles vom <span class="datum" del-date="<%= article.createdAt.$date %>"></span></p>
-    <div class="newsText"><%= article.newsText %></div>
+    <p class="card-text">Aktuelles vom <span class="datum" del-date="<%= article.createdAt %>"></span></p>
+    <div class="newsText"><%- article.newsText %></div>
 
 
 </div>
