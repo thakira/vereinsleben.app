@@ -1,6 +1,23 @@
 <%- include('partials/header/header') %>
 <main>
-    <%- include('components/aktuelles/aktuelles.ejs') %>
+    <div class="row">
+        <div class="col-md-2">
+            <h2>Entwürfe</h2>
+        </div>
+        <div class="col-md-9 offset-md-1">
+            <%- include('components/aktuelles/aktuelles.ejs', {'releaseFilter': false}) %>
+        </div>
+
+        <div class="col-md-2">
+            <h2>Veröffentlicht</h2>
+        </div>
+
+        <div class="col-md-9 offset-md-1">
+            <%- include('components/aktuelles/aktuelles.ejs', {'releaseFilter': true}) %>
+        </div>
+    </div>
+
+
     <a class="btn btn-primary btn-primary-fab" href="add-news" role="button">
         <i class="material-icons">add</i>
     </a>

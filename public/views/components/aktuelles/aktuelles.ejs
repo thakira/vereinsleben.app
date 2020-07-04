@@ -2,7 +2,8 @@
 
     <% if(news) {%>
         <% news.forEach( article => {%>
-            <% if (true) {%> <!--article.newsReleased-->
+
+            <% if (article.newsReleased === releaseFilter) {%>
             <div id="<%= article._id%>" class="card text" data-toggle="modal" data-target="#newsModal<%= article._id%>" >
                 <% if(article.newsType === 'image') {%>
                     <img class="card-image" alt="Card image cap" src="<%= article.newsImg%>" >

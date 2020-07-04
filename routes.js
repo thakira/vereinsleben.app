@@ -301,10 +301,26 @@ module.exports = (app, passport) => {
         } catch (exception) {
             req.flash('error', exception.message)
         }
-    })
+    });
+
+    app.get('/edit-news', isLoggedin, async (req,res) => {
+
+        try {
+            const newsId = req.param.id;
+            const article = await News.findOne({'_id': newsId})
+
+            return res.render('views/edit-news', {
+                title: 'Artikel bearbeiten',
+                article: article,
+                user: req.user
+            })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    });
 
 
-    app.post('/upload', (req, res) => {
+    app.post('/upload', isLoggedin, (req, res) => {
         // 'profile_pic' is the name of our file input field in the HTML form
         let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('file');
 
