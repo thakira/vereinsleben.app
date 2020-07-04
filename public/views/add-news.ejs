@@ -1,0 +1,235 @@
+<%- include('partials/header/header-small') %>
+<main class="container-fluid edit-page">
+
+    <nav class="navbar sticky-top navbar-dark bg-primary row">
+        <div class="container-left">
+            <a type="button" class="close btn" href="/aktuelles">
+                <span class="material-icons">close</span>
+            </a>
+            <h3>Erstelle einen neuen Beitrag</h3>
+        </div>
+        <button id="addNewsSaveButton" type="button" class="close btn">
+            <span class="material-icons">check</span>
+        </button>
+    </nav>
+
+
+    <div id="editorContainer" class="col">
+
+        <form method="post" action="/addNews" id="addNewsForm" enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="form-group col">
+                    <!-- Datei hochladen-->
+                    <div class="custom-file">
+                        <input type="file" class="form-control" id="newsImg" name="newsImg" lang="de" accept="image/*">
+                        <label class="custom-file-label" for="newsImg">Wähle ein Titelbild...</label>
+                        <small>Das Titelbild ist optional und wird über dem Beitrag angezeigt.</small>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="prevTeaserImage hidden"><!--hidden-->
+                        <img id="teaserImg" src="" alt="your image" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control form-control-lg" id="newsTitle" name="newsTitle" placeholder="Überschrift" required>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" id="newsText" name="newsText" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <!-- Datei hochladen-->
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input " id="customFile" name="customFile" lang="de">
+                    <label class="custom-file-label" for="customFile">Lade eine Datei hoch...</label>
+                    <small>Lade optional ein Dokument hoch (z.B. Plakat, Anmeldeformular)</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="newsReleased" name="newsReleased">
+                    <label class="custom-control-label" for="newsReleased">Veröffentlichen</label>
+                </div>
+            </div>
+            <button type="submit">Senden</button>
+        </form>
+    </div>
+</main>
+
+<script src="https://cdn.tiny.cloud/1/zyqy6bq7l0jcdzh89nk09o0jurkuy5e8anxya0zqq0a9ir24/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: "textarea#newsText",
+        skin: "bootstrap",
+        plugins: "lists, link, image, media",
+        toolbar:
+            "h1 h2 bold italic blockquote bullist numlist backcolor | link image media | removeformat help",
+        menubar: false,
+        language:'de',
+        setup: editor => {
+            // Apply the focus effect
+            editor.on("init", () => {
+                editor.getContainer().style.transition =
+                    "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
+            });
+            editor.on("focus", () => {
+                (editor.getContainer().style.boxShadow =
+                    "0 0 0 .2rem rgba(10,82,19, .25)"),
+                    (editor.getContainer().style.borderColor = "#0a5213");
+            });
+            editor.on("blur", () => {
+                (editor.getContainer().style.boxShadow = ""),
+                    (editor.getContainer().style.borderColor = "");
+            });
+            editor.on('change', () => {
+                editor.save();
+            })
+        }
+    });
+</script>
+
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#teaserImg').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Dateiname in header
+    $("#newsImg").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+        $('.prevTeaserImage').removeClass('hidden');
+        readURL(this);
+    });
+
+    // Dateiname in file input
+    $("#customFile").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+<script>
+
+
+
+
+
+    // const bWidth = $('#editorContainer').width();
+    // const bHeight = $('#editorContainer').width() / 16 * 9;
+    // const vWidth = bWidth-100;
+    // const vHeight = bHeight-100;
+    //
+    // let uploadCrop;
+    //
+    // function createCroopie() {
+    //     uploadCrop = $('#teaserImgCrop').croppie({
+    //         aspectRatio: 16/9,
+    //         enableExif: true,
+    //         viewport: {
+    //             width: vWidth,
+    //             height: vHeight,
+    //         },
+    //         boundary: {
+    //             width:bWidth,
+    //             height: bHeight
+    //         }
+    //     });
+    // }
+    //
+    // createCroopie();
+    //
+    // $('#upload').on('change', function () {
+    //     $('#teaserImgCrop').croppie('destroy');
+    //     createCroopie();
+    //     readFile(this);
+    // });
+    //
+    // function readFile(input) {
+    //     if (input.files && input.files[0]) {
+    //         let reader = new FileReader();
+    //
+    //         reader.onload = function (e) {
+    //             $('.upload-demo').addClass('ready');
+    //
+    //             uploadCrop.croppie('bind', {
+    //                 url: e.target.result
+    //             }).then(function(){
+    //                 console.log('jQuery bind complete');
+    //             });
+    //         }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    //     else {
+    //         swal("Sorry - you're browser doesn't support the FileReader API");
+    //     }
+    // }
+    //
+    // function getCroppieResult() {
+    //     uploadCrop.croppie('result', {
+    //         type: 'canvas',
+    //         size: {width: 1000},
+    //         quality: 0.7
+    //     })
+    //     .then(function (resp) {
+    //         $('#teaserImgCrop').attr('src', resp);
+    //     });
+    // };
+    //
+    // $('.confirm-result').on('click', () => {
+    //     getCroppieResult();
+    //     $('#teaserImgCrop').croppie('destroy');
+    // })
+
+
+    // $('#addNewsSaveButton').on('click', function(ev) {
+    //
+    //     if($('#teaserImgCrop').attr('src') > 0) {
+    //         console.log('hallo')
+    //     }
+    //         const img = getCroppieResult();
+    //         console.log("Hallo erst einmal");
+    //
+    //         $('#addNewsForm').submit( (e) => {
+    //             e.preventDefault();
+    //             const form = $('#addNewsForm')
+    //             const data = new FormData();
+    //             data.append('newsTitle', form.find('input[name="newsTitle"]').val())
+    //             data.append('newsText', form.find('input[name="newsText"]').val())
+    //             data.append('newsReleased', form.find('input[name="newsReleased"]').val())
+    //             data.append('newsTitle', form.find('input[name="newsTitle"]').val())
+    //             data.append('newsImg', img)
+    //
+    //             // let $form = $(this),
+    //             //     newsTitle = $form.find('input[name="newsTitle"]').val(),
+    //             //     newsText = $form.find('input[name="newsText"]').val(),
+    //             //     newsReleased = $form.find('input[name="newsReleased"]').val(),
+    //             //     //customFile  = $form.find('input[name="customFile"]').val(),
+    //             //     url = $form.attr("action");
+    //             // let formdata = {newsTitle: newsTitle, newsText:newsText, newsReleased:newsReleased, newsImg:resp};
+    //             // console.log(Json.stringify(formdata))
+    //             let posting = $.post(this.attr('action'), data);
+    //             posting.done($.snackbar({content: 'Artikel gespeichert!', style: 'toast'}))
+    //
+    //         });
+    // })
+</script>
+
+<%- include('partials/footer/footer') %>

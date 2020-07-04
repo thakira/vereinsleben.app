@@ -15,6 +15,7 @@ const clubSchema = new Schema({
     email: {type: String },
     phone: {type: String},
     logo: {type: String },
+    shortName: {type:String}
 }, { timestamps: true })
 
 module.exports = mongoose.model('Club', clubSchema)

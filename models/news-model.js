@@ -4,10 +4,11 @@ const Schema = mongoose.Schema
 const newsSchema = new Schema({
     newsTitle: {type: String, required: true},
     newsText: {type: String, required: true},
-    newsImg: { data: Buffer, contentType: String },
+    newsImg: { type: String },
     newsDoc: {type: String},
     newsReleased: {type: Boolean, default: false},
-    newsType: {type: String, default: 'text'} // 'text' || 'image'
+    newsType: {type: String, default: 'text'}, // 'text' || 'image'
+    newsAuthor: {type: String}
 }, { timestamps: true })
 
 

@@ -6,6 +6,22 @@ const LocalStrategy = require('passport-local').Strategy
 const randomString = require('randomstring')
 const mailer = require('./misc/mailer')
 const fs = require('fs')
+const helpers = require('./helpers')
+
+const multer = require("multer");
+const path = require('path')
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/');
+    },
+
+    // By default, multer removes file extensions so let's add them back
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
 let logo = ""
 
 // Check if user is logged in
@@ -62,9 +78,6 @@ module.exports = (app, passport) => {
             news: news
         })
     })
-
-
-
 
     // *** REGISTRATION ***
 
@@ -231,35 +244,92 @@ module.exports = (app, passport) => {
         })
     })
 
+    app.get('/add-news', isLoggedin, async (req, res) => {
+
+        res.render('views/add-news', {
+            title: 'Neuen Artikel erstellen',
+            user: req.user
+        })
+    })
+
 //News hinzufügen
-    app.post('/addNews', async (req, res) => {
+    app.post('/addNews', isLoggedin, async (req, res) => {
         try {
-            const newsType = req.body.newsType
-            const newsTitle = req.body.newsTitle
-            const newsText = req.body.newsText
-            const newsReleased = req.body.newsReleased
-            const newsImg = req.body.newsImg
+            let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
 
-            let newsJson = {
-                newsType : newsType,
-                newsTitle : newsTitle,
-                newsText : newsText,
-                newsReleased : newsReleased,
-                newsImg: newsImg
-            }
+            upload(req, res, (err) => {
+                const newsTitle = req.body.newsTitle
+                const newsText = req.body.newsText
+                const newsReleased = (req.body.newsReleased === 'on') ? true :false
+                const newsAuthor = req.user._id
+                let newsImg = req.body.newsImg
+                let newsType = 'text'
 
-            await new News(newsJson).save(error => {
-                console.log("Speichern erfolgreich")
-                if (error) throw {
-                    message: error.errmsg
+                if (req.file) {
+                    newsImg = req.file.path
+                    newsType = 'image'
                 }
-            })
+                else if (req.fileValidationError) {
+                    return res.send(req.fileValidationError);
+                }
+                else if (err instanceof multer.MulterError) {
+                    return res.send(err);
+                }
+                else if (err) {
+                    return res.send(err);
+                }
+
+                let artikel = new News({
+                    newsTitle: newsTitle,
+                    newsText: newsText,
+                    newsReleased: newsReleased,
+                    newsAuthor: newsAuthor,
+                    newsImg: newsImg,
+                    newsType: newsType
+                })
+                    .save()
+                    .then( async () => {
+                        const artikel = await News.find();
+                        return res.status(200).render('views/aktuelles-site', {
+                            title: 'Aktuelles',
+                            user: req.user,
+                            news: artikel
+                        })
+                    })
+            });
+
         } catch (exception) {
             req.flash('error', exception.message)
         }
     })
 
-    // ********************************************************************************************/
+
+    app.post('/upload', (req, res) => {
+        // 'profile_pic' is the name of our file input field in the HTML form
+        let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('file');
+
+        upload(req, res, function(err) {
+            // req.file contains information of uploaded file
+            // req.body contains information of text fields, if there were any
+
+            if (req.fileValidationError) {
+                return res.send(req.fileValidationError);
+            }
+            else if (!req.file) {
+                return res.send('Please select an image to upload');
+            }
+            else if (err instanceof multer.MulterError) {
+                return res.send(err);
+            }
+            else if (err) {
+                return res.send(err);
+            }
+
+            // Display uploaded image for user validation
+            res.send(`You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`);
+        });
+    });
+// ********************************************************************************************/
 
     // *** MEMBERS ***
     app.get('/getMemberData', async(req, res, next) => {

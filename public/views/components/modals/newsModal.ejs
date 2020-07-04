@@ -6,7 +6,7 @@
         <h3>Aktuelles</h3>
     </div>
 </nav>
-<% if(article.hasOwnProperty('newsImg')) {%>
+<% if(article.newsType === 'image') {%>
     <div class="modal-image-header">
         <img class="card-img" alt="Card image" src="<%= article.newsImg %>" >
     </div>

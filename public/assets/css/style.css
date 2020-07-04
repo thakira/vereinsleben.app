@@ -331,6 +331,24 @@ button.btn.btn-primary.bmd-btn-fab {
     bottom: 1em;
 }
 
+a.btn.btn-primary-fab{
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    width: 3.6em;
+    height: 3.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+}
+
 /* ---------------------------------------------------
     Toast
  */
@@ -741,11 +759,21 @@ label.bmd-label-floating {
     content: "Auswählen";
 }
 
+.form-group {
+    margin-bottom: 2rem;
+}
+
+#editorContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5em;
+    background: #fff;
+}
+
 /*** DataTables ***/
 div#userTable_filter label {
     font-size: 1em;
 }
-
 
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected,
@@ -815,25 +843,34 @@ table.dataTable.order-column.stripe tbody>tr.odd.selected>.sorting_1 {
     width: 100vw;
 }
 
+.edit-page .navbar {
+    margin-bottom: 3em;
+}
+
+.edit-page .navbar .container-left ,
 .navbar.modal-nav .container-left {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.edit-page .navbar h3,
 .navbar.modal-nav h3 {
     margin: .5em 0;
 }
 
+.edit-page .navbar button.close,
 .navbar.modal-nav button.close {
     color: #fff;
     opacity: 1;
     margin-right: 1em;
 }
 
+.edit-page .navbar button.close:hover,
 .navbar.modal-nav button.close:hover {
     cursor: pointer;
 }
+
 
 /* ---------------------------------------------------
     MEDIA STYLE
