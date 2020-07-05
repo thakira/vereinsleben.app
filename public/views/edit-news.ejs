@@ -24,6 +24,8 @@
                         <small>Das Titelbild ist optional und wird über dem Beitrag angezeigt.</small>
                     </div>
 
+                    <input type="text" class="hidden" id="newsType" name="newsType" value="<%= article.newsType %>">
+                    <label class="custom-file-label hidden" for="newsType">Wähle ein Titelbild...</label>
                 </div>
 
                 <div class="col">
@@ -34,7 +36,6 @@
                 </div>
             </div>
 
-
             <div class="form-group">
                 <input type="text" class="form-control form-control-lg" id="newsTitle" name="newsTitle" placeholder="Überschrift" value="<%= article.newsTitle%>" required>
             </div>
@@ -43,19 +44,12 @@
                 <textarea class="form-control" id="newsText" name="newsText" required></textarea>
             </div>
 
-            <div class="form-group">
-                <!-- Datei hochladen-->
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input " id="customFile" name="customFile" lang="de">
-                    <label class="custom-file-label" for="customFile">Lade eine Datei hoch...</label>
-                    <small>Lade optional ein Dokument hoch (z.B. Plakat, Anmeldeformular)</small>
-                </div>
-            </div>
-
 <!--            <div class="form-group">-->
-<!--                <div class="form-check">-->
-<!--                    <input type="checkbox" class="form-check-input" id="newsReleased" name="newsReleased" >-->
-<!--                    <label class="form-check-label" for="newsReleased">Veröffentlichen</label>-->
+<!--                &lt;!&ndash; Datei hochladen&ndash;&gt;-->
+<!--                <div class="custom-file">-->
+<!--                    <input type="file" class="custom-file-input " id="customFile" name="customFile" lang="de">-->
+<!--                    <label class="custom-file-label" for="customFile">Lade eine Datei hoch...</label>-->
+<!--                    <small>Lade optional ein Dokument hoch (z.B. Plakat, Anmeldeformular)</small>-->
 <!--                </div>-->
 <!--            </div>-->
 
@@ -66,7 +60,14 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Speichern</button>
+            <div class="form-group col">
+                <a id="deleteBtn" class="btn btn-outline-danger" role="button">Artikel löschen</a>
+            </div>
+
+            <div class="form-group col">
+                <button type="submit" class="btn btn-primary">Speichern</button>
+            </div>
+
         </form>
     </div>
 
@@ -78,7 +79,7 @@
 
     let editImg, addImg = false;
 
-    if($('#newsReleased').val()) {
+    if('<%= article.newsReleased%>') {
         $('#newsReleased').prop('checked', true)
     }
 
@@ -87,10 +88,27 @@
         cb.val(cb.prop('checked'));
     });
 
-    if('<%= article.newsImg%>'.length > 0) {
+    if('<%= article.newsType%>' === "image") {
         $('.prevTeaserImage').removeClass('hidden');
         $('#cancelNewsImage').removeClass('hidden');
     }
+
+    $('#deleteBtn').on('click', function() {
+
+        if (window.confirm("Möchtest du den Artikel wirklich löschen?")) {
+            $.ajax({
+                url: '/delete-news?id=<%- article._id%>',
+                type: 'DELETE'
+            })
+            $.snackbar({content: 'Artikel gelöscht!', style: 'toast'})
+
+            $(location).attr('href', "/aktuelles");
+
+        } else {
+            $.snackbar({content: 'Artikel löschen abgebrochen!', style: 'toast'})
+        }
+
+    })
 
 
     let newsText = '<%- article.newsText%>'
@@ -145,6 +163,7 @@
 
         $('.prevTeaserImage').removeClass('hidden');
         $('#cancelNewsImage').removeClass('hidden');
+        $('#newsType').val('image');
         readURL(this);
     });
 
@@ -155,6 +174,7 @@
 
         $('.prevTeaserImage').addClass('hidden');
         $('#cancelNewsImage').addClass('hidden');
+        $('#newsType').val('text');
     });
 
     // Dateiname in file input

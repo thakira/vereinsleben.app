@@ -315,17 +315,21 @@ module.exports = (app, passport) => {
     app.post('/edit-news', isLoggedin, async (req,res) => {
         try {
             let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
-            upload(req, res, (err) => {
-                const newsTitle = req.body.newsTitle
-                const newsText = req.body.newsText
-                const newsReleased = req.body.newsReleased
-                const newsAuthor = req.user._id
-                let newsImg = req.body.newsImg
-                let newsType = 'text'
 
-                if (req.file) {
+            let newsTitle
+            let newsText
+            let newsReleased
+            let newsImg = ''
+            let newsType
+
+            upload(req, res, (err) => {
+                newsTitle = req.body.newsTitle
+                newsText = req.body.newsText
+                newsReleased = req.body.newsReleased
+                newsType = req.body.newsType
+                console.log('Hello from edit-news')
+                if (req.file && newsType === 'image') {
                     newsImg = req.file.path
-                    newsType = 'image'
                 }
                 else if (req.fileValidationError) {
                     return res.send(req.fileValidationError);
@@ -336,46 +340,39 @@ module.exports = (app, passport) => {
                 else if (err) {
                     return res.send(err);
                 }
-
-                const article = News.findOne({_id: req.query.id})
-                article.newsTitle= newsTitle
-                article.newsText = newsText
-                article.newsReleased = newsReleased
-                article.newsAuthor = newsAuthor
-                article.newsImg = newsImg
-                article.newsType = newsType
-
-                console.log(req.query.id)
-
-                article.save()
-                res.status(200).redirect('/aktuelles')
             });
+
+            const article = await News.findOne({_id: req.query.id})
+            article.newsTitle= newsTitle
+            article.newsText = newsText
+            article.newsReleased = newsReleased
+            article.newsType = newsType
+            if(newsImg.length > 0) article.newsImg = newsImg
+
+            await article.save().then( function() {
+                res.status(200).redirect('/aktuelles')
+            })
         } catch (exception) {
             req.flash('error', exception.message)
         }
-
-        // const user = await User.findOne({"_id": (Object.keys(req.body.data)[0])})
-        // if (!user) {
-        //     req.flash('error', 'User nicht gefunden')
-        // }
-        // user.firstname = req.body.data[id].firstname
-        // user.last_name = req.body.data[id].lastname
-        // user.mobile = req.body.data[id].mobile
-        // user.phone = req.body.data[id].phone
-        // user.email = req.body.data[id].email
-        // user.birthday = req.body.data[id].birthday
-        // user.memberNumber = req.body.data[id].memberNumber
-        // user.role = req.body.data[id].role
-        // await user.save()
-        //
-        // const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
-        // let data = JSON.stringify({
-        //     "draw": req.body.draw,
-        //     "data": users
-        // });
     });
 
+    app.delete('/delete-news', isLoggedin, async (req,res) => {
+        try {
+            console.log('Hello from delete')
+            await News.findOneAndDelete({'_id': req.query.id})
 
+            const news = await News.find();
+
+            return res.render('views/aktuelles-site', {
+                title: 'Aktuelles',
+                news: news,
+                user: req.user
+            })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    });
 
 // ********************************************************************************************/
 
