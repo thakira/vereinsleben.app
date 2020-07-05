@@ -6,20 +6,20 @@
             <a type="button" class="close btn" href="/aktuelles">
                 <span class="material-icons">close</span>
             </a>
-            <h3>Erstelle einen neuen Beitrag</h3>
+            <h3>Beitrag bearbeiten</h3>
         </div>
     </nav>
 
 
     <div id="editorContainer" class="col">
 
-        <form method="post" action="/addNews" id="addNewsForm" enctype="multipart/form-data">
+        <form method="post" action="/edit-news?id=<%- article._id%>" id="editNewsForm" >
 
             <div class="row">
                 <div class="form-group col">
                     <!-- Datei hochladen-->
                     <div id="newsImgContainer" class="custom-file">
-                        <input type="file" class="form-control" id="newsImg" name="newsImg" lang="de" accept="image/*">
+                        <input type="file" class="form-control" id="newsImg" name="newsImg" lang="de" accept="image/*" value="<%= article.newsImg %>">
                         <label class="custom-file-label" for="newsImg">Wähle ein Titelbild...</label>
                         <small>Das Titelbild ist optional und wird über dem Beitrag angezeigt.</small>
                     </div>
@@ -27,16 +27,16 @@
                 </div>
 
                 <div class="col">
-                    <div class="prevTeaserImage hidden"><!--hidden-->
-                        <img id="teaserImg" src="" alt="your image" />
+                    <div class="prevTeaserImage hidden">
+                        <img id="teaserImg" src="<%= article.newsImg %>" alt="your image" />
                     </div>
-                    <button id="cancelNewsImage" type="button" class="btn btn-danger hidden col-12" >Bild entfernen</button>
+                    <button id="cancelNewsImage" type="button" class="btn btn-danger  col-12 hidden" >Bild entfernen</button>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <input type="text" class="form-control form-control-lg" id="newsTitle" name="newsTitle" placeholder="Überschrift" required>
+                <input type="text" class="form-control form-control-lg" id="newsTitle" name="newsTitle" placeholder="Überschrift" value="<%= article.newsTitle%>" required>
             </div>
 
             <div class="form-group">
@@ -52,20 +52,49 @@
                 </div>
             </div>
 
+<!--            <div class="form-group">-->
+<!--                <div class="form-check">-->
+<!--                    <input type="checkbox" class="form-check-input" id="newsReleased" name="newsReleased" >-->
+<!--                    <label class="form-check-label" for="newsReleased">Veröffentlichen</label>-->
+<!--                </div>-->
+<!--            </div>-->
+
             <div class="form-group">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="newsReleased" name="newsReleased">
+                    <input type="checkbox" class="custom-control-input" id="newsReleased" name="newsReleased" value="<%= article.newsReleased%>">
                     <label class="custom-control-label" for="newsReleased">Veröffentlichen</label>
                 </div>
             </div>
+
             <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
     </div>
+
 </main>
 
 <script src="https://cdn.tiny.cloud/1/zyqy6bq7l0jcdzh89nk09o0jurkuy5e8anxya0zqq0a9ir24/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
+
+    let editImg, addImg = false;
+
+    if($('#newsReleased').val()) {
+        $('#newsReleased').prop('checked', true)
+    }
+
+    $('#newsReleased').on('change', function(){
+        cb = $(this);
+        cb.val(cb.prop('checked'));
+    });
+
+    if('<%= article.newsImg%>'.length > 0) {
+        $('.prevTeaserImage').removeClass('hidden');
+        $('#cancelNewsImage').removeClass('hidden');
+    }
+
+
+    let newsText = '<%- article.newsText%>'
+
     tinymce.init({
         selector: "textarea#newsText",
         skin: "bootstrap",
@@ -77,7 +106,9 @@
         setup: editor => {
             // Apply the focus effect
             editor.on("init", () => {
-                editor.getContainer().style.transition =
+                editor.setContent(newsText),
+                editor.save(),
+                editor.setContent().style.transition =
                     "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
             });
             editor.on("focus", () => {
@@ -94,9 +125,6 @@
             })
         }
     });
-</script>
-
-<script>
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -111,6 +139,7 @@
 
     // Dateiname in header
     $("#newsImg").on("change", function() {
+        editImg = true;
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 
@@ -120,6 +149,8 @@
     });
 
     $("#cancelNewsImage").on("click", function() {
+        editImg = true;
+        addImg = false;
         $("#newsImg").val('').siblings(".custom-file-label").removeClass("selected").html('Wähle ein Titelbild...');
 
         $('.prevTeaserImage').addClass('hidden');
@@ -130,113 +161,16 @@
     $("#customFile").on("change", function() {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        addImg = true
     });
+
+    $('#editNewsForm').submit( function(event) {
+        if(!addImg) {
+            $('#newsImgContainer').remove()
+        }
+    })
+
 </script>
 
-<script>
-
-
-
-
-
-    // const bWidth = $('#editorContainer').width();
-    // const bHeight = $('#editorContainer').width() / 16 * 9;
-    // const vWidth = bWidth-100;
-    // const vHeight = bHeight-100;
-    //
-    // let uploadCrop;
-    //
-    // function createCroopie() {
-    //     uploadCrop = $('#teaserImgCrop').croppie({
-    //         aspectRatio: 16/9,
-    //         enableExif: true,
-    //         viewport: {
-    //             width: vWidth,
-    //             height: vHeight,
-    //         },
-    //         boundary: {
-    //             width:bWidth,
-    //             height: bHeight
-    //         }
-    //     });
-    // }
-    //
-    // createCroopie();
-    //
-    // $('#upload').on('change', function () {
-    //     $('#teaserImgCrop').croppie('destroy');
-    //     createCroopie();
-    //     readFile(this);
-    // });
-    //
-    // function readFile(input) {
-    //     if (input.files && input.files[0]) {
-    //         let reader = new FileReader();
-    //
-    //         reader.onload = function (e) {
-    //             $('.upload-demo').addClass('ready');
-    //
-    //             uploadCrop.croppie('bind', {
-    //                 url: e.target.result
-    //             }).then(function(){
-    //                 console.log('jQuery bind complete');
-    //             });
-    //         }
-    //         reader.readAsDataURL(input.files[0]);
-    //     }
-    //     else {
-    //         swal("Sorry - you're browser doesn't support the FileReader API");
-    //     }
-    // }
-    //
-    // function getCroppieResult() {
-    //     uploadCrop.croppie('result', {
-    //         type: 'canvas',
-    //         size: {width: 1000},
-    //         quality: 0.7
-    //     })
-    //     .then(function (resp) {
-    //         $('#teaserImgCrop').attr('src', resp);
-    //     });
-    // };
-    //
-    // $('.confirm-result').on('click', () => {
-    //     getCroppieResult();
-    //     $('#teaserImgCrop').croppie('destroy');
-    // })
-
-
-    // $('#addNewsSaveButton').on('click', function(ev) {
-    //
-    //     if($('#teaserImgCrop').attr('src') > 0) {
-    //         console.log('hallo')
-    //     }
-    //         const img = getCroppieResult();
-    //         console.log("Hallo erst einmal");
-    //
-    //         $('#addNewsForm').submit( (e) => {
-    //             e.preventDefault();
-    //             const form = $('#addNewsForm')
-    //             const data = new FormData();
-    //             data.append('newsTitle', form.find('input[name="newsTitle"]').val())
-    //             data.append('newsText', form.find('input[name="newsText"]').val())
-    //             data.append('newsReleased', form.find('input[name="newsReleased"]').val())
-    //             data.append('newsTitle', form.find('input[name="newsTitle"]').val())
-    //             data.append('newsImg', img)
-    //
-    //             // let $form = $(this),
-    //             //     newsTitle = $form.find('input[name="newsTitle"]').val(),
-    //             //     newsText = $form.find('input[name="newsText"]').val(),
-    //             //     newsReleased = $form.find('input[name="newsReleased"]').val(),
-    //             //     //customFile  = $form.find('input[name="customFile"]').val(),
-    //             //     url = $form.attr("action");
-    //             // let formdata = {newsTitle: newsTitle, newsText:newsText, newsReleased:newsReleased, newsImg:resp};
-    //             // console.log(Json.stringify(formdata))
-    //             let posting = $.post(this.attr('action'), data);
-    //             posting.done($.snackbar({content: 'Artikel gespeichert!', style: 'toast'}))
-    //
-    //         });
-    // })
-</script>
 
 <%- include('partials/footer/footer') %>

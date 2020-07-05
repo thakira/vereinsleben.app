@@ -245,7 +245,6 @@ module.exports = (app, passport) => {
     })
 
     app.get('/add-news', isLoggedin, async (req, res) => {
-
         res.render('views/add-news', {
             title: 'Neuen Artikel erstellen',
             user: req.user
@@ -260,7 +259,7 @@ module.exports = (app, passport) => {
             upload(req, res, (err) => {
                 const newsTitle = req.body.newsTitle
                 const newsText = req.body.newsText
-                const newsReleased = (req.body.newsReleased === 'on') ? true :false
+                const newsReleased = req.body.newsReleased
                 const newsAuthor = req.user._id
                 let newsImg = req.body.newsImg
                 let newsType = 'text'
@@ -279,7 +278,7 @@ module.exports = (app, passport) => {
                     return res.send(err);
                 }
 
-                let artikel = new News({
+                new News({
                     newsTitle: newsTitle,
                     newsText: newsText,
                     newsReleased: newsReleased,
@@ -288,13 +287,8 @@ module.exports = (app, passport) => {
                     newsType: newsType
                 })
                     .save()
-                    .then( async () => {
-                        const artikel = await News.find();
-                        return res.status(200).render('views/aktuelles-site', {
-                            title: 'Aktuelles',
-                            user: req.user,
-                            news: artikel
-                        })
+                    .then( () => {
+                        res.status(200).redirect('/aktuelles')
                     })
             });
 
@@ -304,10 +298,9 @@ module.exports = (app, passport) => {
     });
 
     app.get('/edit-news', isLoggedin, async (req,res) => {
-
         try {
-            const newsId = req.param.id;
-            const article = await News.findOne({'_id': newsId})
+            const newsId = req.query.id;
+            const article = await News.findOne({_id: newsId})
 
             return res.render('views/edit-news', {
                 title: 'Artikel bearbeiten',
@@ -319,32 +312,71 @@ module.exports = (app, passport) => {
         }
     });
 
+    app.post('/edit-news', isLoggedin, async (req,res) => {
+        try {
+            let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
+            upload(req, res, (err) => {
+                const newsTitle = req.body.newsTitle
+                const newsText = req.body.newsText
+                const newsReleased = req.body.newsReleased
+                const newsAuthor = req.user._id
+                let newsImg = req.body.newsImg
+                let newsType = 'text'
 
-    app.post('/upload', isLoggedin, (req, res) => {
-        // 'profile_pic' is the name of our file input field in the HTML form
-        let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('file');
+                if (req.file) {
+                    newsImg = req.file.path
+                    newsType = 'image'
+                }
+                else if (req.fileValidationError) {
+                    return res.send(req.fileValidationError);
+                }
+                else if (err instanceof multer.MulterError) {
+                    return res.send(err);
+                }
+                else if (err) {
+                    return res.send(err);
+                }
 
-        upload(req, res, function(err) {
-            // req.file contains information of uploaded file
-            // req.body contains information of text fields, if there were any
+                const article = News.findOne({_id: req.query.id})
+                article.newsTitle= newsTitle
+                article.newsText = newsText
+                article.newsReleased = newsReleased
+                article.newsAuthor = newsAuthor
+                article.newsImg = newsImg
+                article.newsType = newsType
 
-            if (req.fileValidationError) {
-                return res.send(req.fileValidationError);
-            }
-            else if (!req.file) {
-                return res.send('Please select an image to upload');
-            }
-            else if (err instanceof multer.MulterError) {
-                return res.send(err);
-            }
-            else if (err) {
-                return res.send(err);
-            }
+                console.log(req.query.id)
 
-            // Display uploaded image for user validation
-            res.send(`You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`);
-        });
+                article.save()
+                res.status(200).redirect('/aktuelles')
+            });
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+
+        // const user = await User.findOne({"_id": (Object.keys(req.body.data)[0])})
+        // if (!user) {
+        //     req.flash('error', 'User nicht gefunden')
+        // }
+        // user.firstname = req.body.data[id].firstname
+        // user.last_name = req.body.data[id].lastname
+        // user.mobile = req.body.data[id].mobile
+        // user.phone = req.body.data[id].phone
+        // user.email = req.body.data[id].email
+        // user.birthday = req.body.data[id].birthday
+        // user.memberNumber = req.body.data[id].memberNumber
+        // user.role = req.body.data[id].role
+        // await user.save()
+        //
+        // const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
+        // let data = JSON.stringify({
+        //     "draw": req.body.draw,
+        //     "data": users
+        // });
     });
+
+
+
 // ********************************************************************************************/
 
     // *** MEMBERS ***
@@ -486,19 +518,4 @@ module.exports = (app, passport) => {
         })
     })
 
-    // Upload a picture
-    // app.post('/profil', isLoggedin, async (req, res) => {
-    //     try {
-    //         req.user.img = fs.readAsDataURL(req.file)
-    //         //const encImg = req.file.toString('base64');
-    //         //req.user.img = encImg
-    //         //req.user.img.contentType = 'image/png';
-    //         req.user.save();
-    //         req.flash('success', "Dein Bild wurde hochgeladen")
-    //         return res.redirect('/profil')
-    //     } catch (exception) {
-    //         req.flash('error', exception.message)
-    //         return res.redirect('/profil')
-    //     }
-    // })
 }
