@@ -86,9 +86,6 @@ if(dates.length>0){
 }
 
 $(document).ready( function() {
-
-    console.log("App gestartet")
-
     if ('service worker' in navigator) {
         navigator.serviceWorker.register('/sw.js')
             .then(() => console.log('Service Worker registered'))
@@ -150,6 +147,4 @@ $(document).ready(function() {
             e.preventDefault();
         });
     });
-
-
 });

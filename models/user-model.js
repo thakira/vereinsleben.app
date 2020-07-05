@@ -31,9 +31,9 @@ const userSchema = new Schema({
     //Einstellungen Benachrichtigungen
     messages: {type: Map},
     // angemeldete Stunden
-    workhours: {type: Number},
+    workhours: {type: Number, default: 10},
     // geleistete Stunden
-    worked: {type: Number},
+    worked: {type: Number, default: 0},
     // angemeldete Termine
     events: {type:Array}
 }, { timestamps: true })

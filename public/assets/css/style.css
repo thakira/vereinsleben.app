@@ -770,6 +770,15 @@ label.bmd-label-floating {
     background: #fff;
 }
 
+.switch label input:checked+.bmd-switch-track:after {
+    left: calc(100% - 1.25rem);
+    background-color: var(--primary);
+}
+
+.switch label .bmd-switch-track {
+    background-image: linear-gradient(90deg,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 50%,#0E6E1A 0,#0E6E1A);
+}
+
 /*** DataTables ***/
 div#userTable_filter label {
     font-size: 1em;

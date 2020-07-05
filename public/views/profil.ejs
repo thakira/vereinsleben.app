@@ -93,6 +93,8 @@
     </div><!-- row -->
 </main>
 
+<%- include('components/modals/modal', {modalType:'changeImageModal'}) %>
+
 <script>
 
     $(".cancel-btn").on("click", () => {
@@ -146,8 +148,9 @@
 
     // Profilbild laden und zuschneiden
     function readURL(input) {
+        console.log('2')
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
+            const reader = new FileReader();
             reader.onload = function (e) {
                 console.log(e.target.result)
                 $('#profilbild').attr('src', e.target.result);
@@ -168,8 +171,9 @@
         }
     }
 
-    $("#profilbildInput").change(function(){
-        $('.imageContainer').removeClass('hidden');
+    $("#profilbildInput").change(function() {
+        //$('.imageContainer').removeClass('hidden');
+        console.log('1')
         readURL(this);
     });
 
@@ -189,7 +193,5 @@
     })
 
 </script>
-
-<%- include('components/modals/modal', {modalType:'changeImageModal'}) %>
 
 <%- include('partials/footer/footer') %>

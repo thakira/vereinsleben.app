@@ -53,20 +53,22 @@
 <!--                </div>-->
 <!--            </div>-->
 
-            <div class="form-group">
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="newsReleased" name="newsReleased" value="<%= article.newsReleased%>">
-                    <label class="custom-control-label" for="newsReleased">Veröffentlichen</label>
+            <div class="switch">
+                <label class="" for="newsReleased">
+                    <input type="checkbox" class="" id="newsReleased" name="newsReleased" value="<%= article.newsReleased%>">
+                    Veröffentlichen
+                </label>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                </div>
+                <div class="form-group col">
+                    <a id="deleteBtn" class="btn btn-outline-danger" role="button">Artikel löschen</a>
                 </div>
             </div>
 
-            <div class="form-group col">
-                <a id="deleteBtn" class="btn btn-outline-danger" role="button">Artikel löschen</a>
-            </div>
-
-            <div class="form-group col">
-                <button type="submit" class="btn btn-primary">Speichern</button>
-            </div>
 
         </form>
     </div>
