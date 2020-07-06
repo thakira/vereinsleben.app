@@ -1,25 +1,79 @@
-<a href="#" class="list-group-item list-group-item-action flex-column align-items-start task">
-    <div class="d-flex w-100 justify-content-between">
-        <h6>List group item heading</h6>
+<div class="list-group-item flex-column align-items-start task" id="list-group-item-<%= task._id%>">
+    <div class="d-flex w-100 justify-content-between task-title">
+        <h6><%= task.title %></h6>
+        <%if(user.role === 'admin') {%>
+            <a type="button" class="btn bmd-btn-icon" href="/edit-task?task=<%= task._id %>">
+                <i class="material-icons">edit</i>
+            </a>
+        <%}%>
     </div>
-    <div class="d-flex w-100 justify-content-between">
+
+    <% if(task.description) { %>
+        <div class="d-flex w-100 justify-content-between task-description">
+            <p><%= task.description %></p>
+        </div>
+    <% } %>
+
+    <div class="d-flex w-100 justify-content-between task-estimated">
         <p>Geschätzter Aufwand (Std./Person):</p>
-        <span class="">4</span>
+        <span class=""><%= task.estimated %></span>
     </div>
-    <div class="d-flex w-100 justify-content-between">
+
+    <div class="d-flex w-100 justify-content-between task-participants">
         <p>Bereits eingetragen:</p>
-        <span class="">1/4</span>
+        <span>
+            <span style="margin:0" id="participants-<%= task._id%>"><%= (task.participants) ? task.participants.length : '0' %></span>/<%= task.headcount%>
+        </span>
     </div>
-    <div class="d-flex w-100 justify-content-between">
-        <p>Termin:</p>
-        <span class="">12.05.2020 | 12:00 Uhr</span>
-    </div>
-    <div class="task-btn-container text-right">
+
+    <% if(task.date) {%>
+        <div class="d-flex w-100 justify-content-between">
+            <p>Termin:</p>
+            <span class=""><%= ("0"+(task.date).getDate()).slice(-2) %>.<%= ("0"+(((task.date).getMonth())+1)).slice(-2) %>.<%= (task.date).getFullYear()%>
+                | <%= ("0"+(task.date).getHours()).slice(-2) %>:<%= ("0"+(task.date).getMinutes()).slice(-2) %> Uhr</span>
+        </div>
+    <%}%>
+
+    <div id="task-btn-container-<%= task._id%>" class="task-btn-container text-right" >
         <% if(inscribed) {%>
-            <button type="button" class="btn btn-secondary btn-sm">Absagen</button>
-            <button type="button" class="btn  btn-primary btn-sm">Aufgabe erledigt?</button>
-        <% } else {%>
-                <button type="button" class="btn btn-sm btn-primary-text">Aufgabe übernehmen</button>
+            <button type="button" class="btn btn-secondary btn-sm cancel" onclick="cancel(this, '<%= task._id%>')">Absagen</button>
+            <button type="button" class="btn  btn-primary btn-sm" data-toggle="modal" data-target="#modal<%= task._id%>">Aufgabe erledigt?</button>
+        <% } else if(task.participants && task.participants.length < task.headcount){%>
+            <button type="button" class="btn btn-sm btn-primary-text accept" onclick="accept(this, '<%= task._id%>')">Aufgabe übernehmen</button>
             <% }%>
     </div>
-</a>
+
+</div>
+
+<div id="modal<%= task._id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aufgabe erledigt.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/task-done?task=<%=task._id%>">
+                    <div class="d-flex w-100 justify-content-between task-title">
+                        <h6><%= task.title %></h6>
+                    </div>
+                    <div class="form-group col">
+                        <label for="workedHours">Aufwand in Stunden</label>
+                        <input type="number" id="workedHours" name="workedHours" class="form-control" style="text-align: center; font-size: 1.5em;" value="<%=task.estimated%>">
+                        <small class="form-text">
+                            Trage bitte ein, wielange Du für die Aufgabe gebraucht hast.
+                        </small>
+                    </div>
+                    <div class="form-group col">
+                        <label for="date">Datum</label>
+                        <input type="date" class="form-control" id="date" name="date"
+                               value="<%= (new Date).getFullYear()%>-<%= ("0"+(((new Date).getMonth())+1)).slice(-2) %>-<%= ("0"+(new Date).getDate()).slice(-2) %>">
+                    </div>
+                    <button data-task-id="<%=task._id%>" type="button" class="btn btn-primary done">Abschicken</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

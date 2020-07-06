@@ -1,12 +1,22 @@
 <div class="card">
     <div class="card-body">
         <h2>Trage Dich für Arbeitsstunden ein</h2>
-
     </div>
-    <%- include('task', {"inscribed": true})%>
-    <%- include('task', {"inscribed": false})%>
-    <%- include('task', {"inscribed": true})%>
-    <%- include('task', {"inscribed": false})%>
-    <%- include('task', {"inscribed": false})%>
-    <%- include('task', {"inscribed": false})%>
+
+    <% if(tasks) {
+        tasks.forEach(task => {
+            let flag = true
+
+            if(task.participants) {
+                task.participants.forEach( i => {
+                    flag = (i==user._id) ? false : true
+                })
+            }
+            if(flag) {%>
+                <%- include('./task', {task, 'inscribed':false}) %>
+            <%}
+        }) %>
+    <%}%>
+
+
 </div>

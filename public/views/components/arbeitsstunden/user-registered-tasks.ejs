@@ -2,7 +2,15 @@
     <div class="card-body">
         <h2>Übernommene Aufgaben</h2>
     </div>
-    <%- include('task', {"inscribed": true})%>
-    <%- include('task', {"inscribed": true})%>
-
+    <% if(tasks) {
+        tasks.forEach(task => {
+            if(!task.done && task.participants) {
+                task.participants.forEach( i => {
+                    if(i == user._id) {  %>
+                        <%- include('./task', {task, 'inscribed':true}) %>
+                    <%}
+                })
+            }
+        }) %>
+    <%}%>
 </div>
