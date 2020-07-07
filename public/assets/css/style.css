@@ -230,6 +230,33 @@ nav ul a:focus {
     display: none;
 }
 
+.quick-view .list-group.bmd-list-group-sm .list-group-item {
+    padding: .5rem 0;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.quick-view .list-group.bmd-list-group-sm .list-group-item p {
+    margin-bottom: 0.25em;
+}
+
+.quick-view .list-group-item :first-child {
+    margin-right: 0;
+}
+
+.quickIcon a:hover {
+    text-decoration: none;
+}
+
+
+.quickIcon a i {
+    transition: all .5s ease-in-out;
+}
+
+.quickIcon a:hover i {
+    font-size: 1.75em;
+}
+
 @media screen and (max-width: 1350px) {
     .navbar-collapse .nav-item {
         text-align: center;

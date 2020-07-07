@@ -71,8 +71,9 @@ module.exports = (app, passport) => {
 
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
-        const news = await News.find();
-        const tasks = await Task.find();
+        const news = await News.find().sort({updatedAt: -1}).limit(5);
+        const tasks = await Task.find().sort({updatedAt: -1}).limit(5);
+
         return res.render('views/dashboard', {
             title: 'Dashboard',
             user: req.user,
