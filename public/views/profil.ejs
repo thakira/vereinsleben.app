@@ -1,4 +1,4 @@
-<%- include('partials/header/header_with_navigation') %>
+<%- include('partials/header/header') %>
 <main class="container-fluid">
 
     <div class=" profil-header">
@@ -14,8 +14,6 @@
                 <span>Füge ein Profilbild hinzu.</span>
             </figure>
         <% } %>
-
-
     </div>
 
     <div class="row justify-content-md-center">
@@ -94,10 +92,10 @@
 </main>
 
 <%- include('components/modals/modal', {modalType:'changeImageModal'}) %>
+
 <link rel="stylesheet" href="/croppie/croppie.css" />
 <script src="/croppie/croppie.js"></script>
 <script>
-
     $(".cancel-btn").on("click", () => {
         $('button[type="submit"]').remove();
         $(".cancel-btn").addClass("hidden")

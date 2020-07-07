@@ -1,6 +1,7 @@
 const User = require('./models/user-model')
 const News = require('./models/news-model')
 const Club = require('./models/club-model')
+const Task = require('./models/task-model')
 const crypto = require('crypto')
 const LocalStrategy = require('passport-local').Strategy
 const randomString = require('randomstring')
@@ -15,7 +16,6 @@ const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, 'uploads/');
     },
-
     // By default, multer removes file extensions so let's add them back
     filename: function(req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -69,13 +69,16 @@ module.exports = (app, passport) => {
         res.redirect('/login')
     })
 
+
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
         const news = await News.find();
+        const tasks = await Task.find();
         return res.render('views/dashboard', {
             title: 'Dashboard',
             user: req.user,
-            news: news
+            news: news,
+            tasks: tasks
         })
     })
 
@@ -225,12 +228,120 @@ module.exports = (app, passport) => {
     })
 
     // *** Arbeitsstunden ***
-    app.get('/arbeitsstunden', isLoggedin, (req, res) => {
+    app.get('/arbeitsstunden', isLoggedin, async (req, res) => {
+
+        const tasks = await Task.find();
+
         res.render('views/arbeitsstunden-site', {
             title: 'Arbeitsstunden',
+            tasks: tasks,
             user: req.user
         })
     })
+
+    app.get('/add-task', isLoggedin, async (req, res) => {
+        res.render('views/components/arbeitsstunden/add-task', {
+            title: 'Aufgbe erstellen',
+            user: req.user
+        })
+    })
+
+    app.post('/add-task', isLoggedin, async (req, res) => {
+        try {
+            new Task({
+                title: req.body.taskTitle,
+                description: req.body.taskDescription,
+                estimated: req.body.taskEstimated,
+                headcount: req.body.taskHeadcount,
+                date: req.body.taskDate,
+                author: req.user._id
+            })
+                .save()
+                .then( () => {
+                    res.status(200).redirect('/arbeitsstunden');
+                })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    })
+
+    app.get('/edit-task', isLoggedin, async (req, res) => {
+        let task = await Task.findOne({_id: req.query.task});
+        res.render('views/components/arbeitsstunden/edit-task', {
+            title: 'Aufgabe bearbeiten',
+            user: req.user,
+            task:task
+        })
+    })
+
+    app.post('/edit-task', isLoggedin, async (req, res) => {
+        try {
+            console.log('Hallo hier')
+            let task = await Task.findOne({_id: req.query.id});
+            task.title = req.body.taskTitle;
+            task.description = req.body.taskDescription;
+            task.estimated = req.body.taskEstimated;
+            task.headcount = req.body.taskHeadcount;
+            task.date = req.body.taskDate;
+            task.save()
+                .then( () => {
+                    res.status(200).redirect('/arbeitsstunden');
+                })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    })
+
+    app.put('/task-cancel', isLoggedin, async (req, res) => {
+        try {
+            let delId = req.user._id.toString();
+            Task.updateOne(
+            {_id: req.query.id},
+            {$pull: {participants: { $in: delId}}}
+            ).then( () => {
+                res.status(200).send('OK').redirect('/arbeitsstunden');
+            })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    })
+
+    app.put('/task-inscribe', isLoggedin, async (req, res) => {
+        try {
+            let addId = req.user._id.toString();
+
+            let inscribe = await Task.findOne({_id: req.query.id})
+            inscribe.participants.push(addId);
+            inscribe.save().then( () => {
+                res.status(200).redirect('/arbeitsstunden')
+            })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    })
+
+    app.post('/task-done', isLoggedin, async (req, res) => {
+        try {
+            let addId = req.user._id.toString();
+
+            let task = await Task.findOne({_id: req.query.task})
+            task.done = true,
+            task.doneInfo.date = req.body.date;
+            task.doneInfo.worked_hours = req.body.workedHours;
+            task.doneInfo.user_id.push(addId);
+            await task.save()
+
+            let user = await User.findOne({_id: req.user._id})
+            user.worked = parseInt(user.worked) + parseInt(req.body.workedHours);
+            user.save()
+                .then( () => {
+                res.status(200).redirect('/arbeitsstunden')
+            })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    })
+
 
     // *** NEWS ***
     app.get('/aktuelles', isLoggedin, async (req, res) => {

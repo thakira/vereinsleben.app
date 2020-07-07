@@ -529,7 +529,7 @@ input#profilbildInput {
 }
 
 /*** News ***/
-.card:hover {
+#Aktuelles .card:hover {
     cursor: pointer;
 }
 
@@ -570,6 +570,14 @@ input#profilbildInput {
     border-color: var(--primary);
     font-weight: normal;
     margin-right: 0;
+}
+
+.task-title{
+    color:#0a5213 ;
+}
+
+.task-description {
+    margin-bottom: 1.25em;
 }
 
 /*** Profil ***/
@@ -613,8 +621,9 @@ main.container-fluid {
 }
 
 .hidden {
-    display: none;
+    display: none ;
 }
+
 
 /*** Spinner ***/
 .spinner-layer {
@@ -752,7 +761,11 @@ input[type=email]:not(.browser-default).invalid ~ .helper-text[data-error] {
 label.bmd-label-floating {
     display: block;
     width: 100%;
-    text-align: center;
+    /*text-align: center;*/
+}
+
+input[type="number"] {
+    height: 2.35em;
 }
 
 .custom-file-label::after {
