@@ -1,9 +1,55 @@
 <%- include('partials/header/header_with_navigation') %>
-<main>
+<main class="container">
 
     <div class="card">
         <div class="card-header text-center">
             <h1 class="display-4 greeting"><span id="greeting">Hallo</span> <%= user.firstname %>, <br>schön das du da bist!</h1>
+        </div>
+    </div>
+
+    <div class="quicklinks text-center justify-content-center row">
+        <div class="quickIcon col-sm-2">
+            <a href="/aktuelles"><i class="material-icons left">dashboard</i>Aktuelles</a>
+        </div>
+        <div class="quickIcon col-sm-2">
+            <a href="/arbeitsstunden"><i class="material-icons left">timelapse</i>Arbeitsstunden</a>
+        </div>
+        <% if(user.role === 'admin') {%>
+            <div class="quickIcon col-sm-2">
+                <a href="/mitglieder"><i class="material-icons left">person</i>Mitglieder</a>
+            </div>
+        <%}%>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Aktuelles</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-sm btn-primary-text">weitere News</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Letzte Arbeitsstunden</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Deine Termine</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-sm btn-primary-text">Zur Terminübersicht</a>
+                </div>
+            </div>
         </div>
     </div>
 
