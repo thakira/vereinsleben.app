@@ -481,9 +481,7 @@ module.exports = (app, passport) => {
 
     app.delete('/delete-news', isLoggedin, async (req,res) => {
         try {
-            console.log('Hello from delete')
             await News.findOneAndDelete({'_id': req.query.id})
-
             const news = await News.find();
             return res.render('views/aktuelles-site', {
                 title: 'Aktuelles',

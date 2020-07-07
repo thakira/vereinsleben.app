@@ -1,7 +1,9 @@
 <!-- Sidebar  -->
 <nav id="sidebar" >
     <div class="sidebar-header text-center">
-        <%- include('../../components/avatar/avatar', {src: user.img}); %>
+        <% if(user.img) {%>
+            <%- include('../../components/avatar/avatar', {src: user.img}); %>
+        <% } %>
         <h3><%= user.firstname%> <%= user.lastname%></h3>
     </div>
     <ul class="list-group">
