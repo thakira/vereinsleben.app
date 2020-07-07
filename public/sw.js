@@ -4,8 +4,8 @@ importScripts('./assets/js/idb.js');
 const URL = 'http://localhost:3000'
 //const URL = 'https://https://lyra.et-inf.fho-emden.de:15117'
 
-const CACHE_STATIC_NAME = 'static-v3' // Static cache versioning
-const CACHE_DYNAMIC_NAME = 'dynamic-v3' // Dynamic cache versioning
+const CACHE_STATIC_NAME = 'static-v6' // Static cache versioning
+const CACHE_DYNAMIC_NAME = 'dynamic-v6' // Dynamic cache versioning
 const STATIC_FILES = [
     // LOGO???? Auf Login/Register und in der Navbar
     '/',
@@ -21,7 +21,7 @@ const STATIC_FILES = [
     './views/dashboard.ejs',
     './views/aktuelles-site.ejs',
     './views/arbeitsstunden-site.ejs',
-    //'./views/mitglieder.ejs',
+    './views/mitglieder.ejs',
     './views/profil.ejs',
     './views/partials/footer/footer.ejs',
     './views/partials/header/header.ejs',
@@ -97,10 +97,6 @@ const dbPromise = idb.open('vereinsleben', 1, (db) => {
     }
 });
 
-
-
-
-
 // Activate service worker, gets fired after install event
 self.addEventListener('activate', event => {
     console.log('Service Worker activated', event)
@@ -122,67 +118,40 @@ self.addEventListener('activate', event => {
     return self.clients.claim()
 })
 
-function gotoIndexedDB(url) {
-    console.log("Hier Daten in IndexedDB schreiben/ueberschreiben")
-}
-/*function isInArray(string, array) {
-    var cachePath;
-    if (string.indexOf(self.origin) === 0) { // request targets domain where we serve the page from (i.e. NOT a CDN)
-        console.log('matched ', string);
-        cachePath = string.substring(self.origin.length); // take the part of the URL AFTER the domain (e.g. after localhost:8080)
-    } else {
-        cachePath = string; // store the full request (for CDNs)
-    }
-    return array.indexOf(cachePath) > -1;
-}*/
-
-
 self.addEventListener('fetch', event => {
-    //console.log('Service Worker fetched ressource', event)
     console.log(event.request.url)
-    //console.log("Navigator-Online: " + navigator.onLine )
+
     // Allow only GET requests
     if (event.request.method !== 'GET') return
-    console.log("Navigator: " + navigator.onLine)
-    if((/mitglieder/.test(event.request.url)) && (!(navigator.onLine))) {
-        console.log("Mitglieder aufgerufen")
-        return caches.open(CACHE_STATIC_NAME).then(cache => {
-            return cache.match('/offline.html')
-        })
-    } else if (/mitglieder/.test(event.request.url)) {
-        return
-    }
-    if ((/getMemberData/.test(event.request.url)) ||  (/edit-news/.test(event.request.url))) {
-        return gotoIndexedDB(event.request.url);
-    }
-/*    if (!(/getMemberData/.test(event.request.url))) {*/
-        // Catch HTTP request and replace it with a SW request
-        event.respondWith(
-            // If ressource request URL matches a cached ressource URL, respond ressource from cache
-            caches.match(event.request).then(response => {
-                if (response) return response // Return ressource from cache if exists
 
-                // Try to fetch ressource via network and cache it into dynamic cache
-                return fetch(event.request).then(res => {
-                    return caches.open(CACHE_DYNAMIC_NAME).then(cache => {
-                        cache.put(event.request.url, res.clone()) // Important: clone response, because it's a stream!!!
-                        return res
-                    })
-                }).catch(error => {
+    // Catch HTTP request and replace it with a SW request
+    event.respondWith(
 
-                    // Dynamic caching failed due to no network connection. Send offline page
-                    return caches.open(CACHE_STATIC_NAME).then(cache => {
+        // If ressource request URL matches a cached ressource URL, respond ressource from cache
+        caches.match(event.request).then(response => {
+            if (response) return response // Return ressource from cache if exists
 
-                        // Only return offline page, if a HTML ressource was requested
-                        if (event.request.headers.get('accept').includes('text/html')) {
-                            return cache.match('/offline.html')
-                        }
+            // Try to fetch ressource via network and cache it into dynamic cache
+            return fetch(event.request).then(res => {
+                return caches.open(CACHE_DYNAMIC_NAME).then(cache => {
+                    cache.put(event.request.url, res.clone()) // Important: clone response, because it's a stream!!!
+                    return res
+                })
+            }).catch(error => {
 
-                    })
+                // Dynamic caching failed due to no network connection. Send offline page
+                return caches.open(CACHE_STATIC_NAME).then(cache => {
+
+                    // Only return offline page, if a HTML ressource was requested
+                    if (event.request.headers.get('accept').includes('text/html')) {
+                        return cache.match('/offline.html')
+                    }
 
                 })
 
             })
-        )
 
+        })
+
+    )
 })
