@@ -42,11 +42,32 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Abschicken</button>
+            <div class="form-row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Abschicken</button>
+                </div>
+                <div class="col" style="text-align: right">
+                    <button id="deleteBtn" type="button" class="btn btn-outline-danger">Löschen</button>
+                </div>
+            </div>
         </form>
     </div>
 </main>
 
+<script>
+    $('#deleteBtn').on('click', function() {
+        if (window.confirm("Möchtest du die Aufgabe wirklich löschen?")) {
+            $.ajax({
+                url: '/delete-task?id=<%- task._id%>',
+                type: 'DELETE'
+            })
+            $.snackbar({content: 'Aufgabe gelöscht!', style: 'toast'})
+            $(location).attr('href', "/arbeitsstunden");
+        } else {
+            $.snackbar({content: 'Aufgabe löschen abgebrochen!', style: 'toast'})
+        }
+    })
+</script>
 
 
 <%- include('../../partials/footer/footer') %>

@@ -1,6 +1,7 @@
 <%- include('partials/header/header') %>
 <main>
     <div class="row">
+        <% if(user.role === 'admin') {%>
         <div class="col-md-2">
             <h2>Entwürfe</h2>
         </div>
@@ -15,6 +16,11 @@
         <div class="col-md-9 offset-md-1">
             <%- include('components/aktuelles/aktuelles.ejs', {'releaseFilter': true}) %>
         </div>
+        <%} else {%>
+            <div class="col">
+                <%- include('components/aktuelles/aktuelles.ejs', {'releaseFilter': true}) %>
+            </div>
+        <% } %>
     </div>
 
     <% if(user.role === 'admin') {%>

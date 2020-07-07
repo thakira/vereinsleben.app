@@ -1,31 +1,24 @@
 <%- include('partials/header/header') %>
-<div class="tab-container" >
-    <div id="material-tabs">
-        <a id="tab1-tab" href="#tab1" class="active">Aktuelles</a>
-        <a id="tab2-tab" href="#tab2">Termine</a>
-        <a id="tab3-tab" href="#tab3">Arbeitsstunden</a>
-    </div>
-</div>
-<main id="tab-container">
-    <div class="tab-content">
+<main>
 
-        <!--        News Tab-->
-        <div id="tab1">
-            <%- include('components/aktuelles/aktuelles', {'releaseFilter':true})%>
-        </div>
-
-        <!--        Termine Tab-->
-        <div id="tab2" style="display: none;">
-            <%- include('components/termine/termine')%>
-        </div>
-
-        <!--         -->
-        <div id="tab3" style="display: none;">
-            <%- include('components/arbeitsstunden/arbeitsstunden')%>
+    <div class="card">
+        <div class="card-header text-center">
+            <h1 class="display-4 greeting"><span id="greeting">Hallo</span> <%= user.firstname %>, <br>schön das du da bist!</h1>
         </div>
     </div>
+
+
 </main>
 
 
+<script>
+    var hours = new Date().getHours();
+
+    if(hours < 11) {
+        $('#greeting').text('Guten Morgen');
+    } else if(hours > 17) {
+        $('#greeting').text('Guten Abend');
+    }
+</script>
 <%- include('partials/footer/footer') %>
 

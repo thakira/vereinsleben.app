@@ -65,10 +65,9 @@ module.exports = (app, passport) => {
     })
 
     // Index site
-    app.get('/', isNotLoggedin, (req, res) => {
+    app.get('/', (req, res) => {
         res.redirect('/login')
     })
-
 
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
@@ -229,9 +228,7 @@ module.exports = (app, passport) => {
 
     // *** Arbeitsstunden ***
     app.get('/arbeitsstunden', isLoggedin, async (req, res) => {
-
         const tasks = await Task.find();
-
         res.render('views/arbeitsstunden-site', {
             title: 'Arbeitsstunden',
             tasks: tasks,
@@ -276,7 +273,6 @@ module.exports = (app, passport) => {
 
     app.post('/edit-task', isLoggedin, async (req, res) => {
         try {
-            console.log('Hallo hier')
             let task = await Task.findOne({_id: req.query.id});
             task.title = req.body.taskTitle;
             task.description = req.body.taskDescription;
@@ -296,8 +292,8 @@ module.exports = (app, passport) => {
         try {
             let delId = req.user._id.toString();
             Task.updateOne(
-            {_id: req.query.id},
-            {$pull: {participants: { $in: delId}}}
+                {_id: req.query.id},
+                {$pull: {participants: { $in: delId}}}
             ).then( () => {
                 res.status(200).send('OK').redirect('/arbeitsstunden');
             })
@@ -336,6 +332,21 @@ module.exports = (app, passport) => {
             user.save()
                 .then( () => {
                 res.status(200).redirect('/arbeitsstunden')
+            })
+        } catch (exception) {
+            req.flash('error', exception.message)
+        }
+    })
+
+    app.delete('/delete-task', isLoggedin, async (req, res) => {
+        try {
+            await Task.findOneAndDelete({_id: req.query.id})
+
+            const tasks = await Task.find();
+            return res.render('views/arbeitsstunden-site', {
+                title: 'Arbeitsstunden',
+                tasks: tasks,
+                user: req.user
             })
         } catch (exception) {
             req.flash('error', exception.message)

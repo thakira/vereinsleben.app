@@ -445,6 +445,11 @@ main.standalone>*:not(.input-field){
     text-align: center;
 }
 
+.display-4.greeting {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
 h2.vereinsleben {
     margin: 1em 0;
     font-size: 1.0em;
