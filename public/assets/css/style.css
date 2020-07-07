@@ -569,7 +569,14 @@ input#profilbildInput {
     font-size: 1.5em;
 }
 
-
+.quicklinks .quickIcon a {
+    margin: 0.5em;
+}
+@media screen and (max-width: 450px) {
+    .quicklinks {
+        font-size: 1.0em;
+    }
+}
 
 
 /*** News ***/
