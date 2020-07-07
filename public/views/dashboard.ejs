@@ -8,26 +8,47 @@
     </div>
 
     <div class="quicklinks text-center justify-content-center row">
-        <div class="quickIcon col-sm-2">
+        <div class="quickIcon col-xs-2">
             <a href="/aktuelles"><i class="material-icons left">dashboard</i>Aktuelles</a>
         </div>
-        <div class="quickIcon col-sm-2">
-            <a href="/arbeitsstunden"><i class="material-icons left">timelapse</i>Arbeitsstunden</a>
+        <div class="quickIcon col-xs-2">
+            <a href="/arbeitsstunden"><i class="material-icons left">timelapse</i>Arbeits&shy;stunden</a>
         </div>
         <% if(user.role === 'admin') {%>
-            <div class="quickIcon col-sm-2">
+            <div class="quickIcon col-xs-2">
                 <a href="/mitglieder"><i class="material-icons left">person</i>Mitglieder</a>
             </div>
         <%}%>
     </div>
 
-    <div class="row justify-content-between">
+    <div class="row justify-content-center quick-view">
         <div class="col-sm-4">
-            <div class="card">
+            <div class="card aktuelles">
                 <div class="card-body">
-                    <h5 class="card-title">Aktuelles</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-sm btn-primary-text">weitere News</a>
+                    <h5 class="card-title">Letzte News</h5>
+
+                    <% if(news) {%>
+                        <ul class="list-group bmd-list-group-sm">
+                            <% news.forEach( article => {%>
+                                <% if (article.newsReleased) {%>
+                                    <a class="list-group-item" data-toggle="modal" data-target="#newsModal<%= article._id%>">
+                                        <div class="bmd-list-group-col">
+                                            <p class="list-group-item-heading"><%= article.newsTitle %></p>
+                                            <p class="list-group-item-text">vom <span class="datum" del-date="<%= article.createdAt %>"></span></p>
+                                        </div>
+                                    </a>
+                                    <%- include('./components/modals/modal', {modalType: "newsModal", article}) %>
+                                <% }%>
+                            <%})%>
+                        </ul>
+                    <%} else {%>
+                        <p>Zurzeit keine Einträge vorhanden.</p>
+                    <%}%>
+
+                    <div class="text-center">
+                        <a href="#" class="btn btn-sm btn-primary-text ">weitere News</a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -36,8 +57,28 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Letzte Arbeitsstunden</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
+
+                    <% if(tasks) {%>
+                        <ul class="list-group bmd-list-group-sm">
+                            <% tasks.forEach( task => {%>
+                                <% if(!task.done) {%>
+                                    <a class="list-group-item" href="/arbeitsstunden">
+                                        <div class="bmd-list-group-col">
+                                            <p class="list-group-item-heading"><%= task.title %></p>
+                                            <p class="list-group-item-text">vom <span class="datum" del-date="<%= task.updatedAt %>"></span></p>
+                                        </div>
+                                    </a>
+                                <%}%>
+                            <%})%>
+                        </ul>
+                    <%} else {%>
+                        <p>Zurzeit keine Einträge vorhanden.</p>
+                    <%}%>
+
+                    <div class="text-center">
+                        <a href="#" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
+                    </div>
+
                 </div>
             </div>
         </div>
