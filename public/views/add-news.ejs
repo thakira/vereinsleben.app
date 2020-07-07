@@ -23,7 +23,6 @@
                         <label class="custom-file-label" for="newsImg">Wähle ein Titelbild...</label>
                         <small>Das Titelbild ist optional und wird über dem Beitrag angezeigt.</small>
                     </div>
-
                 </div>
 
                 <div class="col-md-6 col-sm-12">
@@ -52,14 +51,12 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="switch">
-                    <label class="" for="newsReleased">
-                        <input type="checkbox" class="" id="newsReleased" name="newsReleased">
-                        Veröffentlichen
-                    </label>
-                </div>
+            <div class="checkbox">
+                <label for="newsReleased">
+                    <input type="checkbox" id="newsReleased" name="newsReleased"> Veröffentlichen
+                </label>
             </div>
+
             <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
     </div>
@@ -139,112 +136,6 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
-</script>
-
-<script>
-
-
-
-
-
-    // const bWidth = $('#editorContainer').width();
-    // const bHeight = $('#editorContainer').width() / 16 * 9;
-    // const vWidth = bWidth-100;
-    // const vHeight = bHeight-100;
-    //
-    // let uploadCrop;
-    //
-    // function createCroopie() {
-    //     uploadCrop = $('#teaserImgCrop').croppie({
-    //         aspectRatio: 16/9,
-    //         enableExif: true,
-    //         viewport: {
-    //             width: vWidth,
-    //             height: vHeight,
-    //         },
-    //         boundary: {
-    //             width:bWidth,
-    //             height: bHeight
-    //         }
-    //     });
-    // }
-    //
-    // createCroopie();
-    //
-    // $('#upload').on('change', function () {
-    //     $('#teaserImgCrop').croppie('destroy');
-    //     createCroopie();
-    //     readFile(this);
-    // });
-    //
-    // function readFile(input) {
-    //     if (input.files && input.files[0]) {
-    //         let reader = new FileReader();
-    //
-    //         reader.onload = function (e) {
-    //             $('.upload-demo').addClass('ready');
-    //
-    //             uploadCrop.croppie('bind', {
-    //                 url: e.target.result
-    //             }).then(function(){
-    //                 console.log('jQuery bind complete');
-    //             });
-    //         }
-    //         reader.readAsDataURL(input.files[0]);
-    //     }
-    //     else {
-    //         swal("Sorry - you're browser doesn't support the FileReader API");
-    //     }
-    // }
-    //
-    // function getCroppieResult() {
-    //     uploadCrop.croppie('result', {
-    //         type: 'canvas',
-    //         size: {width: 1000},
-    //         quality: 0.7
-    //     })
-    //     .then(function (resp) {
-    //         $('#teaserImgCrop').attr('src', resp);
-    //     });
-    // };
-    //
-    // $('.confirm-result').on('click', () => {
-    //     getCroppieResult();
-    //     $('#teaserImgCrop').croppie('destroy');
-    // })
-
-
-    // $('#addNewsSaveButton').on('click', function(ev) {
-    //
-    //     if($('#teaserImgCrop').attr('src') > 0) {
-    //         console.log('hallo')
-    //     }
-    //         const img = getCroppieResult();
-    //         console.log("Hallo erst einmal");
-    //
-    //         $('#addNewsForm').submit( (e) => {
-    //             e.preventDefault();
-    //             const form = $('#addNewsForm')
-    //             const data = new FormData();
-    //             data.append('newsTitle', form.find('input[name="newsTitle"]').val())
-    //             data.append('newsText', form.find('input[name="newsText"]').val())
-    //             data.append('newsReleased', form.find('input[name="newsReleased"]').val())
-    //             data.append('newsTitle', form.find('input[name="newsTitle"]').val())
-    //             data.append('newsImg', img)
-    //
-    //             // let $form = $(this),
-    //             //     newsTitle = $form.find('input[name="newsTitle"]').val(),
-    //             //     newsText = $form.find('input[name="newsText"]').val(),
-    //             //     newsReleased = $form.find('input[name="newsReleased"]').val(),
-    //             //     //customFile  = $form.find('input[name="customFile"]').val(),
-    //             //     url = $form.attr("action");
-    //             // let formdata = {newsTitle: newsTitle, newsText:newsText, newsReleased:newsReleased, newsImg:resp};
-    //             // console.log(Json.stringify(formdata))
-    //             let posting = $.post(this.attr('action'), data);
-    //             posting.done($.snackbar({content: 'Artikel gespeichert!', style: 'toast'}))
-    //
-    //         });
-    // })
 </script>
 
 <%- include('partials/footer/footer') %>

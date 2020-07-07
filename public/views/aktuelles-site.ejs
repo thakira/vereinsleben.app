@@ -6,20 +6,49 @@
             <h2>Entwürfe</h2>
         </div>
         <div class="col-md-9 offset-md-1">
-            <%- include('components/aktuelles/aktuelles.ejs', {'releaseFilter': false}) %>
+            <div class="row">
+                <% if(news) {%>
+                    <% news.forEach( article => {%>
+                        <% if (!article.newsReleased) {%>
+                            <div class="col-md-4">
+                                <%- include('components/aktuelles/aktuelles', {article}) %>
+                            </div>
+                        <%}%>
+                    <%})%>
+                <%}%>
+            </div>
         </div>
+
+            <hr class="col-12" style="border-color: #0a5213; margin: 3em auto">
 
         <div class="col-md-2">
             <h2>Veröffentlicht</h2>
         </div>
 
         <div class="col-md-9 offset-md-1">
-            <%- include('components/aktuelles/aktuelles.ejs', {'releaseFilter': true}) %>
+            <div class="row">
+                <% if(news) {%>
+                    <% news.forEach( article => {%>
+                        <% if (article.newsReleased) {%>
+                            <div class="col-md-4">
+                                <%- include('components/aktuelles/aktuelles', {article}) %>
+                            </div>
+                        <%}%>
+                    <%})%>
+                <%}%>
+            </div>
+
         </div>
         <%} else {%>
-            <div class="col">
-                <%- include('components/aktuelles/aktuelles.ejs', {'releaseFilter': true}) %>
-            </div>
+            <% if(news) {%>
+                    <% news.forEach( article => {%>
+                        <% if (article.newsReleased) {%>
+                            <div class="col-md-4">
+                                <%- include('components/aktuelles/aktuelles', {article}) %>
+                            </div>
+                        <%}%>
+                    <%})%>
+            <%}%>
         <% } %>
     </div>
 

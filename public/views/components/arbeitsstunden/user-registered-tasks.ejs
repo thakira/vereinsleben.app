@@ -7,7 +7,7 @@
             if(!task.done && task.participants) {
                 task.participants.forEach( i => {
                     if(i == user._id) {  %>
-                        <%- include('./task', {task, 'inscribed':true}) %>
+                        <%- include('task', {task, 'inscribed':true}) %>
                     <%}
                 })
             }

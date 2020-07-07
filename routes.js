@@ -71,8 +71,8 @@ module.exports = (app, passport) => {
 
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
-        const news = await News.find().sort({updatedAt: -1}).limit(5);
-        const tasks = await Task.find().sort({updatedAt: -1}).limit(5);
+        const news = await News.find({newsReleased: true}).sort({updatedAt: -1}).limit(5);
+        const tasks = await Task.find({done: false}).sort({updatedAt: -1}).limit(5);
 
         return res.render('views/dashboard', {
             title: 'Dashboard',
@@ -450,7 +450,6 @@ module.exports = (app, passport) => {
                 newsText = req.body.newsText
                 newsReleased = req.body.newsReleased
                 newsType = req.body.newsType
-                console.log('Hello from edit-news')
                 if (req.file && newsType === 'image') {
                     newsImg = req.file.path
                 }
@@ -463,18 +462,18 @@ module.exports = (app, passport) => {
                 else if (err) {
                     return res.send(err);
                 }
+
+                News.findOneAndUpdate({_id: req.query.id}, {
+                    newsTitle: newsTitle,
+                    newsText: newsText,
+                    newsReleased: newsReleased,
+                    newsType: newsType,
+                    newsImg: newsImg
+                }).then( function() {
+                    res.status(200).redirect('/aktuelles')
+                })
             });
 
-            const article = await News.findOne({_id: req.query.id})
-            article.newsTitle= newsTitle
-            article.newsText = newsText
-            article.newsReleased = newsReleased
-            article.newsType = newsType
-            if(newsImg.length > 0) article.newsImg = newsImg
-
-            await article.save().then( function() {
-                res.status(200).redirect('/aktuelles')
-            })
         } catch (exception) {
             req.flash('error', exception.message)
         }
@@ -486,7 +485,6 @@ module.exports = (app, passport) => {
             await News.findOneAndDelete({'_id': req.query.id})
 
             const news = await News.find();
-
             return res.render('views/aktuelles-site', {
                 title: 'Aktuelles',
                 news: news,
@@ -503,7 +501,6 @@ module.exports = (app, passport) => {
     app.get('/getMemberData', async(req, res, next) => {
         await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
             if (err) return next(err);
- //           users = JSON.stringify({"data": users});
             let data = JSON.stringify({
                 "draw": req.body.draw,
                 "data": users
@@ -545,10 +542,6 @@ module.exports = (app, passport) => {
                 "data": users
             });
             res.send(data);
-            //res.redirect('/mitglieder_datatables')
-            //console.log("DB:" + user.firstname + ", req:" + first_name);
-            /*if (user.firstname != req.query['firstname']) {
-                user.firstname = req.query['firstname'];*/
         } catch (exception) {
             req.flash('error', exception.message)
             //res.redirect('/mitglieder_datatables')

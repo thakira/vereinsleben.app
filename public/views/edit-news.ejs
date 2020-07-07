@@ -10,25 +10,20 @@
         </div>
     </nav>
 
-
     <div id="editorContainer" class="col">
-
-        <form method="post" action="/edit-news?id=<%- article._id%>" id="editNewsForm" >
-
+        <form method="post" action="/edit-news?id=<%- article._id%>" id="editNewsForm" enctype="multipart/form-data">
             <div class="row">
-                <div class="form-group col">
+                <div class="form-group col-sm-12 col-md-6">
                     <!-- Datei hochladen-->
                     <div id="newsImgContainer" class="custom-file">
                         <input type="file" class="form-control" id="newsImg" name="newsImg" lang="de" accept="image/*" value="<%= article.newsImg %>">
                         <label class="custom-file-label" for="newsImg">Wähle ein Titelbild...</label>
                         <small>Das Titelbild ist optional und wird über dem Beitrag angezeigt.</small>
                     </div>
-
                     <input type="text" class="hidden" id="newsType" name="newsType" value="<%= article.newsType %>">
-                    <label class="custom-file-label hidden" for="newsType">Wähle ein Titelbild...</label>
                 </div>
 
-                <div class="col">
+                <div class="col-sm-12 col-md-6">
                     <div class="prevTeaserImage hidden">
                         <img id="teaserImg" src="<%= article.newsImg %>" alt="your image" />
                     </div>
@@ -41,22 +36,21 @@
             </div>
 
             <div class="form-group">
-                <textarea class="form-control" id="newsText" name="newsText" required></textarea>
+                <textarea class="form-control" id="newsText" name="newsText" required><%- article.newsText%></textarea>
             </div>
 
-<!--            <div class="form-group">-->
-<!--                &lt;!&ndash; Datei hochladen&ndash;&gt;-->
-<!--                <div class="custom-file">-->
-<!--                    <input type="file" class="custom-file-input " id="customFile" name="customFile" lang="de">-->
-<!--                    <label class="custom-file-label" for="customFile">Lade eine Datei hoch...</label>-->
-<!--                    <small>Lade optional ein Dokument hoch (z.B. Plakat, Anmeldeformular)</small>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="form-group">-->
+            <!--                &lt;!&ndash; Datei hochladen&ndash;&gt;-->
+            <!--                <div class="custom-file">-->
+            <!--                    <input type="file" class="custom-file-input " id="customFile" name="customFile" lang="de">-->
+            <!--                    <label class="custom-file-label" for="customFile">Lade eine Datei hoch...</label>-->
+            <!--                    <small>Lade optional ein Dokument hoch (z.B. Plakat, Anmeldeformular)</small>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
-            <div class="switch">
-                <label class="" for="newsReleased">
-                    <input type="checkbox" class="" id="newsReleased" name="newsReleased" value="<%= article.newsReleased%>">
-                    Veröffentlichen
+            <div class="checkbox">
+                <label for="newsReleased">
+                    <input type="checkbox" id="newsReleased" name="newsReleased"> Veröffentlichen
                 </label>
             </div>
 
@@ -68,38 +62,36 @@
                     <a id="deleteBtn" class="btn btn-outline-danger" role="button">Artikel löschen</a>
                 </div>
             </div>
-
-
         </form>
     </div>
-
 </main>
 
 <script src="https://cdn.tiny.cloud/1/zyqy6bq7l0jcdzh89nk09o0jurkuy5e8anxya0zqq0a9ir24/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
 
+$(document).ready( function() {
     let editImg, addImg = false;
-
-    if('<%= article.newsReleased%>') {
+    let released = '<%= article.newsReleased %>'
+    if (released === 'true') {
         $('#newsReleased').prop('checked', true)
     }
 
-    $('#newsReleased').on('change', function(){
+    $('#newsReleased').on('change', function () {
         cb = $(this);
         cb.val(cb.prop('checked'));
     });
 
-    if('<%= article.newsType%>' === "image") {
+    if ('<%= article.newsType %>' === "image") {
         $('.prevTeaserImage').removeClass('hidden');
         $('#cancelNewsImage').removeClass('hidden');
     }
 
-    $('#deleteBtn').on('click', function() {
+    $('#deleteBtn').on('click', function () {
 
         if (window.confirm("Möchtest du den Artikel wirklich löschen?")) {
             $.ajax({
-                url: '/delete-news?id=<%- article._id%>',
+                url: '/delete-news?id=<%- article._id %>',
                 type: 'DELETE'
             })
             $.snackbar({content: 'Artikel gelöscht!', style: 'toast'})
@@ -109,11 +101,7 @@
         } else {
             $.snackbar({content: 'Artikel löschen abgebrochen!', style: 'toast'})
         }
-
     })
-
-
-    let newsText = '<%- article.newsText%>'
 
     tinymce.init({
         selector: "textarea#newsText",
@@ -122,14 +110,13 @@
         toolbar:
             "h1 h2 bold italic blockquote bullist numlist backcolor | link image media | removeformat help",
         menubar: false,
-        language:'de',
+        language: 'de',
         setup: editor => {
             // Apply the focus effect
             editor.on("init", () => {
                 editor.setContent(newsText),
-                editor.save(),
-                editor.setContent().style.transition =
-                    "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
+                    editor.save(),
+                    editor.setContent($('#newsText').text());
             });
             editor.on("focus", () => {
                 (editor.getContainer().style.boxShadow =
@@ -149,7 +136,6 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
             reader.onload = function (e) {
                 $('#teaserImg').attr('src', e.target.result);
             }
@@ -157,8 +143,8 @@
         }
     }
 
-    // Dateiname in header
-    $("#newsImg").on("change", function() {
+    //Dateiname in header
+    $("#newsImg").on("change", function () {
         editImg = true;
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -169,7 +155,7 @@
         readURL(this);
     });
 
-    $("#cancelNewsImage").on("click", function() {
+    $("#cancelNewsImage").on("click", function () {
         editImg = true;
         addImg = false;
         $("#newsImg").val('').siblings(".custom-file-label").removeClass("selected").html('Wähle ein Titelbild...');
@@ -180,18 +166,18 @@
     });
 
     // Dateiname in file input
-    $("#customFile").on("change", function() {
+    $("#customFile").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         addImg = true
     });
 
-    $('#editNewsForm').submit( function(event) {
-        if(!addImg) {
+    $('#editNewsForm').submit(function (event) {
+        if ($('#newsImg').val().length === 0) {
             $('#newsImgContainer').remove()
         }
     })
-
+})
 </script>
 
 

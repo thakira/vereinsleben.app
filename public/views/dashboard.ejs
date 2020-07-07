@@ -3,7 +3,7 @@
 
     <div class="card">
         <div class="card-header text-center">
-            <h1 class="display-4 greeting"><span id="greeting">Hallo</span> <%= user.firstname %>, <br>schön das du da bist!</h1>
+            <h1 class="display-4 greeting"><span id="greeting">Hallo</span> <%= user.firstname %>! <br>Schön, dass Du da bist!</h1>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
         <div class="col-sm-4">
             <div class="card aktuelles">
                 <div class="card-body">
-                    <h5 class="card-title">Letzte News</h5>
+                    <h5 class="card-title">Neueste News</h5>
 
                     <% if(news) {%>
                         <ul class="list-group bmd-list-group-sm">
@@ -37,7 +37,7 @@
                                             <p class="list-group-item-text">vom <span class="datum" del-date="<%= article.createdAt %>"></span></p>
                                         </div>
                                     </a>
-                                    <%- include('./components/modals/modal', {modalType: "newsModal", article}) %>
+                                    <%- include('components/modals/modal', {modalType: "newsModal", article}) %>
                                 <% }%>
                             <%})%>
                         </ul>
@@ -46,7 +46,7 @@
                     <%}%>
 
                     <div class="text-center">
-                        <a href="#" class="btn btn-sm btn-primary-text ">weitere News</a>
+                        <a href="/aktuelles" class="btn btn-sm btn-primary-text ">weitere News</a>
                     </div>
 
                 </div>
@@ -56,7 +56,7 @@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Letzte Arbeitsstunden</h5>
+                    <h5 class="card-title">Neueste Arbeitsstunden</h5>
 
                     <% if(tasks) {%>
                         <ul class="list-group bmd-list-group-sm">
@@ -76,7 +76,7 @@
                     <%}%>
 
                     <div class="text-center">
-                        <a href="#" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
+                        <a href="/arbeitsstunden" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
                     </div>
 
                 </div>
@@ -88,7 +88,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Deine Termine</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-sm btn-primary-text">Zur Terminübersicht</a>
+                    <a href="/arbeitsstunden" class="btn btn-sm btn-primary-text">Zur Terminübersicht</a>
                 </div>
             </div>
         </div>

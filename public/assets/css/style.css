@@ -459,7 +459,7 @@ a.btn.btn-primary-fab{
 ----------------------------------------------------- */
 main {
     max-width: 1600px;
-    margin: 1em auto;
+    margin: 0 auto;
     padding: 1em;
 }
 main.standalone {
@@ -572,7 +572,18 @@ input#profilbildInput {
 .quicklinks .quickIcon a {
     margin: 0.5em;
 }
+
+.quicklinks .quickIcon a i {
+    display: block;
+}
+
 @media screen and (max-width: 450px) {
+    .quicklinks {
+        font-size: 1.25em;
+    }
+}
+
+@media screen and (max-width: 350px) {
     .quicklinks {
         font-size: 1.0em;
     }
@@ -591,6 +602,18 @@ input#profilbildInput {
 
 .card.image .card-body.col-md-6 {
     padding: 1.25rem calc(1.25rem + 15px);
+}
+
+.image-container {
+    text-align: center;
+}
+
+.card-image,
+.card-img {
+    width: auto;
+    max-height: 55vh;
+    max-width: 100%;
+    height: auto;
 }
 
 /*** Arbeitsstunde ***/
@@ -912,6 +935,9 @@ table.dataTable.order-column.stripe tbody>tr.odd.selected>.sorting_1 {
     border-radius: 0;
 }
 
+.modal-image-header {
+    text-align: center;
+}
 .navbar.modal-nav {
     width: 100vw;
 }

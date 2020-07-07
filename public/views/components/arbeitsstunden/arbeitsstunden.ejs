@@ -30,8 +30,6 @@
                 $('#worked').text(w);
             }
         })
-
-
     })
 
     function cancel(elem, taskId) {
@@ -63,6 +61,5 @@
         $('#accepted-tasks-container>.card').append($(elem).parent().parent())
         $(elem).parent().empty().append('<button type="button" class="btn btn-secondary btn-sm cancel" onclick="cancel(this,\''+taskId+'\')">Absagen</button>'
             + ' <button type="button" class="btn  btn-primary btn-sm" data-toggle="modal" data-target="#modal'+taskId+'">Aufgabe erledigt?</button>');
-
     }
 </script>
