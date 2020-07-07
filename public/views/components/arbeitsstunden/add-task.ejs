@@ -1,4 +1,4 @@
-<%- include('../../partials/header/header-small') %>
+<%- include('../../partials/header/header') %>
 <main class="container-fluid edit-page">
 
     <nav class="navbar sticky-top navbar-dark bg-primary row">
@@ -42,10 +42,37 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Abschicken</button>
+            <button type="submit" id="submitButton" class="btn btn-primary">Abschicken</button>
         </form>
     </div>
 </main>
 
+<script>
+    let flag = false;
+    let flag2 = false;
+    $('#submitButton').on('click', function() {
+        $('#addTaskForm').submit(function(e) {
+            e.preventDefault();
+            if (!flag && "caches" in window) {
+                flag = true;
+                console.log("cache verfügbar")
+                caches.open('CACHE_DYNAMIC_NAME')
+                    .then(cache => {
+                        cache.delete('/arbeitsstunden')
+                        console.log("irgendwas ist passiert")
+                    })
+                    .then(function() {
+                        $('#addTaskForm').submit()
+                        console.log("nach addTaskForm")
+                    })
+            } else if (!flag2){
+                flag2 = true;
+                console.log("kein Cache")
+                $('#addTaskForm').submit()
+            }
+        })
+    })
+
+</script>
 
 <%- include('../../partials/footer/footer') %>
