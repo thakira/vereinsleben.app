@@ -60,17 +60,15 @@ app.use('/auth', authRouter)
 
 // Start server
 app.listen(3000, () => console.log('Server is up'))
-//app.listen(3000, () => console.log('Server is up'))
+//app.listen(80, () => console.log('Server is up'))
 /*
 const https = require('https')
 const fs = require('fs')
 
-https.createServer({
-    key: fs.readFileSync('./ssl/lyra.key'),
-    cert: fs.readFileSync('./ssl/lyra.crt')
-}, app).listen(3000, () => console.log('Server is up serving HTTPS'))
-*/
+    key: fs.readFileSync('./ssl/privkey.pem'),
+    cert: fs.readFileSync('./ssl/cert.pem')
+}, app).listen(443, () => console.log('Server is up serving HTTPS'))
 
 // sudo node server.js &
 // ps aux | grep 'node'
-// kill 12365
+// kill 12365 */
