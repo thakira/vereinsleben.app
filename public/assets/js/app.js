@@ -1,12 +1,12 @@
 'use strict'
 
-if ('serviceWorker' in navigator) {
+/*if ('serviceWorker' in navigator) {
     navigator.serviceWorker
         .register('sw.js')
         .then(function() {
             console.log('Service worker registered!');
         });
-}
+}*/
 
 window.addEventListener('beforeinstallprompt', function(event){
     const installPrompt = event;
@@ -86,11 +86,6 @@ if(dates.length>0){
 }
 
 $(document).ready( function() {
-    if ('service worker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(() => console.log('Service Worker registered'))
-            .catch(error => console.log(error))
-    }
 
     // Setting Menu
     $('.dropdown-trigger').dropdown();

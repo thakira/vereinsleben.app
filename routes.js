@@ -65,7 +65,7 @@ module.exports = (app, passport) => {
     })
 
     // Index site
-    app.get('/', isNotLoggedin, (req, res) => {
+    app.get('/', (req, res) => {
         res.redirect('/login')
     })
 

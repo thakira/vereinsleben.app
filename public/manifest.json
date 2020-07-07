@@ -4,8 +4,8 @@
   "start_url": "/",
   "scope": ".",
   "display": "standalone",
-  "background-color" : "#F9F4E8",
-  "theme-color" : "#0a5213",
+  "background_color" : "#F9F4E8",
+  "theme_color" : "#0a5213",
   "description": "Behalte stets den Überblick über das Leben in Deinem Verein",
   "lang": "de-DE",
    "icons": [

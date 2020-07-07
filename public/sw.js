@@ -1,36 +1,188 @@
-self.addEventListener('install', function (event) {
-    console.log('[Service Worker] Installing Service Worker ...', event);
+// A service worker is a kind of proxy between client (browser) and server (website/internet)
+
+importScripts('./assets/js/idb.js');
+const URL = 'http://localhost:3000'
+//const URL = 'https://https://lyra.et-inf.fho-emden.de:15117'
+
+const CACHE_STATIC_NAME = 'static-v3' // Static cache versioning
+const CACHE_DYNAMIC_NAME = 'dynamic-v3' // Dynamic cache versioning
+const STATIC_FILES = [
+    // LOGO???? Auf Login/Register und in der Navbar
+    '/',
+    './offline.html',
+    './assets/js/app.js',
+    './assets/js/idb.js',
+    './assets/js/memberTable.js',
+    './assets/js/snackbar.min.js',
+    './assets/css/custom-bootstrap.css',
+    './assets/css/style.css',
+    './views/login.ejs',
+    './views/register.ejs',
+    './views/dashboard.ejs',
+    './views/aktuelles-site.ejs',
+    './views/arbeitsstunden-site.ejs',
+    //'./views/mitglieder.ejs',
+    './views/profil.ejs',
+    './views/partials/footer/footer.ejs',
+    './views/partials/header/header.ejs',
+    './views/partials/header/header_with_navigation.ejs',
+    './views/partials/nav/mainnav.ejs',
+    './views/partials/nav/sidebar.ejs',
+    'https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css',
+    'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium',
+    'https://fonts.googleapis.com/icon?family=Material+Icons',
+    'https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js',
+    'https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css',
+    'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js',
+    'https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js',
+    'https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js'
+]
+
+/*function trimCache(cacheName, maxItems) {
+    caches.open(cacheName)
+        .then(function(cache) {
+            return cache.keys()
+                //ggf. durch die keys gehen und wenn 
+                .then(function(keys){
+                    if (keys.length > maxItems) {
+                        cache.delete(keys[0])
+                            .then(trimCache(cacheName, maxItems));
+                    }
+        });
+        })
+}*/
+
+// Install service worker
+self.addEventListener('install', event => {
+    console.log('Service Worker installed', event)
+
+    // Create cache and cache static files
     event.waitUntil(
-        caches.open('static')
-            .then(function (cache) {
-                console.log('[Service Worker] Precaching App Shell');
-                cache.add('./assets/js/app.js')
-            })
+        caches.open(CACHE_STATIC_NAME).then(cache => {
+            return cache.addAll(STATIC_FILES)
+        })
     )
+})
+
+const dbPromise = idb.open('vereinsleben', 1, (db) => {
+    if (!db.objectStoreNames.contains('users')) {
+        db.createObjectStore('users', {keyPath: '_id'})
+        /*users.createIndex('firstname', 'firstname', {unique: false})
+        users.createIndex('lastname', 'lastname', {unique: false})
+        users.createIndex('mobile', 'mobile', {unique: false})
+        users.createIndex('phone', 'phone', {unique: false})
+        users.createIndex('email', 'email', {unique: false})
+        users.createIndex('email', 'email', {unique: false})
+        users.createIndex('birthday', 'birthday', {unique: false})
+        users.createIndex('workhours', 'workhours', {unique: false})
+        users.createIndex('worked', 'worked', {unique: false})
+        users.createIndex('memberNumber', 'memberNumber', {unique: false})
+        users.createIndex('role', 'role', {unique: false})
+        users.createIndex('createdAt', 'createdAt', {unique: false})*/
+    }
+    if (!db.objectStoreNames.contains('news')) {
+        db.createObjectStore('news', {keyPath: '_id'});
+/*        news.createIndex('newsTitle', 'newsTitle', {unique: false})
+        news.createIndex('newsText', 'newsText', {unique: false})
+        news.createIndex('newsImg', 'newsText', {unique: false})
+        news.createIndex('newsDoc', 'newsText', {unique: false})
+        news.createIndex('newsReleased', 'newsText', {unique: false})
+        news.createIndex('newsType', 'newsText', {unique: false})
+        news.createIndex('newsAuthor', 'newsText', {unique: false})
+        news.createIndex('createdAt', 'createdAt', {unique: false})*/
+    }
+    if (!db.objectStoreNames.contains('tasks')) {
+        db.createObjectStore('tasks', {keyPath: '_id'});
+    }
 });
-                /*        cache.add('/assets/MemberTable.js')
-                        cache.add('/assets/news-edit.js')
-                        cache.add('/assets/simple-image.js')
-                        //editor_translation.js, formio.full.min.js, jquery.min.js, snackbar.min.js
-                        cache.add('/css/custom-bootstrap.css')
-                        cache.add('/css/style.css')
-                        //snackbar.min.css*/
 
 
-self.addEventListener('activate', function(event) {
-   console.log('[Service Worker] Activating Service Worker..', event);
-   return self.clients.claim();
-});
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request)
-            .then(function(response) {
-                if (response) {
-                    return response;
-                } else {
-                    return fetch(event.request);
+
+
+// Activate service worker, gets fired after install event
+self.addEventListener('activate', event => {
+    console.log('Service Worker activated', event)
+
+    // Remove old caches
+    event.waitUntil(
+        caches.keys().then(keyList => {
+            return Promise.all(keyList.map(key => {
+                if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
+                    console.log('Service Worker removed old cache.', key)
+                    return caches.delete(key)
                 }
+            }))
+        })
+    )
+
+    // When a service worker is initially registered, pages won't use it until they next load.
+    // The claim() method causes those pages to be controlled immediately.
+    return self.clients.claim()
+})
+
+function gotoIndexedDB(url) {
+    console.log("Hier Daten in IndexedDB schreiben/ueberschreiben")
+}
+/*function isInArray(string, array) {
+    var cachePath;
+    if (string.indexOf(self.origin) === 0) { // request targets domain where we serve the page from (i.e. NOT a CDN)
+        console.log('matched ', string);
+        cachePath = string.substring(self.origin.length); // take the part of the URL AFTER the domain (e.g. after localhost:8080)
+    } else {
+        cachePath = string; // store the full request (for CDNs)
+    }
+    return array.indexOf(cachePath) > -1;
+}*/
+
+
+self.addEventListener('fetch', event => {
+    //console.log('Service Worker fetched ressource', event)
+    console.log(event.request.url)
+    //console.log("Navigator-Online: " + navigator.onLine )
+    // Allow only GET requests
+    if (event.request.method !== 'GET') return
+    console.log("Navigator: " + navigator.onLine)
+    if((/mitglieder/.test(event.request.url)) && (!(navigator.onLine))) {
+        console.log("Mitglieder aufgerufen")
+        return caches.open(CACHE_STATIC_NAME).then(cache => {
+            return cache.match('/offline.html')
+        })
+    } else if (/mitglieder/.test(event.request.url)) {
+        return
+    }
+    if ((/getMemberData/.test(event.request.url)) ||  (/edit-news/.test(event.request.url))) {
+        return gotoIndexedDB(event.request.url);
+    }
+/*    if (!(/getMemberData/.test(event.request.url))) {*/
+        // Catch HTTP request and replace it with a SW request
+        event.respondWith(
+            // If ressource request URL matches a cached ressource URL, respond ressource from cache
+            caches.match(event.request).then(response => {
+                if (response) return response // Return ressource from cache if exists
+
+                // Try to fetch ressource via network and cache it into dynamic cache
+                return fetch(event.request).then(res => {
+                    return caches.open(CACHE_DYNAMIC_NAME).then(cache => {
+                        cache.put(event.request.url, res.clone()) // Important: clone response, because it's a stream!!!
+                        return res
+                    })
+                }).catch(error => {
+
+                    // Dynamic caching failed due to no network connection. Send offline page
+                    return caches.open(CACHE_STATIC_NAME).then(cache => {
+
+                        // Only return offline page, if a HTML ressource was requested
+                        if (event.request.headers.get('accept').includes('text/html')) {
+                            return cache.match('/offline.html')
+                        }
+
+                    })
+
+                })
+
             })
-            );
+        )
+
 })
