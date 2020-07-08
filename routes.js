@@ -464,7 +464,7 @@ module.exports = (app, passport) => {
                 }).then( function() {
                     res.status(200).redirect('/aktuelles')
                 })
-            });clks
+            });
 
         } catch (exception) {
             req.flash('error', exception.message)
