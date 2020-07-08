@@ -54,7 +54,7 @@
                 </label>
             </div>
 
-            <div class="form-row">
+            <div id='btn-container' class="form-row">
                 <div class="form-group col">
                     <button type="submit" class="btn btn-primary">Speichern</button>
                 </div>
@@ -178,6 +178,14 @@ $(document).ready( function() {
         }
     })
 })
+
+if(!navigator.onLine) {
+    $('input').attr('readonly', '');
+    $('textarea').attr('readonly', '');
+    $('#btn-container').addClass('hidden');
+    $('#cancelNewsImage').addClass('hidden');
+    $('#editorContainer').prepend('<div class="alert alert-danger" role="alert">Du bist offline! Die Bearbeitungsfunktion steht Dir nur online zur Verfügung.</div>')
+}
 </script>
 
 

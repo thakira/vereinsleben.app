@@ -4,8 +4,8 @@ importScripts('./assets/js/idb.js');
 const URL = 'http://localhost:3000'
 //const URL = 'https://https://lyra.et-inf.fho-emden.de:15117'
 
-const CACHE_STATIC_NAME = 'static-v6' // Static cache versioning
-const CACHE_DYNAMIC_NAME = 'dynamic-v6' // Dynamic cache versioning
+const CACHE_STATIC_NAME = 'static-v3' // Static cache versioning
+const CACHE_DYNAMIC_NAME = 'dynamic-v3' // Dynamic cache versioning
 const STATIC_FILES = [
     // LOGO???? Auf Login/Register und in der Navbar
     '/',
@@ -18,7 +18,7 @@ const STATIC_FILES = [
     './assets/css/style.css',
     './views/login.ejs',
     './views/register.ejs',
-    './views/dashboard.ejs',
+    //'./views/dashboard.ejs',
     './views/aktuelles-site.ejs',
     './views/arbeitsstunden-site.ejs',
     './views/mitglieder.ejs',
@@ -43,7 +43,7 @@ const STATIC_FILES = [
     caches.open(cacheName)
         .then(function(cache) {
             return cache.keys()
-                //ggf. durch die keys gehen und wenn 
+                //ggf. durch die keys gehen und wenn
                 .then(function(keys){
                     if (keys.length > maxItems) {
                         cache.delete(keys[0])
@@ -65,10 +65,10 @@ self.addEventListener('install', event => {
     )
 })
 
-const dbPromise = idb.open('vereinsleben', 1, (db) => {
+/*const dbPromise = idb.open('vereinsleben', 1, (db) => {
     if (!db.objectStoreNames.contains('users')) {
         db.createObjectStore('users', {keyPath: '_id'})
-        /*users.createIndex('firstname', 'firstname', {unique: false})
+        /!*users.createIndex('firstname', 'firstname', {unique: false})
         users.createIndex('lastname', 'lastname', {unique: false})
         users.createIndex('mobile', 'mobile', {unique: false})
         users.createIndex('phone', 'phone', {unique: false})
@@ -79,23 +79,23 @@ const dbPromise = idb.open('vereinsleben', 1, (db) => {
         users.createIndex('worked', 'worked', {unique: false})
         users.createIndex('memberNumber', 'memberNumber', {unique: false})
         users.createIndex('role', 'role', {unique: false})
-        users.createIndex('createdAt', 'createdAt', {unique: false})*/
+        users.createIndex('createdAt', 'createdAt', {unique: false})*!/
     }
     if (!db.objectStoreNames.contains('news')) {
         db.createObjectStore('news', {keyPath: '_id'});
-/*        news.createIndex('newsTitle', 'newsTitle', {unique: false})
+/!*        news.createIndex('newsTitle', 'newsTitle', {unique: false})
         news.createIndex('newsText', 'newsText', {unique: false})
         news.createIndex('newsImg', 'newsText', {unique: false})
         news.createIndex('newsDoc', 'newsText', {unique: false})
         news.createIndex('newsReleased', 'newsText', {unique: false})
         news.createIndex('newsType', 'newsText', {unique: false})
         news.createIndex('newsAuthor', 'newsText', {unique: false})
-        news.createIndex('createdAt', 'createdAt', {unique: false})*/
+        news.createIndex('createdAt', 'createdAt', {unique: false})*!/
     }
     if (!db.objectStoreNames.contains('tasks')) {
         db.createObjectStore('tasks', {keyPath: '_id'});
     }
-});
+});*/
 
 // Activate service worker, gets fired after install event
 self.addEventListener('activate', event => {
@@ -118,7 +118,103 @@ self.addEventListener('activate', event => {
     return self.clients.claim()
 })
 
-self.addEventListener('fetch', event => {
+
+/*function isOffline() {
+    fetch('/check')
+        .then(function (res, next) {
+            return next;
+        }).catch(function (err) {
+            return true
+            console.log("OFFLINE")
+
+    })
+}*/
+/*function isOffline() {
+    return new Promise((resolve, reject) => {
+        fetch("/check")
+            .then((res, next) => {
+                resolve(next)
+            }).catch((error) => {
+            console.log(error);
+            resolve(true)
+        })
+    })
+}*/
+
+/*function isOffline() {
+    return new Promise((resolve, reject) => {
+        fetch("/check")
+            .then((res, next) => {
+                return next
+            }).catch((error) => {
+            console.log(error);
+            resolve(false)
+            //resolve(false)
+        })
+    })
+}*/
+
+
+    self.addEventListener ('fetch',  function (event) {
+         console.log("online?" , navigator.onLine)
+        //if (/check/.test(event.request.url)) { return };
+        event.respondWith(
+            fetch(event.request)
+                .then(function(res) {
+                    return caches.open(CACHE_DYNAMIC_NAME)
+                        .then(function(cache) {
+                            cache.put(event.request.url, res.clone());
+                            return res;
+
+                        })
+                })
+                .catch(error => {
+                    let url = event.request.url
+                    if(!(navigator.onLine)) {
+                        let offline = true
+                    }
+                    return caches.match(event.request)
+                        .then(function(res) {
+                            if(res === undefined) {
+                                return caches.open(CACHE_STATIC_NAME)
+                                    .then(function(cache) {
+                                        return cache.match('/offline.html');
+                                    });
+                            }
+                            return res;
+                        })
+                })
+ /*               .catch(function(err) {
+                    if(!(navigator.onLine)) {
+                        let offline = true
+                    }
+                    if (caches.match(event.request)) {
+
+                        console.log("Match im Cache gefunden: ", event.request.url, "Online?: ", navigator.onLine)
+/!*                        if (!(navigator.onLine) && (/mitglieder/.test(event.request.url))) {
+                            console.log("offline und Mitglieder aufgerufen")
+                            caches.open(CACHE_STATIC_NAME).then(cache => {
+                                return caches.match('/impossible.html')
+                            })
+                        } else {
+                            console.log("aus dem Cache laden")*!/
+                            //return caches.match(event.request)
+                            return caches.match(event.request)
+                        //}
+                    } else {
+                        console.log("Kein Match im Cache gefunden - offline page")
+                        //caches.open(CACHE_STATIC_NAME).then(cache => {
+                            // Only return offline page, if a HTML ressource was requested
+                            //if (event.request.headers.get('accept').includes('text/html')) {
+                                return caches.match('/offline.html')
+                            //}
+                        //})
+                    }
+    })*/
+);
+});
+
+/*self.addEventListener('fetch', event => {
     console.log(event.request.url)
 
     // Allow only GET requests
@@ -154,4 +250,4 @@ self.addEventListener('fetch', event => {
         })
 
     )
-})
+})*/

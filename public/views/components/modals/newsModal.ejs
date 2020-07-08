@@ -15,7 +15,7 @@
     <h5 class="modal-title"><%= article.newsTitle %></h5>
 
     <% if(user.role === 'admin') {%>
-        <a class="btn btn-primary-text" href="edit-news?id=<%= article._id%>">
+        <a class="btn btn-primary-text edit-button" href="edit-news?id=<%= article._id%>">
             <i class="material-icons">edit</i>
         </a>
     <% } %>
@@ -25,6 +25,5 @@
     <p class="card-text">Aktuelles vom <span class="datum" del-date="<%= article.createdAt %>"></span></p>
     <div class="newsText"><%- article.newsText %></div>
 </div>
-<div class="modal-footer">
-    <!-- Edit Button hier einfügen-->
-</div>
+
+

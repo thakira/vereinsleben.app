@@ -1,17 +1,19 @@
 'use strict'
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
     navigator.serviceWorker
         .register('sw.js')
         .then(function() {
             console.log('Service worker registered!');
         });
-}*/
+}
 
+/*
 window.addEventListener('beforeinstallprompt', function(event){
     const installPrompt = event;
     return true
 })
+*/
 
 /*//Code, wenn man Installationsaufruf zu einem anderen Zeitpunkt starten möchte
 // ggf. wichtig wenn Install über Navigation
@@ -85,8 +87,12 @@ if(dates.length>0){
     }
 }
 
-$(document).ready( function() {
+function offlineHint(){
+    $.snackbar({content: 'Du bist offline!<br>Bearbeiten ist nur online möglich.', style: 'toast red', htmlAllowed: true});
+}
 
+
+$(document).ready( function() {
     // Setting Menu
     $('.dropdown-trigger').dropdown();
 
@@ -114,7 +120,7 @@ $(document).ready( function() {
     $('body').bootstrapMaterialDesign();
 });
 
-$(document).ready(function() {
+/*$(document).ready(function() {
     $('#material-tabs').each(function() {
 
         var $active, $content, $links = $(this).find('a');
@@ -142,4 +148,4 @@ $(document).ready(function() {
             e.preventDefault();
         });
     });
-});
+});*/

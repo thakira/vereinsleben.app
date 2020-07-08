@@ -24,7 +24,7 @@
                 <div class="card-header">
                     <div class="d-flex w-100 justify-content-between">
                         <h2>Vereins-Einstellungen</h2>
-                        <a role="button" class="btn bmd-btn-icon edit-btn"><i class="material-icons">edit</i></a>
+                        <a role="button" class="btn bmd-btn-icon edit-btn "><i class="material-icons">edit</i></a>
                         <a  type="reset" class="btn bmd-btn-icon cancel-btn hidden"><i class="material-icons">cancel</i></a>
                     </div>
                 </div>
@@ -139,29 +139,37 @@ $(document).ready( function() {
     })
 
     $(".edit-btn").on("click",  () => {
-        $(".edit-btn").addClass("hidden");
-        $(".cancel-btn").removeClass("hidden");
+        if(navigator.onLine) {
+            $(".edit-btn").addClass("hidden");
+            $(".cancel-btn").removeClass("hidden");
+            $("input").removeAttr('readonly');
+            $("input[type=checkbox]").removeAttr('disabled');
+            $("#profilForm").addClass("editMode").removeClass("readonly");
 
-        $("input").removeAttr('readonly');
-        $("input[type=checkbox]").removeAttr('disabled');
-        $("#profilForm").addClass("editMode").removeClass("readonly");
+            let submitBtn = '<button type=\"submit\" class=\"btn btn-primary\" role=\"button\">Speichern</button>';
+            $("#profilForm").append(submitBtn);
 
-        let submitBtn = '<button type=\"submit\" class=\"btn btn-primary\" role=\"button\">Speichern</button>';
-        $("#profilForm").append(submitBtn);
+            $("#profilForm").submit(function( e ) {
+                $('button[type="submit"]').remove();
+                $(".cancel-btn").addClass("hidden")
+                $('.edit-btn').removeClass("hidden");
+                $("input").attr('readonly','');
+                $("#profilForm").removeClass("editMode");
 
-        $("#profilForm").submit(function( e ) {
-            $('button[type="submit"]').remove();
-            $(".cancel-btn").addClass("hidden")
-            $('.edit-btn').removeClass("hidden");
-            $("input").attr('readonly','');
-            $("#profilForm").removeClass("editMode");
+                $.snackbar({content: 'Einstellungen gespeichert!', style: 'toast'})
+            })
+        } else {
+            offlineHint();
+        }
 
-            $.snackbar({content: 'Einstellungen gespeichert!', style: 'toast'})
-        })
     })
 
     $('#profilImage').on('click', () => {
-        $('#changeImageModal').modal('show');
+        if(navigator.onLine) {
+            $('#changeImageModal').modal('show');
+        } else {
+            offlineHint();
+        }
     })
 
     // Profilbild laden und zuschneiden
