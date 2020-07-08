@@ -154,6 +154,7 @@
             reader.onload = function (e) {
                 console.log(e.target.result)
                 $('#profilbild').attr('src', e.target.result);
+                $('#profilbild').croppie('destroy');
                 $('#profilbild').croppie({
                     enableExif: true,
                     viewport: {
@@ -184,7 +185,6 @@
         }).then(function(resp) {
             $('#profilbild').attr('src', resp);
             $('#profilImage img').attr('src', resp);
-            // $('#profilbild').croppie('destroy');
             $('#changeImageModal').modal('toggle');
             $.post('/profilimage', {img: resp});
 

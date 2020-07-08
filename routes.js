@@ -617,12 +617,13 @@ module.exports = (app, passport) => {
         }
     })
 
-    app.post('/profilimage', isLoggedin, async (req, res) => {
+    app.post('/clublogo', isLoggedin, async (req, res) => {
         try {
-            const user = await User.findOne({"_id": req.user._id})
-            user.img = req.body.img
-            await user.save()
-            res.send("OK")
+            await Club.findOneAndUpdate(
+                {"_id": req.query.id},
+                {logo: req.body.img}
+            )
+            res.status(200).send('OK')
         }
         catch (exception) {
             req.flash('error', exception.message)

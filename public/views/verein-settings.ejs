@@ -172,6 +172,7 @@ $(document).ready( function() {
             reader.onload = function (e) {
                 console.log(e.target.result)
                 $('#profilbild').attr('src', e.target.result);
+                $('#profilbild').croppie('destroy');
                 $('#profilbild').croppie({
                     enableExif: true,
                     viewport: {
@@ -201,9 +202,8 @@ $(document).ready( function() {
         }).then(function(resp) {
             $('#profilbild').attr('src', resp);
             $('#profilImage img').attr('src', resp);
-            // $('#profilbild').croppie('destroy');
             $('#changeImageModal').modal('toggle');
-            $.post('/clublogo', {img: resp});
+            $.post('/clublogo?id=<%= club._id%>', {img: resp});
             $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
         });
     })
