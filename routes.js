@@ -23,6 +23,7 @@ const storage = multer.diskStorage({
 });
 
 let logo = ""
+let tasks = true
 
 // Check if user is logged in
 function isLoggedin(req, res, next) {
@@ -71,9 +72,13 @@ module.exports = (app, passport) => {
 
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
+        tasks_active = await Club.findOne({shortName: "rvss"})
         const news = await News.find({newsReleased: true}).sort({updatedAt: -1}).limit(5);
-        const tasks = await Task.find({done: false}).sort({updatedAt: -1}).limit(5);
 
+        let tasks = ''
+        if (tasks_active.module.workhours.activate) {
+            tasks = await Task.find({done: false}).sort({updatedAt: -1}).limit(5);
+        }
         return res.render('views/dashboard', {
             title: 'Dashboard',
             user: req.user,
@@ -211,21 +216,6 @@ module.exports = (app, passport) => {
         res.redirect('/login')
     })
 
-    // *** Password forgot ***
-    app.get('/pwdforgot', isNotLoggedin, (req, res) => {
-        res.render('views/pwdforgot', {
-            title: 'Passwort vergessen',
-            logo: logo
-        })
-    })
-
-    // *** Termine ***
-    app.get('/termine', isLoggedin, (req, res) => {
-        res.render('views/termine-site', {
-            title: 'Termine',
-            user: req.user
-        })
-    })
 
     // *** Arbeitsstunden ***
     app.get('/arbeitsstunden', isLoggedin, async (req, res) => {
@@ -357,13 +347,15 @@ module.exports = (app, passport) => {
 
     // *** NEWS ***
     app.get('/aktuelles', isLoggedin, async (req, res) => {
-
+        club = await Club.findOne({'shortName': 'rvss'})
+        tasks = club.module.workhours.activate
         const artikel = await News.find();
 
         res.render('views/aktuelles-site', {
             title: 'Aktuelles',
             user: req.user,
-            news: artikel
+            news: artikel,
+            tasks: tasks
         })
     })
 
@@ -472,7 +464,7 @@ module.exports = (app, passport) => {
                 }).then( function() {
                     res.status(200).redirect('/aktuelles')
                 })
-            });
+            });clks
 
         } catch (exception) {
             req.flash('error', exception.message)
@@ -509,9 +501,12 @@ module.exports = (app, passport) => {
 
     // Mitglieder
     app.get('/mitglieder', isLoggedin, async(req, res) => {
+        club = await Club.findOne({'shortName': 'rvss'})
+        tasks = club.module.workhours.activate
         res.render('views/mitglieder', {
             title: 'Mitglieder',
-            user: req.user
+            user: req.user,
+            tasks: tasks
         })
     })
 
@@ -565,23 +560,15 @@ module.exports = (app, passport) => {
 
     // ********************************************************************************************
 
-
-    // *** Gruppen ***
-    app.get('/gruppen', isLoggedin, (req, res) => {
-        res.render('views/gruppen', {
-            title: 'Gruppen',
-            user: req.user
-        })
-    })
-
     // *** Einstellungen Verein ***
     app.get('/verein-settings', isLoggedin, async (req, res) => {
-
-        let club = await Club.findOne({shortName: 'rvss'})
+        club = await Club.findOne({'shortName': 'rvss'})
+        tasks = club.module.workhours.activate
         res.render('views/verein-settings', {
             title: 'Einstellungen Verein',
             user: req.user,
-            club: club
+            club: club,
+            tasks: club.module.workhours.activate
         })
     })
 
@@ -632,10 +619,13 @@ module.exports = (app, passport) => {
     })
 
     // *** Profil ***
-    app.get('/profil', isLoggedin, (req, res) => {
+    app.get('/profil', isLoggedin, async (req, res) => {
+        club = await Club.findOne({'shortName': 'rvss'})
+        tasks = club.module.workhours.activate
         res.render('views/profil', {
             title: 'Profil', user: req.user,
-            user: req.user
+            user: req.user,
+            tasks: tasks
         })
     })
 
@@ -671,11 +661,5 @@ module.exports = (app, passport) => {
         }
     })
 
-    app.get('/notifications', isLoggedin, (req, res) => {
-        res.render('views/notifications', {
-            title: 'Benachrichtigungen',
-            user: req.user
-        })
-    })
 
 }

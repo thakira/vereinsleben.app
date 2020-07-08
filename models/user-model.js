@@ -22,7 +22,7 @@ const userSchema = new Schema({
     img: { type: String },
     secretToken: {type: String},
     //Rolle
-    role: {type: String, required: true, enum:['user', 'admin', 'trainer'], default:'user'},
+    role: {type: String, required: true, enum:['user', 'admin', 'trainer'], default:'admin'},
     //role: {type: String, default: "user"},
     //E-Mail-Adresse verifiziert
     verified: {type: Boolean, default: false},

@@ -2,18 +2,15 @@
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item"><a href="/dashboard"><i class="material-icons left">home</i>Startseite</a></li>
         <li class="nav-item"><a href="/aktuelles"><i class="material-icons left">dashboard</i>Aktuelles</a></li>
-<!--        <li class="nav-item"><a href="/termine"><i class="material-icons left">event_note</i>Termine</a></li>-->
-        <li class="nav-item"><a href="/arbeitsstunden"><i class="material-icons left">timelapse</i>Arbeitsstunden</a></li>
-        <li class="nav-item"><a href="/mitglieder"><i class="material-icons left">person</i>Mitglieder</a></li>
-<!--        <li class="nav-item"><a href="/gruppen"><i class="material-icons left">group</i>Gruppen</a></li>-->
+        <% if(tasks) {%><li class="nav-item"><a href="/arbeitsstunden"><i class="material-icons left">timelapse</i>Arbeitsstunden</a></li><% }%>
+        <% if(user.role === "admin") { %><li class="nav-item"><a href="/mitglieder"><i class="material-icons left">person</i>Mitglieder</a></li><%}%>
         <div class="dropdown">
             <button class="btn bmd-btn-icon dropdown-toggle" type="button" id="settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">more_vert</i>
             </button>
             <div class="dropdown-menu dropdown-menu-right settings" aria-labelledby="settings">
-                <a class="dropdown-item" href="/verein-settings"><i class="material-icons left">settings</i>Verein</a>
+                <% if(user.role === "admin") { %><a class="dropdown-item" href="/verein-settings"><i class="material-icons left">settings</i>Verein</a><%}%>
                 <a class="dropdown-item" href="/profil"><i class="material-icons left">account_circle</i>Profil</a>
-                <a class="dropdown-item" href="/notifications"><i class="material-icons left">notifications_active</i>Benachrichtigungen</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item logout" href="/logout"><i class="material-icons left">exit_to_app</i>Logout</a>
             </div>

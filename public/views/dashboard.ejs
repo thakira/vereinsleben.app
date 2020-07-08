@@ -11,9 +11,11 @@
         <div class="quickIcon col-xs-2">
             <a href="/aktuelles"><i class="material-icons left">dashboard</i>Aktuelles</a>
         </div>
-        <div class="quickIcon col-xs-2">
-            <a href="/arbeitsstunden"><i class="material-icons left">timelapse</i>Arbeits&shy;stunden</a>
-        </div>
+        <% if (tasks) { %>
+            <div class="quickIcon col-xs-2">
+                <a href="/arbeitsstunden"><i class="material-icons left">timelapse</i>Arbeits&shy;stunden</a>
+            </div>
+        <% } %>
         <% if(user.role === 'admin') {%>
             <div class="quickIcon col-xs-2">
                 <a href="/mitglieder"><i class="material-icons left">person</i>Mitglieder</a>
@@ -53,45 +55,37 @@
             </div>
         </div>
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Neueste Arbeitsstunden</h5>
+        <% if (tasks) { %>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Neueste Arbeitsstunden</h5>
 
-                    <% if(tasks) {%>
-                        <ul class="list-group bmd-list-group-sm">
-                            <% tasks.forEach( task => {%>
-                                <% if(!task.done) {%>
-                                    <a class="list-group-item" href="/arbeitsstunden">
-                                        <div class="bmd-list-group-col">
-                                            <p class="list-group-item-heading"><%= task.title %></p>
-                                            <p class="list-group-item-text">vom <span class="datum" del-date="<%= task.updatedAt %>"></span></p>
-                                        </div>
-                                    </a>
-                                <%}%>
-                            <%})%>
-                        </ul>
-                    <%} else {%>
-                        <p>Zurzeit keine Einträge vorhanden.</p>
-                    <%}%>
+                        <% if(tasks) {%>
+                            <ul class="list-group bmd-list-group-sm">
+                                <% tasks.forEach( task => {%>
+                                    <% if(!task.done) {%>
+                                        <a class="list-group-item" href="/arbeitsstunden">
+                                            <div class="bmd-list-group-col">
+                                                <p class="list-group-item-heading"><%= task.title %></p>
+                                                <p class="list-group-item-text">vom <span class="datum" del-date="<%= task.updatedAt %>"></span></p>
+                                            </div>
+                                        </a>
+                                    <%}%>
+                                <%})%>
+                            </ul>
+                        <%} else {%>
+                            <p>Zurzeit keine Einträge vorhanden.</p>
+                        <%}%>
 
-                    <div class="text-center">
-                        <a href="/arbeitsstunden" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
+                        <div class="text-center">
+                            <a href="/arbeitsstunden" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Deine Termine</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="/arbeitsstunden" class="btn btn-sm btn-primary-text">Zur Terminübersicht</a>
-                </div>
-            </div>
-        </div>
+        <% } %>
     </div>
 
 
