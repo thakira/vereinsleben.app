@@ -846,10 +846,6 @@ input[type="number"] {
     content: "Auswählen";
 }
 
-.form-group {
-    margin-bottom: 2rem;
-}
-
 #editorContainer {
     max-width: 1000px;
     margin: 0 auto;

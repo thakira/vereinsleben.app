@@ -575,11 +575,59 @@ module.exports = (app, passport) => {
     })
 
     // *** Einstellungen Verein ***
-    app.get('/settings-verein', isLoggedin, (req, res) => {
-        res.render('views/settings-verein', {
+    app.get('/verein-settings', isLoggedin, async (req, res) => {
+
+        let club = await Club.findOne({shortName: 'rvss'})
+        res.render('views/verein-settings', {
             title: 'Einstellungen Verein',
-            user: req.user
+            user: req.user,
+            club: club
         })
+    })
+
+    app.post('/club-settings', isLoggedin, async (req, res) => {
+        try {
+            console.log((req.body))
+            const activateWorkhours = (req.body.workhours) ? req.body.workhours : false;
+            const defaultWorkhours = (req.body.defaultWorkhours) ? req.body.defaultWorkhours : 10;
+
+            Club.findOneAndUpdate({_id: req.query.id}, {
+                clubName: req.body.clubName,
+                email: req.body.email,
+                phone: req.body.phone,
+                address: {
+                    street: req.body.street,
+                    number : req.body.number,
+                    zip : req.body.zip,
+                    city : req.body.city
+                },
+                module: {
+                    workhours: {
+                        activate: activateWorkhours,
+                        defaultWorkhours: defaultWorkhours
+                    }
+                }
+            }).then( function() {
+                res.status(200).redirect('/verein-settings')
+            })
+        }
+        catch (exception) {
+            req.flash('error', exception.message)
+            res.send("NOT OK")
+        }
+    })
+
+    app.post('/profilimage', isLoggedin, async (req, res) => {
+        try {
+            const user = await User.findOne({"_id": req.user._id})
+            user.img = req.body.img
+            await user.save()
+            res.send("OK")
+        }
+        catch (exception) {
+            req.flash('error', exception.message)
+            res.send("NOT OK")
+        }
     })
 
     // *** Profil ***
@@ -601,7 +649,7 @@ module.exports = (app, passport) => {
             user.birthday = req.body.birthday
             user.password = (req.password > 0) ? req.password : user.password
             await user.save()
-            res.send("OK")
+            res.status(200).send("OK")
         }
         catch (exception) {
             req.flash('error', exception.message)

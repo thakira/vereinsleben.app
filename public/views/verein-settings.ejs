@@ -1,0 +1,214 @@
+<%- include('partials/header/header_with_navigation') %>
+
+<main class="container-fluid">
+
+    <div class=" profil-header">
+
+        <% if(club.logo) { %>
+            <figure id="profilImage" class="teaser" style="">
+                <img src="<%= club.logo%>" class="rounded-circle avatar">
+                <i class="material-icons hidden">edit</i>
+            </figure>
+        <% } else {%>
+            <figure id="profilImage" class="teaser" style="min-height: 6em; min-width: 6em;">
+                <img src="" class="rounded-circle avatar">
+                <span>Füge ein Vereinslogo hinzu.</span>
+            </figure>
+        <% } %>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <form method="post" id="profilForm" action="/club-settings?id=<%= club._id%>" class="">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h2>Vereins-Einstellungen</h2>
+                        <a role="button" class="btn bmd-btn-icon edit-btn"><i class="material-icons">edit</i></a>
+                        <a  type="reset" class="btn bmd-btn-icon cancel-btn hidden"><i class="material-icons">cancel</i></a>
+                    </div>
+                </div>
+                    <div class="card-body">
+                        <label for="clubName" class="bmd-label-static">Name des Vereins</label>
+                        <input type="text" name="clubName" class="form-control" id="clubName" placeholder="Name des Vereins" value="<%= club.clubName %>" readonly required>
+                    </div> <!-- .card-body -->
+                </div><!-- .card -->
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h3 class="text-primary">Anschrift &amp; Kontakt</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <fieldset class="form-group col-md-6">
+                                <label for="email">E-Mail</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" value="<%= club.email%>" readonly required>
+                            </fieldset>
+                            <fieldset class="form-group col-md-6 ">
+                                <label for="phone">Telefon</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Telefon" value="<%= club.phone %>" readonly>
+                            </fieldset>
+                        </div>
+
+                        <div class="form-row">
+                            <fieldset class="form-group col-9">
+                                <label for="street">Straße</label>
+                                <input type="text" class="form-control" id="street" name="street" placeholder="Straße" value="<%= club.address.street %>" readonly>
+                            </fieldset>
+                            <fieldset class="form-group col-3">
+                                <label for="number">Nr.</label>
+                                <input type="number" class="form-control" id="number" name="number" placeholder="Nr." value="<%= club.address.number %>" readonly>
+                            </fieldset>
+                            <fieldset class="form-group col-6">
+                                <label for="zip">PLZ</label>
+                                <input type="text" class="form-control" id="zip" name="zip" placeholder="PLZ" value="<%= club.address.zip %>" pattern="[0-9]{5}" title="Ungültige Eingabe!" readonly>
+                            </fieldset>
+                            <fieldset class="form-group col-6">
+                                <label for="city">Ort</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="Ort" value="<%= club.address.city %>" readonly>
+                            </fieldset>
+                        </div>
+
+                    </div> <!-- .card-body -->
+                </div><!-- .card -->
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h3 class="text-primary">Module</h3>
+                        </div>
+                        <small>Aktiviere / deaktiviere hier die Module, welche in Deinem Verein gebraucht werden.</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="checkbox">
+                            <label for="workhours">
+                                <input type="checkbox" id="workhours" name="workhours" disabled> Arbeitsstunden
+                            </label>
+                        </div>
+
+                        <div id="workhoursGroup" class="form-group hidden" style="margin-bottom: 0;">
+                            <label for="defaultWorkhours" >Arbeitsstunden im Jahr</label>
+                            <input type="number" class="form-control" id="defaultWorkhours" name="defaultWorkhours" placeholder="" value="<%= club.module.workhours.defaultWorkhours %>" readonly>
+                        </div>
+                    </div> <!-- .card-body -->
+                </div>
+
+        </form>
+    </div><!-- row -->
+</main>
+
+<%- include('components/modals/modal', {modalType:'changeImageModal'}) %>
+
+<link rel="stylesheet" href="/croppie/croppie.css" />
+<script src="/croppie/croppie.js"></script>
+
+<script>
+
+$(document).ready( function() {
+
+    let workhoursActivated = '<%= club.module.workhours.activate %>'
+    if (workhoursActivated === 'true') {
+        $('#workhours').prop('checked', true)
+    }
+
+    $('#workhours').on('change', function () {
+        cb = $(this);
+        cb.val(cb.prop('checked'));
+        toggleWorkhours();
+    });
+
+    toggleWorkhours();
+
+    function toggleWorkhours() {
+        if($('#workhours').prop('checked')) {
+            $('#workhoursGroup').removeClass('hidden');
+        } else {
+            $('#workhoursGroup').addClass('hidden')
+        }
+    }
+
+    $(".cancel-btn").on("click", () => {
+        $('button[type="submit"]').remove();
+        $(".cancel-btn").addClass("hidden")
+        $('.edit-btn').removeClass("hidden");
+        $("input").attr('readonly','');
+        $("input[type=checkbox]").attr('disabled','true');
+        $("#profilForm").removeClass("editMode");
+    })
+
+    $(".edit-btn").on("click",  () => {
+        $(".edit-btn").addClass("hidden");
+        $(".cancel-btn").removeClass("hidden");
+
+        $("input").removeAttr('readonly');
+        $("input[type=checkbox]").removeAttr('disabled');
+        $("#profilForm").addClass("editMode").removeClass("readonly");
+
+        let submitBtn = '<button type=\"submit\" class=\"btn btn-primary\" role=\"button\">Speichern</button>';
+        $("#profilForm").append(submitBtn);
+
+        $("#profilForm").submit(function( e ) {
+            $('button[type="submit"]').remove();
+            $(".cancel-btn").addClass("hidden")
+            $('.edit-btn').removeClass("hidden");
+            $("input").attr('readonly','');
+            $("#profilForm").removeClass("editMode");
+
+            $.snackbar({content: 'Einstellungen gespeichert!', style: 'toast'})
+        })
+    })
+
+    $('#profilImage').on('click', () => {
+        $('#changeImageModal').modal('show');
+    })
+
+    // Profilbild laden und zuschneiden
+    function readURL(input) {
+        console.log('2')
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                console.log(e.target.result)
+                $('#profilbild').attr('src', e.target.result);
+                $('#profilbild').croppie({
+                    enableExif: true,
+                    viewport: {
+                        width: 200,
+                        height:200,
+                        type: 'circle'
+                    },
+                    boundary: {
+                        width:300,
+                        height: 300
+                    }
+                });
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#profilbildInput").change(function() {
+        //$('.imageContainer').removeClass('hidden');
+        readURL(this);
+    });
+
+    $('#saveProfilImage').on('click', function(ev) {
+        $('#profilbild').croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function(resp) {
+            $('#profilbild').attr('src', resp);
+            $('#profilImage img').attr('src', resp);
+            // $('#profilbild').croppie('destroy');
+            $('#changeImageModal').modal('toggle');
+            $.post('/clublogo', {img: resp});
+            $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
+        });
+    })
+
+})
+</script>
+
+<%- include('partials/footer/footer') %>
