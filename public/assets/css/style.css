@@ -501,6 +501,11 @@ img.avatar.small {
     width: 5em;
 }
 
+.navbar-brand img,
+figure.teaser{
+    border: 2px solid #fff;
+}
+
 .profil-header figure.teaser {
     display:flex;
     align-items: center;
@@ -512,7 +517,7 @@ img.avatar.small {
     max-height:810em;
     width: 10em;
     max-width: 10em;
-    border-radius: 5em;
+    border-radius: 50%;
     transition: all .2s ease-in;
     overflow: hidden;
 }
@@ -976,7 +981,6 @@ figure {
 }
 
 .avatar {
-    border: 2px solid #fff;
     display: block;
     margin: 0 auto;
 }
