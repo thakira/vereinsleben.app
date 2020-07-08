@@ -2,7 +2,7 @@
     <div class="d-flex w-100 justify-content-between task-title">
         <h6><%= task.title %></h6>
         <%if(user.role === 'admin') {%>
-            <a type="button" class="btn bmd-btn-icon" href="/edit-task?task=<%= task._id %>">
+            <a type="button" class="btn bmd-btn-icon edit-button" href="/edit-task?task=<%= task._id %>">
                 <i class="material-icons">edit</i>
             </a>
         <%}%>

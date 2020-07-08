@@ -42,14 +42,6 @@
                 <textarea class="form-control" id="newsText" name="newsText" required></textarea>
             </div>
 
-            <div class="form-group">
-                <!-- Datei hochladen-->
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input " id="customFile" name="customFile" lang="de">
-                    <label class="custom-file-label" for="customFile">Lade eine Datei hoch...</label>
-                    <small>Lade optional ein Dokument hoch (z.B. Plakat, Anmeldeformular)</small>
-                </div>
-            </div>
 
             <div class="checkbox">
                 <label for="newsReleased">
@@ -57,7 +49,7 @@
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-primary">Speichern</button>
+            <button id="submitButton" type="submit" class="btn btn-primary">Speichern</button>
         </form>
     </div>
 </main>
@@ -136,6 +128,13 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+
+    if(!navigator.onLine) {
+        $('input').attr('readonly', '');
+        $('textarea').attr('readonly', '');
+        $('#submitButton').addClass('hidden');
+        $('#editorContainer').prepend('<div class="alert alert-danger" role="alert">Du bist offline! Die Bearbeitungsfunktion steht Dir nur online zur Verfügung.</div>')
+    }
 </script>
 
 <%- include('partials/footer/footer') %>

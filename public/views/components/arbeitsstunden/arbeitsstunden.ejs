@@ -7,59 +7,78 @@
 
 <script>
     $('.done').on('click', function (e) {
-        let taskId = $(e.target).attr('data-task-id');
-        let form = $(e.target).parent();
-        let formData = form.serialize();
-        let worked = $('input[name=workedHours]').val();
+        if(navigator.onLine) {
+            let taskId = $(e.target).attr('data-task-id');
+            let form = $(e.target).parent();
+            let formData = form.serialize();
+            let worked = $('input[name=workedHours]').val();
 
-        $.ajax({
-            url: form.attr('action'),
-            type: 'POST',
-            data: formData,
-            success: () => {
-                console.log('geschafft')
-                $.snackbar({content: 'Danke für Deine Unterstützung!', style: 'toast'});
-                $('#modal'+taskId).modal('toggle');
-                $('#list-group-item-'+taskId).addClass('done');
-                $('#list-group-item-'+taskId + ' > .task-title').append('<div>Erledigt</div>');
-                $('#task-btn-container-'+taskId).remove();
-                $('#list-group-item-'+taskId + ' > .task-description').remove();
-                $('#list-group-item-'+taskId + ' > .task-participants').remove();
-                $('#list-group-item-'+taskId + ' > .task-estimated').remove();
-                let w = parseInt($('#worked').text()) + parseInt(worked);
-                $('#worked').text(w);
-            }
-        })
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: formData,
+                success: () => {
+                    console.log('geschafft')
+                    $.snackbar({content: 'Danke für Deine Unterstützung!', style: 'toast'});
+                    $('#modal'+taskId).modal('toggle');
+                    $('#list-group-item-'+taskId).addClass('done');
+                    $('#list-group-item-'+taskId + ' > .task-title').append('<div>Erledigt</div>');
+                    $('#task-btn-container-'+taskId).remove();
+                    $('#list-group-item-'+taskId + ' > .task-description').remove();
+                    $('#list-group-item-'+taskId + ' > .task-participants').remove();
+                    $('#list-group-item-'+taskId + ' > .task-estimated').remove();
+                    let w = parseInt($('#worked').text()) + parseInt(worked);
+                    $('#worked').text(w);
+                }
+            })
+        } else {
+            offlineHint();
+        }
+
     })
 
     function cancel(elem, taskId) {
-        if (window.confirm("Möchtest du dich wirklich von der Aufgabe austragen?")) {
-            $.ajax({
-                url: '/task-cancel?id='+taskId,
-                type: 'PUT'
-            })
+        if(navigator.onLine) {
+            if (window.confirm("Möchtest du dich wirklich von der Aufgabe austragen?")) {
+                $.ajax({
+                    url: '/task-cancel?id='+taskId,
+                    type: 'PUT'
+                })
 
-            let par = parseInt($('#participants-'+taskId).text()) - 1;
-            $('#participants-'+taskId).text(par);
+                let par = parseInt($('#participants-'+taskId).text()) - 1;
+                $('#participants-'+taskId).text(par);
 
-            $.snackbar({content: 'Du hast dich erfolgreich ausgetragen.', style: 'toast'});
-            $('#available-tasks-container>.card').append($(elem).parent().parent())
-            $(elem).parent().empty().append('<button type="button" class="btn btn-sm btn-primary-text accept" onclick="accept(this,\'' + taskId + '\')">Aufgabe übernehmen</button>');
+                $.snackbar({content: 'Du hast dich erfolgreich ausgetragen.', style: 'toast'});
+                $('#available-tasks-container>.card').append($(elem).parent().parent())
+                $(elem).parent().empty().append('<button type="button" class="btn btn-sm btn-primary-text accept" onclick="accept(this,\'' + taskId + '\')">Aufgabe übernehmen</button>');
+            }
+        } else {
+            offlineHint();
         }
+
     }
 
     function accept(elem, taskId) {
-        $.ajax({
-            url: '/task-inscribe?id='+taskId,
-            type: 'PUT'
-        })
-        $.snackbar({content: 'Du hast dich für eine Aufgabe eingetragen.', style: 'toast'});
+        if(navigator.onLine) {
+            $.ajax({
+                url: '/task-inscribe?id='+taskId,
+                type: 'PUT'
+            })
+            $.snackbar({content: 'Du hast dich für eine Aufgabe eingetragen.', style: 'toast'});
 
-        let par = parseInt($('#participants-'+taskId).text()) + 1;
-        $('#participants-'+taskId).text(par);
+            let par = parseInt($('#participants-'+taskId).text()) + 1;
+            $('#participants-'+taskId).text(par);
 
-        $('#accepted-tasks-container>.card').append($(elem).parent().parent())
-        $(elem).parent().empty().append('<button type="button" class="btn btn-secondary btn-sm cancel" onclick="cancel(this,\''+taskId+'\')">Absagen</button>'
-            + ' <button type="button" class="btn  btn-primary btn-sm" data-toggle="modal" data-target="#modal'+taskId+'">Aufgabe erledigt?</button>');
+            $('#accepted-tasks-container>.card').append($(elem).parent().parent())
+            $(elem).parent().empty().append('<button type="button" class="btn btn-secondary btn-sm cancel" onclick="cancel(this,\''+taskId+'\')">Absagen</button>'
+                + ' <button type="button" class="btn  btn-primary btn-sm" data-toggle="modal" data-target="#modal'+taskId+'">Aufgabe erledigt?</button>');
+        } else {
+            offlineHint();
+        }
+
     }
+
+    $('.edit-button').on('click', function() {
+        offlineHint();
+    })
 </script>

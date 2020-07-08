@@ -395,6 +395,10 @@ a.btn.btn-primary-fab{
     text-align: center;
 }
 
+.snackbar.toast.red span {
+    background-color: red;
+    font-weight: 600;
+}
 /* ---------------------------------------------------
     PURE CSS TABS AND TAB-CONTENT
 ----------------------------------------------------- */

@@ -23,7 +23,7 @@
                 <div class="card-header">
                     <div class="d-flex w-100 justify-content-between">
                         <h2>Profil</h2>
-                        <button class="btn bmd-btn-icon edit-btn"><i class="material-icons">edit</i></button>
+                        <button class="btn bmd-btn-icon edit-btn edit-button"><i class="material-icons">edit</i></button>
                         <button class="btn bmd-btn-icon cancel-btn hidden"><i class="material-icons">cancel</i></button>
                     </div>
                 </div>
@@ -106,44 +106,52 @@
     })
 
     $(".edit-btn").on("click",  () => {
-        $(".edit-btn").addClass("hidden");
-        $(".cancel-btn").removeClass("hidden");
+        if(navigator.onLine) {
+            $(".edit-btn").addClass("hidden");
+            $(".cancel-btn").removeClass("hidden");
 
-        $("input").removeAttr('readonly');
-        $("#profilForm").addClass("editMode").removeClass("readonly");
+            $("input").removeAttr('readonly');
+            $("#profilForm").addClass("editMode").removeClass("readonly");
 
-        let submitBtn = '<button type=\"submit\" class=\"btn btn-primary\" role=\"button\">Speichern</button>';
-        $("#profilForm").append(submitBtn);
+            let submitBtn = '<button type=\"submit\" class=\"btn btn-primary\" role=\"button\">Speichern</button>';
+            $("#profilForm").append(submitBtn);
 
-        $("#profilForm").submit(function( e ) {
-            e.preventDefault();
+            $("#profilForm").submit(function( e ) {
+                e.preventDefault();
 
-            let $form = $(this),
-                fn = $form.find('input[name="firstname"]').val(),
-                ln = $form.find('input[name="lastname"]').val(),
-                em = $form.find('input[name="email"]').val(),
-                b  = $form.find('input[name="birthday"]').val(),
-                t  = $form.find('input[name="phone"]').val(),
-                m  = $form.find('input[name="mobile"]').val(),
-                p  = $form.find('input[name="password"]').val(),
-                url= $form.attr("action");
-            if( fn && ln && em ) {
-                let formdata = (p!=null) ? {firstname: fn, lastname:ln, email:em, birthday:b, phone:t, mobile:m, password:p}
+                let $form = $(this),
+                    fn = $form.find('input[name="firstname"]').val(),
+                    ln = $form.find('input[name="lastname"]').val(),
+                    em = $form.find('input[name="email"]').val(),
+                    b  = $form.find('input[name="birthday"]').val(),
+                    t  = $form.find('input[name="phone"]').val(),
+                    m  = $form.find('input[name="mobile"]').val(),
+                    p  = $form.find('input[name="password"]').val(),
+                    url= $form.attr("action");
+                if( fn && ln && em ) {
+                    let formdata = (p!=null) ? {firstname: fn, lastname:ln, email:em, birthday:b, phone:t, mobile:m, password:p}
                     : {firstname: fn, lastname:ln, email:em, birthday:b, phone:t, mobile:m};
-                let posting = $.post(url, formdata, () => {
-                    $('button[type="submit"]').remove();
-                    $(".cancel-btn").addClass("hidden")
-                    $('.edit-btn').removeClass("hidden");
-                    $("input").attr('readonly','');
-                    $("#profilForm").removeClass("editMode");
-                });
-                $.snackbar({content: 'Profil gespeichert!', style: 'toast'})
-            }
-        })
+                    $.post(url, formdata, () => {
+                        $('button[type="submit"]').remove();
+                        $(".cancel-btn").addClass("hidden");
+                        $('.edit-btn').removeClass("hidden");
+                        $("input").attr('readonly','');
+                        $("#profilForm").removeClass("editMode");
+                    });
+                    $.snackbar({content: 'Profil gespeichert!', style: 'toast'})
+                }
+            })
+        } else {
+            offlineHint();
+        }
     })
 
     $('#profilImage').on('click', () => {
-        $('#changeImageModal').modal('show');
+        if(navigator.onLine) {
+          $('#changeImageModal').modal('show');
+        } else {
+            offlineHint();
+        }
     })
 
     // Profilbild laden und zuschneiden

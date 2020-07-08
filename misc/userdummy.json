@@ -8,6 +8,7 @@
     "worked": 3,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "KHN97KVD7QT",
     "createdAt": "2020-04-28T11:19:32-07:00",
     "updatedAt": "2020-06-29T13:31:21-07:00"
@@ -21,6 +22,7 @@
     "worked": 0,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "XQL79GLA7BM",
     "createdAt": "2020-02-15T22:01:38-08:00",
     "updatedAt": "2020-06-29T03:08:10-07:00"
@@ -34,6 +36,7 @@
     "worked": 0,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "WWN01YUL4RH",
     "createdAt": "2020-05-13T17:47:33-07:00",
     "updatedAt": "2020-06-28T05:26:20-07:00"
@@ -47,6 +50,7 @@
     "worked": 8,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "QYH66OCY6EW",
     "createdAt": "2020-05-25T14:50:25-07:00",
     "updatedAt": "2020-06-29T14:11:08-07:00"
@@ -60,6 +64,7 @@
     "worked": 8,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "IND92GZD4CP",
     "createdAt": "2020-02-06T14:08:20-08:00",
     "updatedAt": "2020-06-28T07:54:36-07:00"
@@ -73,6 +78,7 @@
     "worked": 8,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "PUE41LEB2SD",
     "createdAt": "2020-04-24T04:19:40-07:00",
     "updatedAt": "2020-07-02T04:22:13-07:00"
@@ -86,6 +92,7 @@
     "worked": 0,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "GBO51TCV8MV",
     "createdAt": "2020-05-31T22:51:09-07:00",
     "updatedAt": "2020-07-01T07:50:30-07:00"
@@ -99,6 +106,7 @@
     "worked": 5,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "KXC52BOI3MC",
     "createdAt": "2020-02-28T11:12:49-08:00",
     "updatedAt": "2020-06-28T20:12:58-07:00"
@@ -112,6 +120,7 @@
     "worked": 3,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "ALN62OEP4LK",
     "createdAt": "2020-06-01T15:47:06-07:00",
     "updatedAt": "2020-07-01T15:33:52-07:00"
@@ -125,6 +134,7 @@
     "worked": 0,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "XPO15OHT2GT",
     "createdAt": "2020-04-17T05:05:13-07:00",
     "updatedAt": "2020-07-01T00:39:19-07:00"
@@ -138,6 +148,7 @@
     "worked": 6,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "WIW46BAX4AA",
     "createdAt": "2020-04-06T20:00:03-07:00",
     "updatedAt": "2020-06-29T05:50:46-07:00"
@@ -151,6 +162,7 @@
     "worked": 10,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "GVA68TXI5SN",
     "createdAt": "2020-03-18T03:35:21-07:00",
     "updatedAt": "2020-07-02T19:12:43-07:00"
@@ -164,6 +176,7 @@
     "worked": 7,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "PNZ04VRV7MT",
     "createdAt": "2020-03-03T03:22:11-08:00",
     "updatedAt": "2020-07-01T09:01:27-07:00"
@@ -177,6 +190,7 @@
     "worked": 0,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "OZL08AJM1VP",
     "createdAt": "2020-03-27T05:57:26-07:00",
     "updatedAt": "2020-06-30T20:27:57-07:00"
@@ -190,6 +204,7 @@
     "worked": 10,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "ABN65KKS3JG",
     "createdAt": "2020-05-11T18:04:59-07:00",
     "updatedAt": "2020-06-29T00:04:56-07:00"
@@ -203,6 +218,7 @@
     "worked": 0,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "MYE53WFA2DW",
     "createdAt": "2020-04-22T17:27:26-07:00",
     "updatedAt": "2020-06-29T18:45:26-07:00"
@@ -216,6 +232,7 @@
     "worked": 0,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "SLO06QYF1OV",
     "createdAt": "2020-06-15T19:54:45-07:00",
     "updatedAt": "2020-06-28T05:30:17-07:00"
@@ -229,6 +246,7 @@
     "worked": 8,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "MJJ65LMS8PP",
     "createdAt": "2020-05-05T05:19:10-07:00",
     "updatedAt": "2020-07-01T15:17:14-07:00"
@@ -242,6 +260,7 @@
     "worked": 3,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "YDQ39RWD4UI",
     "createdAt": "2020-03-07T00:37:55-08:00",
     "updatedAt": "2020-06-30T23:24:43-07:00"
@@ -255,6 +274,7 @@
     "worked": 3,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "UVM13GDO3TG",
     "createdAt": "2020-03-22T13:59:07-07:00",
     "updatedAt": "2020-07-01T05:00:27-07:00"
@@ -268,6 +288,7 @@
     "worked": 4,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "KHE87RNE9UZ",
     "createdAt": "2020-04-28T13:05:29-07:00",
     "updatedAt": "2020-06-28T12:00:41-07:00"
@@ -281,6 +302,7 @@
     "worked": 2,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "GEP59DMY2XP",
     "createdAt": "2020-04-06T18:40:32-07:00",
     "updatedAt": "2020-06-28T07:09:43-07:00"
@@ -294,6 +316,7 @@
     "worked": 4,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "VIV05NVG2NO",
     "createdAt": "2020-05-05T02:09:03-07:00",
     "updatedAt": "2020-07-01T11:55:16-07:00"
@@ -307,6 +330,7 @@
     "worked": 9,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "BNB48XYV7FC",
     "createdAt": "2020-06-04T09:19:59-07:00",
     "updatedAt": "2020-06-28T17:26:24-07:00"
@@ -320,6 +344,7 @@
     "worked": 3,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "SAJ43CDY4HE",
     "createdAt": "2020-02-04T07:08:23-08:00",
     "updatedAt": "2020-06-30T17:52:12-07:00"
@@ -333,6 +358,7 @@
     "worked": 2,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "OWE10XOZ1YL",
     "createdAt": "2020-05-28T01:15:12-07:00",
     "updatedAt": "2020-07-01T15:17:22-07:00"
@@ -346,6 +372,7 @@
     "worked": 8,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "TSB69VRY0HI",
     "createdAt": "2020-04-09T22:59:18-07:00",
     "updatedAt": "2020-06-28T01:52:34-07:00"
@@ -359,6 +386,7 @@
     "worked": 8,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "EUV89RYV9NG",
     "createdAt": "2020-04-21T12:01:21-07:00",
     "updatedAt": "2020-07-02T16:36:43-07:00"
@@ -372,6 +400,7 @@
     "worked": 5,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "LEP75AAC9CO",
     "createdAt": "2020-02-12T05:23:42-08:00",
     "updatedAt": "2020-06-30T14:53:45-07:00"
@@ -385,6 +414,7 @@
     "worked": 4,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "JXQ39BRA5DS",
     "createdAt": "2020-04-24T23:37:27-07:00",
     "updatedAt": "2020-07-01T16:11:09-07:00"
@@ -398,6 +428,7 @@
     "worked": 7,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "PVL17TTK4CU",
     "createdAt": "2020-03-31T01:45:14-07:00",
     "updatedAt": "2020-06-29T15:10:40-07:00"
@@ -411,6 +442,7 @@
     "worked": 9,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "BJG51QXB6UY",
     "createdAt": "2020-04-12T08:59:04-07:00",
     "updatedAt": "2020-06-28T02:56:16-07:00"
@@ -424,6 +456,7 @@
     "worked": 10,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "FZK96POE1VZ",
     "createdAt": "2020-07-02T06:28:12-07:00",
     "updatedAt": "2020-06-30T20:22:54-07:00"
@@ -437,6 +470,7 @@
     "worked": 9,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "CHN45QFR1AW",
     "createdAt": "2020-04-03T19:53:03-07:00",
     "updatedAt": "2020-07-02T10:15:50-07:00"
@@ -450,6 +484,7 @@
     "worked": 1,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "CEG75SDF8PD",
     "createdAt": "2020-06-17T02:42:40-07:00",
     "updatedAt": "2020-07-01T21:58:14-07:00"
@@ -463,6 +498,7 @@
     "worked": 3,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "JEG91WCZ2CO",
     "createdAt": "2020-04-09T04:28:33-07:00",
     "updatedAt": "2020-06-30T14:18:43-07:00"
@@ -476,6 +512,7 @@
     "worked": 10,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "LTQ19DFN5EJ",
     "createdAt": "2020-05-03T11:33:14-07:00",
     "updatedAt": "2020-06-28T01:19:15-07:00"
@@ -489,6 +526,7 @@
     "worked": 7,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "XZB20WPR7NS",
     "createdAt": "2020-04-29T23:12:38-07:00",
     "updatedAt": "2020-07-02T13:55:41-07:00"
@@ -502,6 +540,7 @@
     "worked": 10,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "BLA78LJU0HC",
     "createdAt": "2020-06-04T03:10:51-07:00",
     "updatedAt": "2020-07-02T00:14:28-07:00"
@@ -515,6 +554,7 @@
     "worked": 9,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "VBB03JIK1ME",
     "createdAt": "2020-05-29T15:20:02-07:00",
     "updatedAt": "2020-07-02T00:35:28-07:00"
@@ -528,6 +568,7 @@
     "worked": 3,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "VNY52GTL7PS",
     "createdAt": "2020-02-25T08:07:53-08:00",
     "updatedAt": "2020-06-29T23:24:30-07:00"
@@ -541,6 +582,7 @@
     "worked": 10,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "CGB28UUE9FP",
     "createdAt": "2020-02-11T16:52:33-08:00",
     "updatedAt": "2020-06-28T21:39:28-07:00"
@@ -554,6 +596,7 @@
     "worked": 0,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "ZHG79RZE8AU",
     "createdAt": "2020-05-11T17:31:29-07:00",
     "updatedAt": "2020-06-29T16:29:05-07:00"
@@ -567,6 +610,7 @@
     "worked": 3,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "IWA33YWI6FK",
     "createdAt": "2020-04-03T08:38:58-07:00",
     "updatedAt": "2020-06-30T06:23:52-07:00"
@@ -580,6 +624,7 @@
     "worked": 4,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "FQT35UDG8UW",
     "createdAt": "2020-06-07T12:27:17-07:00",
     "updatedAt": "2020-06-29T00:32:05-07:00"
@@ -593,6 +638,7 @@
     "worked": 0,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "IBM60DEM6VC",
     "createdAt": "2020-05-12T19:20:44-07:00",
     "updatedAt": "2020-07-01T04:52:41-07:00"
@@ -606,6 +652,7 @@
     "worked": 3,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "CNI08JRT0LG",
     "createdAt": "2020-05-12T15:52:24-07:00",
     "updatedAt": "2020-07-01T12:36:43-07:00"
@@ -619,6 +666,7 @@
     "worked": 10,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "GRN27IXL0CN",
     "createdAt": "2020-03-20T19:12:15-07:00",
     "updatedAt": "2020-07-02T06:54:52-07:00"
@@ -632,6 +680,7 @@
     "worked": 1,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "KOL02NRU7TL",
     "createdAt": "2020-05-24T14:35:34-07:00",
     "updatedAt": "2020-06-30T14:19:35-07:00"
@@ -645,6 +694,7 @@
     "worked": 2,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "RTZ70JOK8QS",
     "createdAt": "2020-04-18T04:45:19-07:00",
     "updatedAt": "2020-07-01T00:02:42-07:00"
@@ -658,6 +708,7 @@
     "worked": 8,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "ONP06KEF8ZW",
     "createdAt": "2020-02-04T07:31:52-08:00",
     "updatedAt": "2020-06-30T14:44:42-07:00"
@@ -671,6 +722,7 @@
     "worked": 4,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "RIG72BJN0AS",
     "createdAt": "2020-04-15T10:23:49-07:00",
     "updatedAt": "2020-06-28T02:31:43-07:00"
@@ -684,6 +736,7 @@
     "worked": 4,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "SFV06VAX5UD",
     "createdAt": "2020-03-13T14:13:30-07:00",
     "updatedAt": "2020-06-30T04:57:53-07:00"
@@ -697,6 +750,7 @@
     "worked": 4,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "QTZ18CRR8EG",
     "createdAt": "2020-04-06T17:52:05-07:00",
     "updatedAt": "2020-07-01T14:44:09-07:00"
@@ -710,6 +764,7 @@
     "worked": 2,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "MNI74NBS6YL",
     "createdAt": "2020-06-25T15:08:15-07:00",
     "updatedAt": "2020-06-29T12:16:14-07:00"
@@ -723,6 +778,7 @@
     "worked": 7,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "APY13PKH5UQ",
     "createdAt": "2020-03-25T10:25:58-07:00",
     "updatedAt": "2020-07-01T22:05:41-07:00"
@@ -736,6 +792,7 @@
     "worked": 9,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "HQL98RCF9HJ",
     "createdAt": "2020-02-06T04:20:59-08:00",
     "updatedAt": "2020-06-29T00:07:05-07:00"
@@ -749,6 +806,7 @@
     "worked": 10,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "ENL36NLT4VS",
     "createdAt": "2020-05-15T21:58:26-07:00",
     "updatedAt": "2020-06-30T16:08:49-07:00"
@@ -762,6 +820,7 @@
     "worked": 6,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "SQP52QAJ0QB",
     "createdAt": "2020-06-09T00:16:09-07:00",
     "updatedAt": "2020-06-29T12:50:39-07:00"
@@ -775,6 +834,7 @@
     "worked": 5,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "XZE51AWF0NK",
     "createdAt": "2020-06-04T12:38:34-07:00",
     "updatedAt": "2020-06-29T21:04:59-07:00"
@@ -788,6 +848,7 @@
     "worked": 4,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "BHJ75FBO0NK",
     "createdAt": "2020-05-19T16:57:12-07:00",
     "updatedAt": "2020-06-29T00:03:01-07:00"
@@ -801,6 +862,7 @@
     "worked": 8,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "JDB54FCS7MG",
     "createdAt": "2020-06-17T04:30:17-07:00",
     "updatedAt": "2020-07-01T12:49:38-07:00"
@@ -814,6 +876,7 @@
     "worked": 8,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "BCY49ZEE6LL",
     "createdAt": "2020-05-31T09:48:36-07:00",
     "updatedAt": "2020-06-28T17:10:37-07:00"
@@ -827,6 +890,7 @@
     "worked": 5,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "QQH03WGL4JN",
     "createdAt": "2020-03-08T00:22:12-08:00",
     "updatedAt": "2020-07-02T12:04:18-07:00"
@@ -840,6 +904,7 @@
     "worked": 3,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "WNB32MVK8LA",
     "createdAt": "2020-03-27T15:44:24-07:00",
     "updatedAt": "2020-07-01T17:53:43-07:00"
@@ -853,6 +918,7 @@
     "worked": 5,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "IFK90XZY0JD",
     "createdAt": "2020-04-15T05:07:24-07:00",
     "updatedAt": "2020-06-28T23:02:08-07:00"
@@ -866,6 +932,7 @@
     "worked": 6,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "ZLT14NBG4XZ",
     "createdAt": "2020-03-19T06:33:21-07:00",
     "updatedAt": "2020-06-28T02:01:07-07:00"
@@ -879,6 +946,7 @@
     "worked": 6,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "ZQI89EVO6EF",
     "createdAt": "2020-03-20T14:38:06-07:00",
     "updatedAt": "2020-07-02T11:59:47-07:00"
@@ -892,6 +960,7 @@
     "worked": 5,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "SLJ10JRN2DX",
     "createdAt": "2020-06-03T02:24:04-07:00",
     "updatedAt": "2020-07-01T15:26:23-07:00"
@@ -905,6 +974,7 @@
     "worked": 0,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "BJM88UMW9HA",
     "createdAt": "2020-05-01T12:40:26-07:00",
     "updatedAt": "2020-07-02T02:58:43-07:00"
@@ -918,6 +988,7 @@
     "worked": 0,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "KXJ00DIL6YV",
     "createdAt": "2020-03-18T03:48:33-07:00",
     "updatedAt": "2020-06-30T09:19:37-07:00"
@@ -931,6 +1002,7 @@
     "worked": 3,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "DTQ63IJV6BL",
     "createdAt": "2020-06-20T08:02:42-07:00",
     "updatedAt": "2020-06-28T18:38:33-07:00"
@@ -944,6 +1016,7 @@
     "worked": 4,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "OXR78RTT2SQ",
     "createdAt": "2020-03-13T10:12:30-07:00",
     "updatedAt": "2020-06-29T23:57:42-07:00"
@@ -957,6 +1030,7 @@
     "worked": 6,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "QGE35HHZ5JQ",
     "createdAt": "2020-04-15T20:41:34-07:00",
     "updatedAt": "2020-06-28T01:49:16-07:00"
@@ -970,6 +1044,7 @@
     "worked": 0,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "WHL40REF2ZM",
     "createdAt": "2020-04-02T08:48:29-07:00",
     "updatedAt": "2020-07-01T13:18:00-07:00"
@@ -983,6 +1058,7 @@
     "worked": 6,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "NHM42NET3FJ",
     "createdAt": "2020-06-22T07:26:35-07:00",
     "updatedAt": "2020-06-28T16:20:56-07:00"
@@ -996,6 +1072,7 @@
     "worked": 7,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "FRJ51IVA8EB",
     "createdAt": "2020-02-04T20:28:16-08:00",
     "updatedAt": "2020-07-01T10:45:16-07:00"
@@ -1009,6 +1086,7 @@
     "worked": 10,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "VSJ06ALA0ZQ",
     "createdAt": "2020-05-18T13:47:09-07:00",
     "updatedAt": "2020-06-29T23:23:11-07:00"
@@ -1022,6 +1100,7 @@
     "worked": 5,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "FKN74RAF4OE",
     "createdAt": "2020-06-08T11:43:27-07:00",
     "updatedAt": "2020-06-30T04:14:49-07:00"
@@ -1035,6 +1114,7 @@
     "worked": 2,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "DCS10XQD3QK",
     "createdAt": "2020-03-12T21:44:17-07:00",
     "updatedAt": "2020-06-30T10:40:53-07:00"
@@ -1048,6 +1128,7 @@
     "worked": 9,
     "workhours": 10,
     "verified": "true",
+    "role":"users",
     "password": "NYE23OXZ1OF",
     "createdAt": "2020-04-11T19:35:37-07:00",
     "updatedAt": "2020-07-02T08:49:58-07:00"
@@ -1061,6 +1142,7 @@
     "worked": 3,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "DBV52SMN5NM",
     "createdAt": "2020-02-28T07:27:21-08:00",
     "updatedAt": "2020-07-02T05:41:55-07:00"
@@ -1074,6 +1156,7 @@
     "worked": 9,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "DGG59YHY0SN",
     "createdAt": "2020-06-27T08:11:45-07:00",
     "updatedAt": "2020-06-29T07:29:30-07:00"
@@ -1087,6 +1170,7 @@
     "worked": 6,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "OVO93PBT1MN",
     "createdAt": "2020-06-10T08:20:15-07:00",
     "updatedAt": "2020-07-01T02:51:36-07:00"
@@ -1100,6 +1184,7 @@
     "worked": 5,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "YAC28QAG5NR",
     "createdAt": "2020-02-15T03:01:02-08:00",
     "updatedAt": "2020-07-02T00:42:01-07:00"
@@ -1113,6 +1198,7 @@
     "worked": 3,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "SHN62WVH1YI",
     "createdAt": "2020-06-20T20:39:07-07:00",
     "updatedAt": "2020-07-02T16:17:32-07:00"
@@ -1126,6 +1212,7 @@
     "worked": 6,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "OLY05APH5RZ",
     "createdAt": "2020-04-11T22:20:27-07:00",
     "updatedAt": "2020-06-30T02:07:23-07:00"
@@ -1139,6 +1226,7 @@
     "worked": 9,
     "workhours": 15,
     "verified": "true",
+    "role":"users",
     "password": "FLV46KWT8FZ",
     "createdAt": "2020-02-18T15:27:17-08:00",
     "updatedAt": "2020-06-29T23:37:01-07:00"
@@ -1152,6 +1240,7 @@
     "worked": 6,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "EZP66PGS2AE",
     "createdAt": "2020-04-03T23:56:52-07:00",
     "updatedAt": "2020-07-01T05:52:19-07:00"
@@ -1165,6 +1254,7 @@
     "worked": 2,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "DGU78DVQ9TR",
     "createdAt": "2020-03-04T23:52:36-08:00",
     "updatedAt": "2020-07-02T14:36:14-07:00"
@@ -1178,6 +1268,7 @@
     "worked": 9,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "YDA93UFJ2ZO",
     "createdAt": "2020-06-24T01:52:34-07:00",
     "updatedAt": "2020-06-29T07:11:03-07:00"
@@ -1191,6 +1282,7 @@
     "worked": 3,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "WYW14PTI8PC",
     "createdAt": "2020-03-08T01:25:04-08:00",
     "updatedAt": "2020-07-01T10:04:20-07:00"
@@ -1204,6 +1296,7 @@
     "worked": 5,
     "workhours": 14,
     "verified": "true",
+    "role":"users",
     "password": "EAO01JUO1RA",
     "createdAt": "2020-06-17T19:18:15-07:00",
     "updatedAt": "2020-06-28T03:14:30-07:00"
@@ -1217,6 +1310,7 @@
     "worked": 1,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "RLZ90MJX4LT",
     "createdAt": "2020-03-24T17:11:42-07:00",
     "updatedAt": "2020-06-29T10:48:44-07:00"
@@ -1230,6 +1324,7 @@
     "worked": 10,
     "workhours": 11,
     "verified": "true",
+    "role":"users",
     "password": "NCD94NRC6HP",
     "createdAt": "2020-04-28T15:45:14-07:00",
     "updatedAt": "2020-06-28T10:06:04-07:00"
@@ -1243,6 +1338,7 @@
     "worked": 6,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "PPM39OYZ9LQ",
     "createdAt": "2020-03-14T11:44:56-07:00",
     "updatedAt": "2020-07-02T02:59:28-07:00"
@@ -1256,6 +1352,7 @@
     "worked": 4,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "IZL95JBG1JC",
     "createdAt": "2020-07-02T08:59:58-07:00",
     "updatedAt": "2020-06-28T00:44:11-07:00"
@@ -1269,6 +1366,7 @@
     "worked": 8,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "RGY13MBE1JM",
     "createdAt": "2020-06-05T12:18:48-07:00",
     "updatedAt": "2020-07-02T00:18:13-07:00"
@@ -1282,6 +1380,7 @@
     "worked": 7,
     "workhours": 12,
     "verified": "true",
+    "role":"users",
     "password": "QKP76WJZ1HC",
     "createdAt": "2020-05-05T22:58:18-07:00",
     "updatedAt": "2020-07-01T03:09:50-07:00"
@@ -1295,6 +1394,7 @@
     "worked": 7,
     "workhours": 13,
     "verified": "true",
+    "role":"users",
     "password": "ZMX20YDB9FO",
     "createdAt": "2020-04-04T19:37:43-07:00",
     "updatedAt": "2020-06-29T08:13:04-07:00"

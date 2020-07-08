@@ -48,31 +48,12 @@
 </main>
 
 <script>
-    let flag = false;
-    let flag2 = false;
-    $('#submitButton').on('click', function() {
-        $('#addTaskForm').submit(function(e) {
-            e.preventDefault();
-            if (!flag && "caches" in window) {
-                flag = true;
-                console.log("cache verfügbar")
-                caches.open('CACHE_DYNAMIC_NAME')
-                    .then(cache => {
-                        cache.delete('/arbeitsstunden')
-                        console.log("irgendwas ist passiert")
-                    })
-                    .then(function() {
-                        $('#addTaskForm').submit()
-                        console.log("nach addTaskForm")
-                    })
-            } else if (!flag2){
-                flag2 = true;
-                console.log("kein Cache")
-                $('#addTaskForm').submit()
-            }
-        })
-    })
-
+if(!navigator.onLine) {
+    $('input').attr('readonly', '');
+    $('textarea').attr('readonly', '');
+    $('#submitButton').addClass('hidden');
+    $('#editorContainer').prepend('<div class="alert alert-danger" role="alert">Du bist offline! Die Bearbeitungsfunktion steht Dir nur online zur Verfügung.</div>')
+}
 </script>
 
 <%- include('../../partials/footer/footer') %>

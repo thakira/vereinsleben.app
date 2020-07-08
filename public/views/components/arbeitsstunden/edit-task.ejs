@@ -13,7 +13,7 @@
 
     <div id="editorContainer" class="col">
 
-        <form method="post" action="/edit-task?id=<%= task._id%>" id="editTaskForm">
+            <form method="post" action="/edit-task?id=<%= task._id%>" id="editTaskForm">
 
             <div class="form-group">
                 <label for="taskTitle" class="bmd-label-floating">Aufgaben-Titel *</label>
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div id="btn-container" class="form-row">
                 <div class="col">
                     <button type="submit" class="btn btn-primary">Abschicken</button>
                 </div>
@@ -67,6 +67,13 @@
             $.snackbar({content: 'Aufgabe löschen abgebrochen!', style: 'toast'})
         }
     })
+
+    if(!navigator.onLine) {
+        $('input').attr('readonly', '');
+        $('textarea').attr('readonly', '');
+        $('#btn-container').addClass('hidden');
+        $('#editorContainer').prepend('<div class="alert alert-danger" role="alert">Du bist offline! Die Bearbeitungsfunktion steht Dir nur online zur Verfügung.</div>')
+    }
 </script>
 
 

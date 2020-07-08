@@ -58,6 +58,15 @@
         </a>
     <% } %>
 </main>
+
+<script>
+    if(!navigator.onLine) {
+        $('.editor-button').attr('href', '');
+        $('.editor-button').on('click', offlineHint);
+    }
+
+
+</script>
 <%- include('partials/footer/footer') %>
 
 
