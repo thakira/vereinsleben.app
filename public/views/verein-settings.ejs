@@ -11,7 +11,7 @@
             </figure>
         <% } else {%>
             <figure id="profilImage" class="teaser" style="min-height: 6em; min-width: 6em;">
-                <img src="" class="rounded-circle avatar">
+                <img src="" class="rounded-circle avatar hidden">
                 <span>Füge ein Vereinslogo hinzu.</span>
             </figure>
         <% } %>
@@ -202,6 +202,8 @@ $(document).ready( function() {
         }).then(function(resp) {
             $('#profilbild').attr('src', resp);
             $('#profilImage img').attr('src', resp);
+            $('#profilImage img').removeClass('hidden');
+            $('#profilImage span').addClass('hidden');
             $('#changeImageModal').modal('toggle');
             $.post('/clublogo?id=<%= club._id%>', {img: resp});
             $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})

@@ -11,7 +11,7 @@
              </figure>
         <% } else {%>
             <figure id="profilImage" class="teaser">
-                <img src="" class="rounded-circle avatar">
+                <img src="" class="rounded-circle avatar hidden">
                 <span>Füge ein Profilbild hinzu.</span>
             </figure>
         <% } %>
@@ -185,6 +185,8 @@
         }).then(function(resp) {
             $('#profilbild').attr('src', resp);
             $('#profilImage img').attr('src', resp);
+            $('#profilImage img').removeClass('hidden');
+            $('#profilImage span').addClass('hidden');
             $('#changeImageModal').modal('toggle');
             $.post('/profilimage', {img: resp});
 

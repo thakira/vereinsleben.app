@@ -502,7 +502,7 @@ img.avatar.small {
 }
 
 .navbar-brand img,
-figure.teaser{
+figure.teaser img{
     border: 2px solid #fff;
 }
 
@@ -700,7 +700,7 @@ main.container-fluid {
 }
 
 .hidden {
-    display: none ;
+    display: none !important;
 }
 
 
