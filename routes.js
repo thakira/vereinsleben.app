@@ -8,6 +8,7 @@ const randomString = require('randomstring')
 const mailer = require('./misc/mailer')
 const fs = require('fs')
 const helpers = require('./helpers')
+const calendar = require('./calendar/calendar-config')
 
 const multer = require("multer");
 const path = require('path')
@@ -221,9 +222,14 @@ module.exports = (app, passport) => {
 
     // *** Termine ***
     app.get('/termine', isLoggedin, (req, res) => {
-        res.render('views/termine-site', {
+        const year = req.query.year || 2020;
+        const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+            "August", "September", "Oktober", "November", "Dezember"];
+
+        res.render('views/calendar', {
             title: 'Termine',
-            user: req.user
+            user: req.user,
+            calendar: calendar(year), months, year
         })
     })
 
