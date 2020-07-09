@@ -1,9 +1,7 @@
 <div class="modal fade fullsize" id="<%= modalType %><% if(modalType === "newsModal") {%><%= article._id %><%}%>" tabindex="-1" role="dialog" aria-labelledby="<%= modalType %>Label" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <% if(modalType === "addNewsModal" ) {%>
-                <%- include('./addNewsModal') %>
-            <% } else if (modalType === "newsModal" ) {%>
+            <% if (modalType === "newsModal" ) {%>
                 <%- include('./newsModal') %>
             <% } else if (modalType === "changeImageModal" ) {%>
                 <%- include('./changeImageModal') %>

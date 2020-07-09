@@ -1,32 +1,281 @@
-<%- include('partials/header/header_with_navigation') %>
-<%- include('../assets/datatables/dataTablesImport') %>
-<script src="../assets/js/memberTable.js"></script>
+<%- include('partials/header/header_with_navigation')%>
 
+<style>
+    td, th {
+        white-space: nowrap;
+    }
+
+    .forSort {
+        cursor: pointer;
+    }
+
+    /* Bootstrap 4 text input with search icon */
+
+    .has-search .form-control {
+        padding-left: 2.375rem;
+    }
+
+    .has-search .form-control-feedback {
+        position: absolute;
+        z-index: 2;
+        display: block;
+        width: 2.375rem;
+        height: 2.375rem;
+        line-height: 2.375rem;
+        text-align: center;
+        pointer-events: none;
+        color: #aaa;
+    }
+</style>
 
 <main>
     <div class="card tableContainer">
-        <table id="userTable" class="display dt-responsive nowrap" width="100%" data-page-length="25">
-            <thead>
-            <tr>
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>Mobil</th>
-                <th>Telefon</th>
-                <th>E-Mail</th>
-                <th>Geburtstag</th>
-                <th>Arbeitsstunden</th>
-                <th>Mitglieds-Nr.</th>
-                <th>Rechte</th>
-                <th>registriert seit</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
 
+        <div class="form-group has-search col-md-3">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input id="myInput"  type="text" class="form-control" placeholder="Suche">
+        </div>
+
+        <div class="table-responsive table-hover">    <!--table-sm-->
+
+            <table id="memberTable" class="table">
+                <tr>
+                    <th class="forSort" onclick="sortTable(0)">Vorname</th>
+                    <th class="forSort" onclick="sortTable(1)">Nachname</th>
+                    <th>Mobil</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Geburtstag</th>
+                    <th class="forSort" onclick="sortTable(6)">Arbeitsstunden</th>
+                    <th>Mitglieds-Nr.</th>
+                    <th class="forSort" onclick="sortTable(8)">Rechte</th>
+                    <th>registriert seit</th>
+                </tr>
+
+                <tbody id="memberData">
+                <% if(users) {%>
+                    <% users.forEach( user => {%>
+
+                        <tr id="<%= user._id %>">
+                            <td><%= user.firstname %></td>
+                            <td><%= user.lastname %></td>
+                            <td><%= user.mobile %></td>
+                            <td><%= user.phone %></td>
+                            <td><%= user.email %></td>
+                            <td><% if(user.birthday) {%><%= ("0"+(user.birthday).getDate()).slice(-2) %>.<%= ("0"+(((user.birthday).getMonth())+1)).slice(-2) %>.<%= (user.birthday).getFullYear()%><%}%></td>
+                            <td><%= user.worked %>/<%= user.workhours %></td>
+                            <td><%= user.memberNumber %></td>
+                            <td><%= user.role %></td>
+                            <td><%= ("0"+(user.createdAt).getDate()).slice(-2) %>.<%= ("0"+(((user.createdAt).getMonth())+1)).slice(-2) %>.<%= (user.createdAt).getFullYear()%></td>
+                        </tr>
+
+                    <%})%>
+                <% } %>
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div> <!-- .card -->
+</main> <!-- .container -->
+
+
+<!-- Modal -->
+<div class="modal fade fullsize" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <nav class="navbar sticky-top navbar-dark bg-primary modal-nav">
+                <div class="container-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="material-icons">arrow_back</span>
+                    </button>
+                    <h3>Eintrag bearbeiten</h3>
+                </div>
+            </nav>
+
+            <div class="modal-body">
+                <form id="editMemberForm" method="POST">
+                    <div class="form-group">
+                        <label for="firstname" >Vorname</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastname" >Nachname</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobil</label>
+                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberNumber">Mitglieds-Nr.</label>
+                        <input type="text" class="form-control" id="memberNumber" name="memberNumber" placeholder="" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role" >Rechte</label>
+                        <select class="form-control" id="role" name="role">
+                            <option value="user">User</option>
+                            <option value="trainer">Trainer</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 4em">
+                        <div class="form-row justify-content-between">
+                            <div><a id="cancelBtn" type="cancel" class="btn btn-dark" role="button">Abbrechen</a></div>
+                            <div><button type="submit" class="btn btn-primary">Speichern</button></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 5em">
+                            <div><a id="deleteBtn" class="btn btn-outline-danger" role="button">Eintrag löschen</a></div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
     </div>
-</main>
+</div>
 
 
-<%- include('../assets/datatables/dataTablesImport')%>
+<script>
+    let userData = '';
+
+    $(document).ready(function(){
+
+        if(navigator.onLine) {
+            // Daten abrufen
+            $.ajax({
+                type: 'GET',
+                url: '/getMemberData',
+                param: '{}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'JSON',
+                async: false,
+                success: function(res) {
+                    console.log("daten abgerufen!");
+                    userData = res;
+                }
+            });
+        } else {
+            $('main').prepend('<div class="alert alert-danger text-center" role="alert">Du bist offline! Die Bearbeitungsfunktion steht Dir nur online zur Verfügung.</div>')
+        }
+
+
+
+        // Suche
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#memberData tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    $('#memberData tr').on('click', function(e) {
+        if(navigator.onLine) {
+            renderEditModal($(this).attr('id'))
+        }
+    })
+
+    $('#cancelBtn').on('click', function(e) {
+        $('#editModal').modal('toggle');
+    })
+
+
+    $('#deleteBtn').on('click', function () {
+
+        console.log($(this).attr('data-id'))
+
+        if (window.confirm("Möchtest du den Mitglieder-Eintrag wirklich löschen?")) {
+            $.ajax({
+                url: '/deleteMember?id='+ $(this).attr('data-id'),
+                type: 'DELETE'
+            })
+            $.snackbar({content: 'Der Mitglieder-Eintrag wurde gelöscht!', style: 'toast red'})
+
+            setTimeout(() => { $(location).attr('href', "/mitglieder") }, 800);
+
+        } else {
+            $.snackbar({content: 'Löschen abgebrochen!', style: 'toast, red'})
+        }
+    })
+
+
+    function renderEditModal(id) {
+        $.map(userData, (user) => {
+            if(user['_id'] === id) {
+                $('#deleteBtn').attr('data-id', id)
+                $('#editMemberForm').attr('action', '/editMember?id='+id)
+                $('#firstname').val(user['firstname']);
+                $('#lastname').val(user['lastname']);
+                $('#mobile').val(user['mobile']);
+                $('#phone').val(user['phone']);
+                $('#email').val(user['email']);
+                $('#memberNumber').val(user['memberNumber']);
+                $("#role").val(user['role']);
+            }
+        })
+        $('#editModal').modal('toggle');
+    }
+
+
+    function sortTable(n) {
+        let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("memberTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+
+                x = rows[i].getElementsByTagName("td")[n];
+                y = rows[i + 1].getElementsByTagName("td")[n];
+
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+
+</script>
+
 <%- include('partials/footer/footer') %>
+

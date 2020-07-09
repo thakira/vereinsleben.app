@@ -87,6 +87,7 @@ module.exports = (app, passport) => {
         })
     })
 
+
     // *** REGISTRATION ***
 
     // Register
@@ -95,6 +96,7 @@ module.exports = (app, passport) => {
             let myClub = await Club.findOne({'shortName':'rvss'})
             logo = myClub.logo
         }
+
         res.render('views/register', {
             title: 'Registrierung',
             logo: logo
@@ -488,70 +490,50 @@ module.exports = (app, passport) => {
 // ********************************************************************************************/
 
     // *** MEMBERS ***
-    app.get('/getMemberData', async(req, res, next) => {
-        await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
-            if (err) return next(err);
-            let data = JSON.stringify({
-                "draw": req.body.draw,
-                "data": users
-            });
-            res.send(data);
-        });
-    });
-
-    // Mitglieder
     app.get('/mitglieder', isLoggedin, async(req, res) => {
-        club = await Club.findOne({'shortName': 'rvss'})
-        tasks = club.module.workhours.activate
+        const club = await Club.findOne({'shortName': 'rvss'})
+        const tasks = club.module.workhours.activate
+        const users = await User.find({}, '_id firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt').sort({lastname: 1})
+
         res.render('views/mitglieder', {
             title: 'Mitglieder',
             user: req.user,
-            tasks: tasks
+            tasks: tasks,
+            users: users
         })
     })
 
+    app.get('/getMemberData', async (req, res) => {
+        await User.find({}, '_id firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt', function (err, users) {
+            if (err) return next(err);
+            res.send(JSON.stringify(users));
+        });
+    })
 
     app.post('/editMember', async (req, res) => {
-        let id = (Object.keys(req.body.data)[0]);
-
         try {
-            const user = await User.findOne({"_id": (Object.keys(req.body.data)[0])})
-            if (!user) {
-                req.flash('error', 'User nicht gefunden')
-            }
-            user.firstname = req.body.data[id].firstname
-            user.last_name = req.body.data[id].lastname
-            user.mobile = req.body.data[id].mobile
-            user.phone = req.body.data[id].phone
-            user.email = req.body.data[id].email
-            user.birthday = req.body.data[id].birthday
-            user.memberNumber = req.body.data[id].memberNumber
-            user.role = req.body.data[id].role
-            await user.save()
-
-            const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
-            let data = JSON.stringify({
-                "draw": req.body.draw,
-                "data": users
-            });
-            res.send(data);
+            await User.findOneAndUpdate(
+                {_id: req.query.id},
+                {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    mobile: req.body.mobile,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    memberNumber: req.body.memberNumber,
+                    role: req.body.role
+                })
+                res.status(200).redirect('/mitglieder');
         } catch (exception) {
             req.flash('error', exception.message)
-            //res.redirect('/mitglieder_datatables')
         }
 
     })
 
     app.delete('/deleteMember', async (req, res) => {
         try {
-            await User.findOneAndDelete({"_id": (Object.keys(req.query.data)[0])})
-
-            const users = await User.find({}, 'firstname lastname mobile phone email birthday workhours worked memberNumber role createdAt')
-            let data = JSON.stringify({
-                "draw": req.body.draw,
-                "data": users
-            });
-            res.send(data);
+            await User.findOneAndDelete({_id: req.query.id})
+            res.status(200);
         } catch (exception) {
                 req.flash('error', exception.message)
                 res.send("NOT OK")

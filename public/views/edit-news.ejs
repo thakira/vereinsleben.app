@@ -94,9 +94,9 @@ $(document).ready( function() {
                 url: '/delete-news?id=<%- article._id %>',
                 type: 'DELETE'
             })
-            $.snackbar({content: 'Artikel gelöscht!', style: 'toast'})
+            $.snackbar({content: 'Artikel gelöscht!', style: 'toast red'})
 
-            $(location).attr('href', "/aktuelles");
+            setTimeout(() => { $(location).attr('href', "/aktuelles") }, 800);
 
         } else {
             $.snackbar({content: 'Artikel löschen abgebrochen!', style: 'toast'})
