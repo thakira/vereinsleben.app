@@ -79,6 +79,12 @@ module.exports = (app, passport) => {
         if (tasks_active.module.workhours.activate) {
             tasks = await Task.find({done: false}).sort({updatedAt: -1}).limit(5);
         }
+
+        if(req.user.firstLogin) {
+            res.redirect('/profil')
+            return
+        }
+
         return res.render('views/dashboard', {
             title: 'Dashboard',
             user: req.user,
@@ -183,7 +189,6 @@ module.exports = (app, passport) => {
             logo: logo
         })
     })
-
 
     // *** User login ***
     app.post('/login', passport.authenticate('local', {
@@ -604,11 +609,20 @@ module.exports = (app, passport) => {
     app.get('/profil', isLoggedin, async (req, res) => {
         club = await Club.findOne({'shortName': 'rvss'})
         tasks = club.module.workhours.activate
+
+        let firstLogin = false;
+        if(req.user.firstLogin) {
+            firstLogin = true
+        }
+
         res.render('views/profil', {
             title: 'Profil', user: req.user,
             user: req.user,
-            tasks: tasks
+            tasks: tasks,
+            firstLogin: firstLogin
         })
+
+        await User.findOneAndUpdate({_id:req.user._id}, {firstLogin: false})
     })
 
     app.post('/editprofil', isLoggedin, async (req, res) => {

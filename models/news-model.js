@@ -11,5 +11,4 @@ const newsSchema = new Schema({
     newsAuthor: {type: String}
 }, { timestamps: true })
 
-
 module.exports = mongoose.model('News', newsSchema)

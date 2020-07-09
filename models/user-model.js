@@ -21,20 +21,10 @@ const userSchema = new Schema({
     birthday: {type: Date, default: ""},
     img: { type: String },
     secretToken: {type: String},
-    //Rolle
     role: {type: String, required: true, enum:['user', 'admin', 'trainer'], default:'admin'},
-    //role: {type: String, default: "user"},
-    //E-Mail-Adresse verifiziert
     verified: {type: Boolean, default: false},
-    //Gruppen - standardmässig muß hier beim Registrieren die Gruppe "Alle" hinzugefügt werden.
-    groups: {type: Array},
-    //Einstellungen Benachrichtigungen
-    messages: {type: Map},
-    // angemeldete Stunden
     workhours: {type: Number, default: 10},
-    // geleistete Stunden
     worked: {type: Number, default: 0},
-    // angemeldete Termine
     events: {type:Array}
 }, { timestamps: true })
 

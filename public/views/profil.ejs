@@ -19,7 +19,7 @@
 
     <div class="row justify-content-md-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card" id="profilContainer">
                 <div class="card-header">
                     <div class="d-flex w-100 justify-content-between">
                         <h2>Profil</h2>
@@ -30,21 +30,21 @@
                 <div class="card-body">
                     <form id="profilForm" action="/editprofil" class="readonly">
                         <div class="form-row">
-                            <fieldset class="form-group col">
+                            <fieldset class="form-group col-md-6">
                                 <label for="firstname" class="bmd-label-static">Vorname</label>
                                 <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Vorname" value="<%= user.firstname %>" readonly required>
                             </fieldset>
-                            <fieldset class="form-group col">
+                            <fieldset class="form-group  col-md-6">
                                 <label for="lastname" class="bmd-label-static">Nachname</label>
                                 <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Nachname" value="<%= user.lastname%>" readonly required>
                             </fieldset>
                         </div>
                         <div class="form-row">
-                            <fieldset class="form-group col">
+                            <fieldset class="form-group  col-md-6">
                                 <label for="email">E-Mail</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" value="<%= user.email%>" readonly required>
                             </fieldset>
-                            <fieldset class="form-group col">
+                            <fieldset class="form-group col-md-6">
                                 <label for="birthday">Geburtstag</label>
                                 <input type="date" class="form-control" id="birthday" name="birthday"
                                        value="<% if(user.birthday) {%><%= (user.birthday).getFullYear()%>-<%= ("0"+(((user.birthday).getMonth())+1)).slice(-2) %>-<%= ("0"+(user.birthday).getDate()).slice(-2) %><%}%>" readonly>
@@ -52,11 +52,11 @@
                             </fieldset>
                         </div>
                         <div class="form-row">
-                            <fieldset class="form-group col">
+                            <fieldset class="form-group col-md-6">
                                 <label for="phone">Telefon</label>
                                 <input type="tel" class="form-control" id="phone" name="phone" placeholder="Telefon" value="<%= user.phone %>" readonly>
                             </fieldset>
-                            <fieldset class="form-group col">
+                            <fieldset class="form-group col-md-6">
                                 <label for="mphone">Mobil</label>
                                 <input type="tel" class="form-control" id="mphone" name="mobile" placeholder="Mobil" value="<%= user.mobile%>" readonly>
                             </fieldset>
@@ -75,19 +75,6 @@
                 </div> <!-- .card-body -->
             </div><!-- .card -->
 
-<!--            <div class="card">-->
-<!--                <div class="card-header">-->
-<!--                    <h6>Meine Gruppen</h6>-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <ul class="list-group">-->
-<!--                        <li class="list-group-item">Alle</li>-->
-<!--                        <li class="list-group-item">Reiten Donnerstag 16 Uhr</li>-->
-<!--                        <li class="list-group-item">Vereinsmitglieder</li>-->
-<!--                    </ul>-->
-<!--                </div> &lt;!&ndash; .card-body &ndash;&gt;-->
-<!--            </div> &lt;!&ndash; .card &ndash;&gt;-->
-
         </div> <!-- .col -->
     </div><!-- row -->
 </main>
@@ -97,6 +84,19 @@
 <link rel="stylesheet" href="/croppie/croppie.css" />
 <script src="/croppie/croppie.js"></script>
 <script>
+
+    $(document).ready(function() {
+        if('<%= firstLogin %>' === 'true') {
+
+            const greet = '<div class="alert alert-success" role="alert">\n' +
+                '                    <p><strong>Willkommen, <%= user.firstname %>, bei Vereinsleben.App</strong>!</p>\n' +
+                '                    <p>Hier findest Du Dein Profil. Füge doch ein Profilbild vervollständige Deine Daten. Wir wünschen Dir viel Spaß bei der Nutzung. Hier kommst Du <a href="/dashboard" title="Dashboard" style="text-decoration:underline;">direkt zur Startseite</a> mit den aktuellsten Informationen Deines Vereins.</p>\n' +
+                '                </div>';
+
+            $('#profilContainer').prepend(greet);
+        }
+    })
+
     $(".cancel-btn").on("click", () => {
         $('button[type="submit"]').remove();
         $(".cancel-btn").addClass("hidden")
@@ -156,11 +156,9 @@
 
     // Profilbild laden und zuschneiden
     function readURL(input) {
-        console.log('2')
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                console.log(e.target.result)
                 $('#profilbild').attr('src', e.target.result);
                 $('#profilbild').croppie('destroy');
                 $('#profilbild').croppie({
@@ -181,8 +179,6 @@
     }
 
     $("#profilbildInput").change(function() {
-        //$('.imageContainer').removeClass('hidden');
-        console.log('1')
         readURL(this);
     });
 
