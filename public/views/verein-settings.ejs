@@ -28,73 +28,72 @@
                         <a  type="reset" class="btn bmd-btn-icon cancel-btn hidden"><i class="material-icons">cancel</i></a>
                     </div>
                 </div>
-                    <div class="card-body">
-                        <label for="clubName" class="bmd-label-static">Name des Vereins</label>
-                        <input type="text" name="clubName" class="form-control" id="clubName" placeholder="Name des Vereins" value="<%= club.clubName %>" readonly required>
-                    </div> <!-- .card-body -->
-                </div><!-- .card -->
+                <div class="card-body">
+                    <label for="clubName" class="bmd-label-static">Name des Vereins</label>
+                    <input type="text" name="clubName" class="form-control" id="clubName" placeholder="Name des Vereins" value="<%= club.clubName %>" readonly required>
+                </div> <!-- .card-body -->
+            </div><!-- .card -->
 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h3 class="text-primary">Anschrift &amp; Kontakt</h3>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h3 class="text-primary">Anschrift &amp; Kontakt</h3>
                     </div>
-                    <div class="card-body">
-                        <div class="form-row">
-                            <fieldset class="form-group col-md-6">
-                                <label for="email">E-Mail</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" value="<%= club.email%>" readonly>
-                            </fieldset>
-                            <fieldset class="form-group col-md-6 ">
-                                <label for="phone">Telefon</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Telefon" value="<%= club.phone %>" readonly>
-                            </fieldset>
-                        </div>
-
-                        <div class="form-row">
-                            <fieldset class="form-group col-9">
-                                <label for="street">Straße</label>
-                                <input type="text" class="form-control" id="street" name="street" placeholder="Straße" value="<%= club.address.street %>" readonly>
-                            </fieldset>
-                            <fieldset class="form-group col-3">
-                                <label for="number">Nr.</label>
-                                <input type="number" class="form-control" id="number" name="number" placeholder="Nr." value="<%= club.address.number %>" readonly>
-                            </fieldset>
-                            <fieldset class="form-group col-6">
-                                <label for="zip">PLZ</label>
-                                <input type="text" class="form-control" id="zip" name="zip" placeholder="PLZ" value="<%= club.address.zip %>" pattern="[0-9]{5}" title="Ungültige Eingabe!" readonly>
-                            </fieldset>
-                            <fieldset class="form-group col-6">
-                                <label for="city">Ort</label>
-                                <input type="text" class="form-control" id="city" name="city" placeholder="Ort" value="<%= club.address.city %>" readonly>
-                            </fieldset>
-                        </div>
-
-                    </div> <!-- .card-body -->
-                </div><!-- .card -->
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h3 class="text-primary">Module</h3>
-                        </div>
-                        <small>Aktiviere / deaktiviere hier die Module, welche in Deinem Verein gebraucht werden.</small>
-                    </div>
-                    <div class="card-body">
-                        <div class="checkbox">
-                            <label for="workhours">
-                                <input type="checkbox" id="workhours" name="workhours" disabled> Arbeitsstunden
-                            </label>
-                        </div>
-
-                        <div id="workhoursGroup" class="form-group hidden" style="margin-bottom: 0;">
-                            <label for="defaultWorkhours" >Arbeitsstunden im Jahr</label>
-                            <input type="number" class="form-control" id="defaultWorkhours" name="defaultWorkhours" placeholder="" value="<%= club.module.workhours.defaultWorkhours %>" readonly>
-                        </div>
-                    </div> <!-- .card-body -->
                 </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <fieldset class="form-group col-md-6">
+                            <label for="email">E-Mail</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" value="<%= club.email%>" readonly>
+                        </fieldset>
+                        <fieldset class="form-group col-md-6 ">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Telefon" value="<%= club.phone %>" readonly>
+                        </fieldset>
+                    </div>
 
+                    <div class="form-row">
+                        <fieldset class="form-group col-9">
+                            <label for="street">Straße</label>
+                            <input type="text" class="form-control" id="street" name="street" placeholder="Straße" value="<%= club.address.street %>" readonly>
+                        </fieldset>
+                        <fieldset class="form-group col-3">
+                            <label for="number">Nr.</label>
+                            <input type="number" class="form-control" id="number" name="number" placeholder="Nr." value="<%= club.address.number %>" readonly>
+                        </fieldset>
+                        <fieldset class="form-group col-6">
+                            <label for="zip">PLZ</label>
+                            <input type="text" class="form-control" id="zip" name="zip" placeholder="PLZ" value="<%= club.address.zip %>" pattern="[0-9]{5}" title="Ungültige Eingabe!" readonly>
+                        </fieldset>
+                        <fieldset class="form-group col-6">
+                            <label for="city">Ort</label>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Ort" value="<%= club.address.city %>" readonly>
+                        </fieldset>
+                    </div>
+
+                </div> <!-- .card-body -->
+            </div><!-- .card -->
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h3 class="text-primary">Module</h3>
+                    </div>
+                    <small>Aktiviere / deaktiviere hier die Module, welche in Deinem Verein gebraucht werden.</small>
+                </div>
+                <div class="card-body">
+                    <div class="checkbox">
+                        <label for="workhours">
+                            <input type="checkbox" id="workhours" name="workhours" disabled> Arbeitsstunden
+                        </label>
+                    </div>
+
+                    <div id="workhoursGroup" class="form-group hidden" style="margin-bottom: 0;">
+                        <label for="defaultWorkhours" >Arbeitsstunden im Jahr</label>
+                        <input type="number" class="form-control" id="defaultWorkhours" name="defaultWorkhours" placeholder="" value="<%= club.module.workhours.defaultWorkhours %>" readonly>
+                    </div>
+                </div> <!-- .card-body -->
+            </div>
         </form>
     </div><!-- row -->
 </main>
@@ -174,11 +173,9 @@ $(document).ready( function() {
 
     // Profilbild laden und zuschneiden
     function readURL(input) {
-        console.log('2')
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                console.log(e.target.result)
                 $('#profilbild').attr('src', e.target.result);
                 $('#profilbild').croppie('destroy');
                 $('#profilbild').croppie({
@@ -199,7 +196,6 @@ $(document).ready( function() {
     }
 
     $("#profilbildInput").change(function() {
-        //$('.imageContainer').removeClass('hidden');
         readURL(this);
     });
 
@@ -217,7 +213,6 @@ $(document).ready( function() {
             $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
         });
     })
-
 })
 </script>
 

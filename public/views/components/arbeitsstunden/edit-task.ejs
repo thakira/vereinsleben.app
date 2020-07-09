@@ -10,7 +10,6 @@
         </div>
     </nav>
 
-
     <div id="editorContainer" class="col">
 
             <form method="post" action="/edit-task?id=<%= task._id%>" id="editTaskForm">
@@ -56,7 +55,7 @@
 
 <script>
     $('#deleteBtn').on('click', function() {
-        if (window.confirm("Möchtest du die Aufgabe wirklich löschen?")) {
+        if (window.confirm("Möchtest Du die Aufgabe wirklich löschen?")) {
             $.ajax({
                 url: '/delete-task?id=<%- task._id%>',
                 type: 'DELETE'
@@ -75,6 +74,5 @@
         $('#editorContainer').prepend('<div class="alert alert-danger" role="alert">Du bist offline! Die Bearbeitungsfunktion steht Dir nur online zur Verfügung.</div>')
     }
 </script>
-
 
 <%- include('../../partials/footer/footer') %>

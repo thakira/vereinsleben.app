@@ -42,7 +42,6 @@
             <button type="button" class="btn btn-sm btn-primary-text accept" onclick="accept(this, '<%= task._id%>')">Aufgabe übernehmen</button>
             <% }%>
     </div>
-
 </div>
 
 <div id="modal<%= task._id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -63,7 +62,7 @@
                         <label for="workedHours">Aufwand in Stunden</label>
                         <input type="number" id="workedHours" name="workedHours" class="form-control" style="text-align: center; font-size: 1.5em;" value="<%=task.estimated%>">
                         <small class="form-text">
-                            Trage bitte ein, wielange Du für die Aufgabe gebraucht hast.
+                            Trage bitte ein, wie lange Du für die Aufgabe gebraucht hast.
                         </small>
                     </div>
                     <div class="form-group col">

@@ -2,14 +2,29 @@
     <div class="card-body">
         <h2>Deine Arbeitsstunden</h2>
     </div>
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start task">
+    <a class="list-group-item list-group-item-action flex-column align-items-start task" data-toggle="collapse" href="#doneContainer" role="button" aria-expanded="false" aria-controls="doneContainer">
             <div class="d-flex w-100 justify-content-between">
                 <p>Bereits geleistete Stunden:</p>
                 <span id="worked"><%= user.worked%></span>
             </div>
             <div class="d-flex w-100 justify-content-between">
                 <p>Offene Stunden:</p>
-                <span class=""><%= user.workhours %></span>
+                <span class=""><%= user.workhours - user.worked %></span>
             </div>
     </a>
+    <div class="collapse" id="doneContainer">
+        <div>
+            <% if(tasks) {
+                tasks.forEach(task => {
+                    if(task.done) {
+                        task.doneInfo.user_id.forEach( i => {
+                            if(i == user._id) {  %>
+                                <%- include('done-user-task', {task}) %>
+                            <%}
+                        })
+                    }
+                }) %>
+            <%}%>
+        </div>
+    </div>
 </div>

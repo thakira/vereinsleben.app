@@ -8,7 +8,8 @@ const passport = require('passport')
 const app = express()
 
 app.use(express.static(path.join(__dirname, '/public')))
-app.get("/", express.static(path.join(__dirname, "./public")));
+//app.get("/", express.static(path.join(__dirname, "./public")));
+app.use("/", express.static(path.join(__dirname, "./public")));
 app.use("/croppie",express.static(path.join(__dirname, 'node_modules/croppie/')))
 app.use('/uploads', express.static('uploads'))
 
@@ -28,10 +29,8 @@ app.use(express.json())
 app.use(passport.initialize())
 app.use(passport.session())
 
-
 // Middleware
 app.use((req, res, next) => {
-    //console.log('Hello from middleware')
     next()
 })
 
@@ -48,27 +47,22 @@ mongoose.connect('mongodb://localhost:27017/siebenberger_strolche', {
 mongoose.connection.on('error', () => console.log('Connection failed'))
 mongoose.connection.once('open', () => console.log('Connection established'))
 
-
 // Routes
 require('./routes')(app, passport )
 
-// Router
-/*
-const authRouter = require('./auth-routes.js')
-app.use('/auth', authRouter)
-*/
 
 // Start server
+app.get("*", function (req, res, next) {
+    res.redirect("https://" + req.headers.host + "/" + req.path);
+});
+
 app.listen(3000, () => console.log('Server is up'))
 //app.listen(80, () => console.log('Server is up'))
 /*
 const https = require('https')
 const fs = require('fs')
-
+https.createServer({
     key: fs.readFileSync('./ssl/privkey.pem'),
     cert: fs.readFileSync('./ssl/cert.pem')
 }, app).listen(443, () => console.log('Server is up serving HTTPS'))
-
-// sudo node server.js &
-// ps aux | grep 'node'
-// kill 12365 */
+ */

@@ -39,15 +39,6 @@
                 <textarea class="form-control" id="newsText" name="newsText" required><%- article.newsText%></textarea>
             </div>
 
-            <!--            <div class="form-group">-->
-            <!--                &lt;!&ndash; Datei hochladen&ndash;&gt;-->
-            <!--                <div class="custom-file">-->
-            <!--                    <input type="file" class="custom-file-input " id="customFile" name="customFile" lang="de">-->
-            <!--                    <label class="custom-file-label" for="customFile">Lade eine Datei hoch...</label>-->
-            <!--                    <small>Lade optional ein Dokument hoch (z.B. Plakat, Anmeldeformular)</small>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
             <div class="checkbox">
                 <label for="newsReleased">
                     <input type="checkbox" id="newsReleased" name="newsReleased"> Veröffentlichen
@@ -89,7 +80,7 @@ $(document).ready( function() {
 
     $('#deleteBtn').on('click', function () {
 
-        if (window.confirm("Möchtest du den Artikel wirklich löschen?")) {
+        if (window.confirm("Möchtest Du den Artikel wirklich löschen?")) {
             $.ajax({
                 url: '/delete-news?id=<%- article._id %>',
                 type: 'DELETE'
@@ -106,13 +97,12 @@ $(document).ready( function() {
     tinymce.init({
         selector: "textarea#newsText",
         skin: "bootstrap",
-        plugins: "lists, link, image, media",
+        plugins: "lists, link",
         toolbar:
-            "h1 h2 bold italic blockquote bullist numlist backcolor | link image media | removeformat help",
+            "h1 h2 bold italic bullist numlist backcolor | link | removeformat",
         menubar: false,
         language: 'de',
         setup: editor => {
-            // Apply the focus effect
             editor.on("init", () => {
                 editor.setContent(newsText),
                     editor.save(),
@@ -187,6 +177,5 @@ if(!navigator.onLine) {
     $('#editorContainer').prepend('<div class="alert alert-danger" role="alert">Du bist offline! Die Bearbeitungsfunktion steht Dir nur online zur Verfügung.</div>')
 }
 </script>
-
 
 <%- include('partials/footer/footer') %>

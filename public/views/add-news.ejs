@@ -10,11 +10,9 @@
         </div>
     </nav>
 
-
     <div id="editorContainer">
 
         <form method="post" action="/addNews" id="addNewsForm" enctype="multipart/form-data">
-
             <div class="row">
                 <div class="form-group col-sm-12 col-md-6">
                     <!-- Datei hochladen-->
@@ -42,7 +40,6 @@
                 <textarea class="form-control" id="newsText" name="newsText" required></textarea>
             </div>
 
-
             <div class="checkbox">
                 <label for="newsReleased">
                     <input type="checkbox" id="newsReleased" name="newsReleased"> Veröffentlichen
@@ -60,19 +57,17 @@
     $('#newsReleased').on('change', function(){
         cb = $(this);
         cb.val(cb.prop('checked'));
-        console.log($('#newsReleased').val())
     });
 
     tinymce.init({
         selector: "textarea#newsText",
         skin: "bootstrap",
-        plugins: "lists, link, image, media",
+        plugins: "lists, link",
         toolbar:
-            "h1 h2 bold italic blockquote bullist numlist backcolor | link image media | removeformat help",
+            "h1 h2 bold italic bullist numlist backcolor | link | removeformat",
         menubar: false,
         language:'de',
         setup: editor => {
-            // Apply the focus effect
             editor.on("init", () => {
                 editor.getContainer().style.transition =
                     "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
@@ -97,8 +92,7 @@
 
     function readURL(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
+            const reader = new FileReader();
             reader.onload = function (e) {
                 $('#teaserImg').attr('src', e.target.result);
             }
@@ -108,7 +102,7 @@
 
     // Dateiname in header
     $("#newsImg").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
+        let fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 
         $('.prevTeaserImage').removeClass('hidden');
@@ -125,7 +119,7 @@
 
     // Dateiname in file input
     $("#customFile").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
+        let fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 

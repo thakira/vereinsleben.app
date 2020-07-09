@@ -60,7 +60,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Neueste Arbeitsstunden</h5>
-
                         <% if(tasks) {%>
                             <ul class="list-group bmd-list-group-sm">
                                 <% tasks.forEach( task => {%>
@@ -77,7 +76,6 @@
                         <%} else {%>
                             <p>Zurzeit keine Einträge vorhanden.</p>
                         <%}%>
-
                         <div class="text-center">
                             <a href="/arbeitsstunden" class="btn btn-sm btn-primary-text">Zu den Arbeitsstunden</a>
                         </div>
@@ -87,19 +85,16 @@
             </div>
         <% } %>
     </div>
-
-
 </main>
 
-
 <script>
-    var hours = new Date().getHours();
-
+    const hours = new Date().getHours();
     if(hours < 11) {
         $('#greeting').text('Guten Morgen');
     } else if(hours > 17) {
         $('#greeting').text('Guten Abend');
     }
 </script>
+
 <%- include('partials/footer/footer') %>
 

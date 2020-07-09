@@ -1,9 +1,7 @@
 <%- include('partials/header/header_with_navigation') %>
 
 <main class="container-fluid">
-
     <div class=" profil-header">
-
             <% if(user.img) { %>
              <figure id="profilImage" class="teaser" style="">
                 <img src="<%= user.img%>" class="rounded-circle avatar">
@@ -48,7 +46,6 @@
                                 <label for="birthday">Geburtstag</label>
                                 <input type="date" class="form-control" id="birthday" name="birthday"
                                        value="<% if(user.birthday) {%><%= (user.birthday).getFullYear()%>-<%= ("0"+(((user.birthday).getMonth())+1)).slice(-2) %>-<%= ("0"+(user.birthday).getDate()).slice(-2) %><%}%>" readonly>
-
                             </fieldset>
                         </div>
                         <div class="form-row">
@@ -84,13 +81,12 @@
 <link rel="stylesheet" href="/croppie/croppie.css" />
 <script src="/croppie/croppie.js"></script>
 <script>
-
     $(document).ready(function() {
         if('<%= firstLogin %>' === 'true') {
 
             const greet = '<div class="alert alert-success" role="alert">\n' +
                 '                    <p><strong>Willkommen, <%= user.firstname %>, bei Vereinsleben.App</strong>!</p>\n' +
-                '                    <p>Hier findest Du Dein Profil. Füge doch ein Profilbild vervollständige Deine Daten. Wir wünschen Dir viel Spaß bei der Nutzung. Hier kommst Du <a href="/dashboard" title="Dashboard" style="text-decoration:underline;">direkt zur Startseite</a> mit den aktuellsten Informationen Deines Vereins.</p>\n' +
+                '                    <p>Hier findest Du Dein Profil. Füge doch ein Profilbild hinzu und vervollständige Deine Daten. Wir wünschen Dir viel Spaß bei der Nutzung. Hier kommst Du <a href="/dashboard" title="Dashboard" style="text-decoration:underline;">direkt zur Startseite</a> mit den aktuellsten Informationen Deines Vereins.</p>\n' +
                 '                </div>';
 
             $('#profilContainer').prepend(greet);
@@ -197,7 +193,6 @@
             $.snackbar({content: 'Profilbild gespeichert!', style: 'toast'})
         });
     })
-
 </script>
 
 <%- include('partials/footer/footer') %>

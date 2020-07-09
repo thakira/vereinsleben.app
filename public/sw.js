@@ -1,23 +1,21 @@
 // A service worker is a kind of proxy between client (browser) and server (website/internet)
 
-importScripts('./assets/js/idb.js');
 const URL = 'http://localhost:3000'
 //const URL = 'https://https://lyra.et-inf.fho-emden.de:15117'
 
-const CACHE_STATIC_NAME = 'static-v3' // Static cache versioning
-const CACHE_DYNAMIC_NAME = 'dynamic-v3' // Dynamic cache versioning
+const CACHE_STATIC_NAME = 'static-v5434' // Static cache versioning
+const CACHE_DYNAMIC_NAME = 'dynamic-v3454' // Dynamic cache versioning
 const STATIC_FILES = [
     '/',
     './offline.html',
     './assets/js/app.js',
-    './assets/js/idb.js',
     './assets/js/memberTable.js',
     './assets/js/snackbar.min.js',
     './assets/css/custom-bootstrap.css',
     './assets/css/style.css',
     './views/login.ejs',
     './views/register.ejs',
-    //'./views/dashboard.ejs',
+    './views/dashboard.ejs',
     './views/aktuelles-site.ejs',
     './views/arbeitsstunden-site.ejs',
     './views/mitglieder.ejs',
@@ -38,19 +36,19 @@ const STATIC_FILES = [
     'https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js'
 ]
 
-/*function trimCache(cacheName, maxItems) {
-    caches.open(cacheName)
-        .then(function(cache) {
-            return cache.keys()
-                //ggf. durch die keys gehen und wenn
-                .then(function(keys){
-                    if (keys.length > maxItems) {
-                        cache.delete(keys[0])
-                            .then(trimCache(cacheName, maxItems));
-                    }
-        });
-        })
-}*/
+// function trimCache(cacheName, maxItems) {
+//     caches.open(cacheName)
+//         .then(function(cache) {
+//             return cache.keys()
+//                 //ggf. durch die keys gehen und wenn
+//                 .then(function(keys){
+//                     if (keys.length > maxItems) {
+//                         cache.delete(keys[0])
+//                             .then(trimCache(cacheName, maxItems));
+//                     }
+//         });
+//         })
+// }
 
 // Install service worker
 self.addEventListener('install', event => {
@@ -80,9 +78,6 @@ self.addEventListener('activate', event => {
             }))
         })
     )
-
-    // When a service worker is initially registered, pages won't use it until they next load.
-    // The claim() method causes those pages to be controlled immediately.
     return self.clients.claim()
 })
 
@@ -95,7 +90,6 @@ self.addEventListener('activate', event => {
                         .then(function(cache) {
                             cache.put(event.request.url, res.clone());
                             return res;
-
                         })
                 })
                 .catch(error => {

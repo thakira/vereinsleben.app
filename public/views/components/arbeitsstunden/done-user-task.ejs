@@ -1,0 +1,22 @@
+<div class="list-group-item flex-column align-items-start task" id="list-group-item-<%= task._id%>">
+    <div class="d-flex w-100 justify-content-between task-title">
+        <h6><%= task.title %></h6>
+    </div>
+
+    <% if(task.description) { %>
+        <div class="d-flex w-100 justify-content-between task-description">
+            <p><%= task.description %></p>
+        </div>
+    <% } %>
+
+    <div class="d-flex w-100 justify-content-between task-estimated">
+        <p>Geleistete Stunden:</p>
+        <span class=""><%= task.doneInfo.worked_hours %></span>
+    </div>
+
+    <div class="d-flex w-100 justify-content-between">
+        <p>Geleistet am:</p>
+        <span class=""><%= ("0"+(task.doneInfo.date).getDate()).slice(-2) %>.<%= ("0"+(((task.doneInfo.date).getMonth())+1)).slice(-2) %>.<%= (task.doneInfo.date).getFullYear()%></span>
+    </div>
+
+</div>

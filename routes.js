@@ -111,7 +111,6 @@ module.exports = (app, passport) => {
 
     // Register a new user
     app.post('/register', isNotLoggedin, async (req, res) => {
-        console.log("Register startet.")
         try {
             const email = req.body.email
             const repEmail = req.body.repEmail
@@ -121,7 +120,6 @@ module.exports = (app, passport) => {
             const lastname = req.body.lastname
 
             if (!email || !repEmail || !password || !repPasswd || !firstname || !lastname) {
-                console.log('Empty fields')
                 return res.send('Empty fields')
             }
 
@@ -143,8 +141,6 @@ module.exports = (app, passport) => {
             //flag the acccount as inactive
             const verified = true
 
-            console.log("User anlegen starten")
-
             // Store new user
             await new User({
                 email: email,
@@ -154,7 +150,6 @@ module.exports = (app, passport) => {
                 verified: verified,
                 secretToken: secretToken
             }).save(error => {
-                console.log("User anlegen erfolgreich")
                 if (error) throw {message: error.errmsg} // Guard clause
             })
             //E-Mail verschicken
@@ -163,11 +158,8 @@ module.exports = (app, passport) => {
             Um Deine E-Mail-Adresse zu bestätigen, klicke bitte auf folgenden Link:
             <br>
             <a href="http://localhost:80/verify?token=${secretToken}">http://localhost:80/verify?token=${secretToken}</a>`
-            console.log("mail created: " + html)
 
             //await mailer.sendEmail('mailbestaetigung@vereinsleben.app', email, 'Vereinsleben.app: Bitte bestätige Deine E-Mail-Adresse', html)
-
-            console.log("mail send")
             //req.flash('success', 'Du hast es fast geschafft. Wir haben Dir eine E-Mail geschickt. Bitte bestätige Deine Identität, indem Du auf den Link darin klickst.')
             req.flash('success', 'Du kannst Dich nun anmelden. (Email-Bestätigung wird noch implementiert)')
             res.redirect('/login')
@@ -178,7 +170,6 @@ module.exports = (app, passport) => {
     })
 
 // **********************************************************************************************************
-
 
     // *** Login ***
     app.get('/login', isNotLoggedin, async (req, res) => {
@@ -205,7 +196,6 @@ module.exports = (app, passport) => {
                 req.flash('error', 'Es gibt keinen Benutzer mit diesem Authentifizierungscode.')
                 res.redirect('/login')
             }
-            //console.log(req.query['token'])
             user.verified = true
             user.secretToken = ''
             await user.save()
@@ -226,7 +216,7 @@ module.exports = (app, passport) => {
 
     // *** Arbeitsstunden ***
     app.get('/arbeitsstunden', isLoggedin, async (req, res) => {
-        const tasks = await Task.find();
+        const tasks = await Task.find().sort({updatedAt: -1});
         res.render('views/arbeitsstunden-site', {
             title: 'Arbeitsstunden',
             tasks: tasks,
@@ -351,17 +341,16 @@ module.exports = (app, passport) => {
         }
     })
 
-
     // *** NEWS ***
     app.get('/aktuelles', isLoggedin, async (req, res) => {
         club = await Club.findOne({'shortName': 'rvss'})
         tasks = club.module.workhours.activate
-        const artikel = await News.find();
+        const news = await News.find().sort({updatedAt: -1});
 
         res.render('views/aktuelles-site', {
             title: 'Aktuelles',
             user: req.user,
-            news: artikel,
+            news: news,
             tasks: tasks
         })
     })
@@ -373,7 +362,7 @@ module.exports = (app, passport) => {
         })
     })
 
-//News hinzufügen
+    // News hinzufügen
     app.post('/addNews', isLoggedin, async (req, res) => {
         try {
             let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
@@ -472,7 +461,6 @@ module.exports = (app, passport) => {
                     res.status(200).redirect('/aktuelles')
                 })
             });
-
         } catch (exception) {
             req.flash('error', exception.message)
         }
@@ -561,7 +549,6 @@ module.exports = (app, passport) => {
 
     app.post('/club-settings', isLoggedin, async (req, res) => {
         try {
-            console.log((req.body))
             const activateWorkhours = (req.body.workhours) ? req.body.workhours : false;
             const defaultWorkhours = (req.body.defaultWorkhours) ? req.body.defaultWorkhours : 10;
 
@@ -621,7 +608,6 @@ module.exports = (app, passport) => {
             tasks: tasks,
             firstLogin: firstLogin
         })
-
         await User.findOneAndUpdate({_id:req.user._id}, {firstLogin: false})
     })
 
@@ -656,6 +642,4 @@ module.exports = (app, passport) => {
             res.send("NOT OK")
         }
     })
-
-
 }

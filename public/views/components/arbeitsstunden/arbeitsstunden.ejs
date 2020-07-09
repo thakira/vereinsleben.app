@@ -4,7 +4,6 @@
     <div id="available-tasks-container" class="col-sm-12 col-lg-4"><%- include('available-tasks')%></div>
 </div>
 
-
 <script>
     $('.done').on('click', function (e) {
         if(navigator.onLine) {
@@ -18,28 +17,18 @@
                 type: 'POST',
                 data: formData,
                 success: () => {
-                    console.log('geschafft')
                     $.snackbar({content: 'Danke für Deine Unterstützung!', style: 'toast'});
-                    $('#modal'+taskId).modal('toggle');
-                    $('#list-group-item-'+taskId).addClass('done');
-                    $('#list-group-item-'+taskId + ' > .task-title').append('<div>Erledigt</div>');
-                    $('#task-btn-container-'+taskId).remove();
-                    $('#list-group-item-'+taskId + ' > .task-description').remove();
-                    $('#list-group-item-'+taskId + ' > .task-participants').remove();
-                    $('#list-group-item-'+taskId + ' > .task-estimated').remove();
-                    let w = parseInt($('#worked').text()) + parseInt(worked);
-                    $('#worked').text(w);
+                    setTimeout(() => { $(location).attr('href', "/arbeitsstunden") }, 800);
                 }
             })
         } else {
             offlineHint();
         }
-
     })
 
     function cancel(elem, taskId) {
         if(navigator.onLine) {
-            if (window.confirm("Möchtest du dich wirklich von der Aufgabe austragen?")) {
+            if (window.confirm("Möchtest Du Dich wirklich von der Aufgabe austragen?")) {
                 $.ajax({
                     url: '/task-cancel?id='+taskId,
                     type: 'PUT'
@@ -48,14 +37,12 @@
                 let par = parseInt($('#participants-'+taskId).text()) - 1;
                 $('#participants-'+taskId).text(par);
 
-                $.snackbar({content: 'Du hast dich erfolgreich ausgetragen.', style: 'toast'});
-                $('#available-tasks-container>.card').append($(elem).parent().parent())
-                $(elem).parent().empty().append('<button type="button" class="btn btn-sm btn-primary-text accept" onclick="accept(this,\'' + taskId + '\')">Aufgabe übernehmen</button>');
+                $.snackbar({content: 'Du hast Dich erfolgreich ausgetragen.', style: 'toast'});
+                setTimeout(() => { $(location).attr('href', "/arbeitsstunden") }, 800);
             }
         } else {
             offlineHint();
         }
-
     }
 
     function accept(elem, taskId) {
@@ -64,20 +51,12 @@
                 url: '/task-inscribe?id='+taskId,
                 type: 'PUT'
             })
-            $.snackbar({content: 'Du hast dich für eine Aufgabe eingetragen.', style: 'toast'});
-
-            let par = parseInt($('#participants-'+taskId).text()) + 1;
-            $('#participants-'+taskId).text(par);
-
-            $('#accepted-tasks-container>.card').append($(elem).parent().parent())
-            $(elem).parent().empty().append('<button type="button" class="btn btn-secondary btn-sm cancel" onclick="cancel(this,\''+taskId+'\')">Absagen</button>'
-                + ' <button type="button" class="btn  btn-primary btn-sm" data-toggle="modal" data-target="#modal'+taskId+'">Aufgabe erledigt?</button>');
+            $.snackbar({content: 'Du hast Dich für eine Aufgabe eingetragen.', style: 'toast'});
+            setTimeout(() => { $(location).attr('href', "/arbeitsstunden") }, 800);
         } else {
             offlineHint();
         }
-
     }
-
     $('.edit-button').on('click', function() {
         offlineHint();
     })

@@ -19,7 +19,7 @@
             </div>
         </div>
 
-            <hr class="col-12" style="border-color: #0a5213; margin: 3em auto">
+        <hr class="col-12" style="border-color: #0a5213; margin: 3em auto">
 
         <div class="col-md-2">
             <h2>Veröffentlicht</h2>
@@ -41,13 +41,13 @@
         </div>
         <%} else {%>
             <% if(news) {%>
-                    <% news.forEach( article => {%>
-                        <% if (article.newsReleased) {%>
-                            <div class="col-md-4">
-                                <%- include('components/aktuelles/aktuelles', {article}) %>
-                            </div>
-                        <%}%>
-                    <%})%>
+                <% news.forEach( article => {%>
+                    <% if (article.newsReleased) {%>
+                        <div class="col-md-4">
+                            <%- include('components/aktuelles/aktuelles', {article}) %>
+                        </div>
+                    <%}%>
+                <%})%>
             <%}%>
         <% } %>
     </div>
@@ -64,9 +64,8 @@
         $('.editor-button').attr('href', '');
         $('.editor-button').on('click', offlineHint);
     }
-
-
 </script>
+
 <%- include('partials/footer/footer') %>
 
 

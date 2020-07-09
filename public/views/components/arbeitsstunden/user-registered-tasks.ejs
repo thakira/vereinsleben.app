@@ -2,6 +2,7 @@
     <div class="card-body">
         <h2>Übernommene Aufgaben</h2>
     </div>
+
     <% if(tasks) {
         tasks.forEach(task => {
             if(!task.done && task.participants) {
@@ -13,4 +14,5 @@
             }
         }) %>
     <%}%>
+
 </div>
