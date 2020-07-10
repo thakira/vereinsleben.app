@@ -2,10 +2,12 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <% if (modalType === "newsModal" ) {%>
-                <%- include('./newsModal') %>
+                <%- include('newsModal') %>
+            <% } else if (modalType === "newsHeaderModal" ) {%>
+                <%- include('newsHeaderModal') %>
             <% } else if (modalType === "changeImageModal" ) {%>
-                <%- include('./changeImageModal') %>
-            <% }%>
+                <%- include('changeImageModal') %>
+                <% }%>
         </div>
     </div>
 </div>

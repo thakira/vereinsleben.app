@@ -1,0 +1,26 @@
+<nav class="navbar sticky-top navbar-dark bg-primary modal-nav">
+    <div class="container-left">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="material-icons">close</span>
+        </button>
+        <h3>Titelbild erstellen</h3>
+    </div>
+    <button id="saveTeaserImage" type="button" class="close btn">
+        <span class="material-icons">check</span>
+    </button>
+</nav>
+
+<div class="modal-body" style="margin-top: 2em">
+    <div class="imageContainer " style="margin: 2em auto;">
+        <img id="newsImg" src="" alt="Titelbild" />
+    </div>
+    <form action="/profilimage" method="post" enctype="multipart/form-data">
+        <div class="form-row">
+            <fieldset class="form-group col">
+                <label for="teaserImgInput" class="btn btn-outline-light">Titelbild auswählen</label>
+                <input id="teaserImgInput" name="image" type="file" accept="image/*">
+            </fieldset>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light btn-large hidden">Hochladen</button>
+    </form>
+</div>

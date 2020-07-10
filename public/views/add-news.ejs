@@ -12,26 +12,18 @@
 
     <div id="editorContainer">
 
-        <form method="post" action="/addNews" id="addNewsForm" enctype="multipart/form-data">
-            <div class="row">
-                <div class="form-group col-sm-12 col-md-6">
-                    <!-- Datei hochladen-->
-                    <div id="newsImgContainer" class="custom-file">
-                        <input type="file" class="form-control" id="newsImg" name="newsImg" lang="de" accept="image/*">
-                        <label class="custom-file-label" for="newsImg">Wähle ein Titelbild...</label>
-                        <small>Das Titelbild ist optional und wird über dem Beitrag angezeigt.</small>
-                    </div>
-                </div>
+        <button id="addImageBtn" type="button" class="btn btn-outline-success col-12">Titelbild hinzufügen</button>
 
-                <div class="col-md-6 col-sm-12">
-                    <div class="prevTeaserImage hidden">
-                        <img id="teaserImg" src="" alt="your image" />
-                    </div>
-                    <button id="cancelNewsImage" type="button" class="btn btn-danger hidden col-12" >Bild entfernen</button>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12">
+                <div class="prevTeaserImage hidden">
+                    <img id="teaserImg" src="" alt="your image" style="min-width: 100%;" />
                 </div>
+                <button id="cancelNewsImage" type="button" class="btn btn-danger hidden col-12" >Bild entfernen</button>
             </div>
+        </div>
 
-
+        <form method="post" action="/addNews" id="addNewsForm">
             <div class="form-group">
                 <input type="text" class="form-control form-control-lg" id="newsTitle" name="newsTitle" placeholder="Überschrift" required>
             </div>
@@ -51,9 +43,93 @@
     </div>
 </main>
 
+<%- include('components/modals/modal', {modalType:'newsHeaderModal'}) %>
+
+<link rel="stylesheet" href="/croppie/croppie.css" />
+<script src="/croppie/croppie.js"></script>
 <script src="https://cdn.tiny.cloud/1/zyqy6bq7l0jcdzh89nk09o0jurkuy5e8anxya0zqq0a9ir24/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
+    $(document).ready(function() {
+
+
+    $('#addImageBtn').on('click', () => {
+        if(navigator.onLine) {
+            $('#newsHeaderModal').modal('show');
+        } else {
+            offlineHint();
+        }
+    })
+
+    // Profilbild laden und zuschneiden
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let vW = $('.imageContainer').outerWidth() - 20
+                let vH = vW * 0.625
+                $('#newsImg').attr('src', e.target.result);
+                $('#newsImg').croppie('destroy');
+                $('#newsImg').croppie({
+                    enableExif: true,
+                    viewport: {
+                        width: vW,
+                        height:vH,
+                    },
+                    boundary: {
+                        width: vW + 10,
+                        height: vH + 10
+                    }
+                });
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#teaserImgInput").change(function() {
+        readURL(this);
+    });
+
+    let croppedImage = ''
+
+    $('#saveTeaserImage').on('click', function(ev) {
+        $('#newsImg').croppie('result', {
+            type: 'canvas',
+            size: {width: 1600, height:1000}
+        }).then(function(resp) {
+            $('#newsImg').attr('src', resp);
+            $('.prevTeaserImage img').attr('src', resp);
+            $('.prevTeaserImage').removeClass('hidden');
+            $('.prevTeaserImage span').addClass('hidden');
+            $('#addImageBtn').addClass('hidden');
+            $('#cancelNewsImage').removeClass('hidden');
+            $('#newsHeaderModal').modal('toggle');
+            croppedImage = resp
+        });
+    })
+
+
+    $('#addNewsForm').submit(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $('#addNewsForm').attr('action'),
+            type: 'POST',
+            data: $('#addNewsForm').serialize(),
+            success: function (id) {
+                console.log('Hallo hier')
+                if(croppedImage.length > 0) {
+                    console.log('Hallo hier 2')
+                    $.post('/newsImage?id='+id, {img: croppedImage});
+                }
+                console.log('Hallo hier 3')
+                $.snackbar({content: 'Artikel gespeichert!', style: 'toast'})
+                //setTimeout(() => { $(location).attr('href', "/aktuelles") }, 800);
+            }
+
+        })
+    })
+
     $('#newsReleased').on('change', function(){
         cb = $(this);
         cb.val(cb.prop('checked'));
@@ -86,10 +162,11 @@
             })
         }
     });
+
+    })
 </script>
 
 <script>
-
     function readURL(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
@@ -115,13 +192,9 @@
 
         $('.prevTeaserImage').addClass('hidden');
         $('#cancelNewsImage').addClass('hidden');
+        $('#teaserImg').attr('src', ' ')
     });
 
-    // Dateiname in file input
-    $("#customFile").on("change", function() {
-        let fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    });
 
     if(!navigator.onLine) {
         $('input').attr('readonly', '');

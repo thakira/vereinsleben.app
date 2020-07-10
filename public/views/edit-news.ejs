@@ -11,26 +11,19 @@
     </nav>
 
     <div id="editorContainer" class="col">
-        <form method="post" action="/edit-news?id=<%- article._id%>" id="editNewsForm" enctype="multipart/form-data">
-            <div class="row">
-                <div class="form-group col-sm-12 col-md-6">
-                    <!-- Datei hochladen-->
-                    <div id="newsImgContainer" class="custom-file">
-                        <input type="file" class="form-control" id="newsImg" name="newsImg" lang="de" accept="image/*" value="<%= article.newsImg %>">
-                        <label class="custom-file-label" for="newsImg">Wähle ein Titelbild...</label>
-                        <small>Das Titelbild ist optional und wird über dem Beitrag angezeigt.</small>
-                    </div>
-                    <input type="text" class="hidden" id="newsType" name="newsType" value="<%= article.newsType %>">
-                </div>
 
-                <div class="col-sm-12 col-md-6">
-                    <div class="prevTeaserImage hidden">
-                        <img id="teaserImg" src="<%= article.newsImg %>" alt="your image" />
-                    </div>
-                    <button id="cancelNewsImage" type="button" class="btn btn-danger  col-12 hidden" >Bild entfernen</button>
+        <button id="addImageBtn" type="button" class="btn btn-outline-success col-12">Titelbild hinzufügen</button>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12">
+                <div class="prevTeaserImage hidden">
+                    <img id="teaserImg" src="<%= article.newsImg %>" alt="your image" style="min-width: 100%;" />
                 </div>
+                <button id="cancelNewsImage" type="button" class="btn btn-danger hidden col-12" >Bild entfernen</button>
             </div>
+        </div>
 
+        <form method="post" action="/edit-news?id=<%- article._id%>" id="editNewsForm">
             <div class="form-group">
                 <input type="text" class="form-control form-control-lg" id="newsTitle" name="newsTitle" placeholder="Überschrift" value="<%= article.newsTitle%>" required>
             </div>
@@ -47,7 +40,7 @@
 
             <div id='btn-container' class="form-row">
                 <div class="form-group col">
-                    <button type="submit" class="btn btn-primary">Speichern</button>
+                    <button id="submitBtn" type="submit" class="btn btn-primary" disabled>Speichern</button>
                 </div>
                 <div class="form-group col">
                     <a id="deleteBtn" class="btn btn-outline-danger" role="button">Artikel löschen</a>
@@ -57,12 +50,14 @@
     </div>
 </main>
 
+<%- include('components/modals/modal', {modalType:'newsHeaderModal'}) %>
+
+<link rel="stylesheet" href="/croppie/croppie.css" />
+<script src="/croppie/croppie.js"></script>
 <script src="https://cdn.tiny.cloud/1/zyqy6bq7l0jcdzh89nk09o0jurkuy5e8anxya0zqq0a9ir24/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
-
 $(document).ready( function() {
-    let editImg, addImg = false;
     let released = '<%= article.newsReleased %>'
     if (released === 'true') {
         $('#newsReleased').prop('checked', true)
@@ -73,10 +68,23 @@ $(document).ready( function() {
         cb.val(cb.prop('checked'));
     });
 
+    $('#editNewsForm').on('change', function () {
+        $('#submitBtn').attr('disabled', false)
+    })
+
     if ('<%= article.newsType %>' === "image") {
         $('.prevTeaserImage').removeClass('hidden');
         $('#cancelNewsImage').removeClass('hidden');
+        $('#addImageBtn').addClass('hidden');
     }
+
+    $('#addImageBtn').on('click', () => {
+        if(navigator.onLine) {
+            $('#newsHeaderModal').modal('show');
+        } else {
+            offlineHint();
+        }
+    })
 
     $('#deleteBtn').on('click', function () {
 
@@ -123,50 +131,64 @@ $(document).ready( function() {
         }
     });
 
+    // Titelbild laden und zuschneiden
     function readURL(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = function (e) {
-                $('#teaserImg').attr('src', e.target.result);
+                let vW = $('.imageContainer').outerWidth() - 20
+                let vH = vW * 0.625
+                $('#newsImg').attr('src', e.target.result);
+                $('#newsImg').croppie('destroy');
+                $('#newsImg').croppie({
+                    enableExif: true,
+                    viewport: {
+                        width: vW,
+                        height:vH,
+                    },
+                    boundary: {
+                        width: vW + 10,
+                        height: vH + 10
+                    }
+                });
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    //Dateiname in header
-    $("#newsImg").on("change", function () {
-        editImg = true;
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    $('#saveTeaserImage').on('click', function(ev) {
+        $('#newsImg').croppie('result', {
+            type: 'canvas',
+            size: {width: 1600, height:1000}
+        }).then(function(resp) {
+            $('#newsImg').attr('src', resp);
+            $('.prevTeaserImage img').attr('src', resp);
+            $('.prevTeaserImage').removeClass('hidden');
+            $('.prevTeaserImage span').addClass('hidden');
+            $('#addImageBtn').addClass('hidden');
+            $('#cancelNewsImage').removeClass('hidden');
+            $('#newsHeaderModal').modal('toggle');
 
-        $('.prevTeaserImage').removeClass('hidden');
-        $('#cancelNewsImage').removeClass('hidden');
-        $('#newsType').val('image');
+            $.post('/newsImage?id=<%= article._id %>', {img: resp});
+            $.snackbar({content: 'Titelbild geändert!', style: 'toast'})
+        });
+    })
+
+    $("#teaserImgInput").change(function() {
         readURL(this);
     });
 
+
     $("#cancelNewsImage").on("click", function () {
-        editImg = true;
-        addImg = false;
         $("#newsImg").val('').siblings(".custom-file-label").removeClass("selected").html('Wähle ein Titelbild...');
 
         $('.prevTeaserImage').addClass('hidden');
         $('#cancelNewsImage').addClass('hidden');
-        $('#newsType').val('text');
+        $('#addImageBtn').removeClass('hidden');
+
+        $.put('/deleteImage?id=<%= article._id %>');
     });
 
-    // Dateiname in file input
-    $("#customFile").on("change", function () {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        addImg = true
-    });
-
-    $('#editNewsForm').submit(function (event) {
-        if ($('#newsImg').val().length === 0) {
-            $('#newsImgContainer').remove()
-        }
-    })
 })
 
 if(!navigator.onLine) {

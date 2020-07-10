@@ -224,6 +224,10 @@
         $('#editModal').modal('toggle');
     }
 
+    $("#role").on('change', function() {
+        console.log($("#role").val());
+    })
+
     function sortTable(n) {
         let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("memberTable");

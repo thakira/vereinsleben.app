@@ -363,50 +363,105 @@ module.exports = (app, passport) => {
     })
 
     // News hinzufügen
+    // app.post('/addNews', isLoggedin, async (req, res) => {
+    //     try {
+    //         let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
+    //
+    //         upload(req, res, (err) => {
+    //             const newsTitle = req.body.newsTitle
+    //             const newsText = req.body.newsText
+    //             const newsReleased = req.body.newsReleased
+    //             const newsAuthor = req.user._id
+    //             let newsImg = req.body.newsImg
+    //             let newsType = 'text'
+    //
+    //             if (req.file) {
+    //                 newsImg = req.file.path
+    //                 newsType = 'image'
+    //             }
+    //             else if (req.fileValidationError) {
+    //                 return res.send(req.fileValidationError);
+    //             }
+    //             else if (err instanceof multer.MulterError) {
+    //                 return res.send(err);
+    //             }
+    //             else if (err) {
+    //                 return res.send(err);
+    //             }
+    //
+    //             new News({
+    //                 newsTitle: newsTitle,
+    //                 newsText: newsText,
+    //                 newsReleased: newsReleased,
+    //                 newsAuthor: newsAuthor,
+    //                 newsImg: newsImg,
+    //                 newsType: newsType
+    //             })
+    //                 .save()
+    //                 .then( () => {
+    //                     res.status(200).redirect('/aktuelles')
+    //                 })
+    //         });
+    //
+    //     } catch (exception) {
+    //         req.flash('error', exception.message)
+    //     }
+    // });
+
+    // News hinzufügen
     app.post('/addNews', isLoggedin, async (req, res) => {
         try {
-            let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
-
-            upload(req, res, (err) => {
-                const newsTitle = req.body.newsTitle
-                const newsText = req.body.newsText
-                const newsReleased = req.body.newsReleased
-                const newsAuthor = req.user._id
-                let newsImg = req.body.newsImg
-                let newsType = 'text'
-
-                if (req.file) {
-                    newsImg = req.file.path
-                    newsType = 'image'
-                }
-                else if (req.fileValidationError) {
-                    return res.send(req.fileValidationError);
-                }
-                else if (err instanceof multer.MulterError) {
-                    return res.send(err);
-                }
-                else if (err) {
-                    return res.send(err);
-                }
-
-                new News({
-                    newsTitle: newsTitle,
-                    newsText: newsText,
-                    newsReleased: newsReleased,
-                    newsAuthor: newsAuthor,
-                    newsImg: newsImg,
-                    newsType: newsType
+            new News({
+                newsTitle: req.body.newsTitle,
+                newsText: req.body.newsText,
+                newsReleased: req.body.newsReleased,
+                newsAuthor: req.user._id,
+                newsType: 'text'
+            })
+                .save(function(err, obj) {
+                    if(err) {
+                        res.send(err)
+                    }
+                    console.log(JSON.stringify(obj))
+                    res.status(200).send(obj._id)
                 })
-                    .save()
-                    .then( () => {
-                        res.status(200).redirect('/aktuelles')
-                    })
-            });
-
         } catch (exception) {
             req.flash('error', exception.message)
         }
     });
+
+    app.post('/newsImage', isLoggedin, async (req, res) => {
+        try {
+            await News.findOneAndUpdate({_id: req.query.id},
+            {
+                    newsImg: req.body.img,
+                    newsType: 'image'
+                }
+            )
+            res.status(200).send("OK")
+        }
+        catch (exception) {
+            req.flash('error', exception.message)
+            res.send("NOT OK")
+        }
+    })
+
+    app.put('/deleteImage', isLoggedin, async (req, res) => {
+        try {
+            await News.findOneAndUpdate({_id: req.query.id},
+                {
+                    newsImg: '',
+                    newsType: 'text'
+                }
+            )
+            res.status(200).send("OK")
+        }
+        catch (exception) {
+            req.flash('error', exception.message)
+            res.send("NOT OK")
+        }
+    })
+
 
     app.get('/edit-news', isLoggedin, async (req,res) => {
         try {
@@ -425,42 +480,14 @@ module.exports = (app, passport) => {
 
     app.post('/edit-news', isLoggedin, async (req,res) => {
         try {
-            let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
-
-            let newsTitle
-            let newsText
-            let newsReleased
-            let newsImg = ''
-            let newsType
-
-            upload(req, res, (err) => {
-                newsTitle = req.body.newsTitle
-                newsText = req.body.newsText
-                newsReleased = req.body.newsReleased
-                newsType = req.body.newsType
-                if (req.file && newsType === 'image') {
-                    newsImg = req.file.path
-                }
-                else if (req.fileValidationError) {
-                    return res.send(req.fileValidationError);
-                }
-                else if (err instanceof multer.MulterError) {
-                    return res.send(err);
-                }
-                else if (err) {
-                    return res.send(err);
-                }
-
-                News.findOneAndUpdate({_id: req.query.id}, {
-                    newsTitle: newsTitle,
-                    newsText: newsText,
-                    newsReleased: newsReleased,
-                    newsType: newsType,
-                    newsImg: newsImg
-                }).then( function() {
-                    res.status(200).redirect('/aktuelles')
-                })
-            });
+            console.log('Hallo vom edit-news => ' + JSON.stringify(req.body))
+            News.findOneAndUpdate({_id: req.query.id}, {
+                newsTitle: req.body.newsTitle,
+                newsText: req.body.newsText,
+                newsReleased: req.body.newsReleased,
+            }).then( function() {
+                res.status(200).redirect('/aktuelles')
+            })
         } catch (exception) {
             req.flash('error', exception.message)
         }
