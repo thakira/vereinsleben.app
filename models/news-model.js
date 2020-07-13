@@ -5,7 +5,8 @@ const newsSchema = new Schema({
     newsTitle: {type: String, required: true},
     newsText: {type: String, required: true},
     newsImg: { type: String },
-    newsDoc: {type: String},
+    newsImgMd: { type: String },
+    newsThumbnail: { type: String },
     newsReleased: {type: Boolean, default: false},
     newsType: {type: String, default: 'text'}, // 'text' || 'image'
     newsAuthor: {type: String}

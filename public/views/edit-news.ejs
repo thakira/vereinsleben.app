@@ -50,6 +50,7 @@
     </div>
 </main>
 
+
 <%- include('components/modals/modal', {modalType:'newsHeaderModal'}) %>
 
 <link rel="stylesheet" href="/croppie/croppie.css" />
@@ -60,7 +61,7 @@
 $(document).ready( function() {
     let released = '<%= article.newsReleased %>'
     if (released === 'true') {
-        $('#newsReleased').prop('checked', true)
+        $('#newsReleased').prop('checked', true).val('true')
     }
 
     $('#newsReleased').on('change', function () {
@@ -156,10 +157,14 @@ $(document).ready( function() {
         }
     }
 
+    let croppedImage = ''
+    let croppedImageMd = ''
+    let croppedThumbnail = ''
+
     $('#saveTeaserImage').on('click', function(ev) {
         $('#newsImg').croppie('result', {
             type: 'canvas',
-            size: {width: 1600, height:1000}
+            size: {width: 800, height:500}
         }).then(function(resp) {
             $('#newsImg').attr('src', resp);
             $('.prevTeaserImage img').attr('src', resp);
@@ -168,11 +173,41 @@ $(document).ready( function() {
             $('#addImageBtn').addClass('hidden');
             $('#cancelNewsImage').removeClass('hidden');
             $('#newsHeaderModal').modal('toggle');
+            croppedImage = resp
 
-            $.post('/newsImage?id=<%= article._id %>', {img: resp});
-            $.snackbar({content: 'Titelbild geändert!', style: 'toast'})
-        });
+            resizeImage();
+
+            $('#submitBtn').attr('disabled', false);
+        })
     })
+
+    function resizeImage() {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = 350;
+        canvas.height = 219;
+
+        let image = new Image();
+
+        image.onload = function(e) {
+            ctx.drawImage(image,
+                0, 0, image.width, image.height,
+                0, 0, canvas.width, canvas.height
+            );
+            croppedImageMd = canvas.toDataURL();
+
+            canvas.width = 80;
+            canvas.height = 50;
+            ctx.drawImage(image,
+                0, 0, image.width, image.height,
+                0, 0, canvas.width, canvas.height
+            );
+            croppedThumbnail = canvas.toDataURL();
+        };
+        image.src = croppedImage
+    }
+
 
     $("#teaserImgInput").change(function() {
         readURL(this);
@@ -186,8 +221,26 @@ $(document).ready( function() {
         $('#cancelNewsImage').addClass('hidden');
         $('#addImageBtn').removeClass('hidden');
 
-        $.put('/deleteImage?id=<%= article._id %>');
+        $.get('/deleteImage?id=<%= article._id %>');
     });
+
+    $('#editNewsForm').submit(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $('#editNewsForm').attr('action'),
+            type: 'POST',
+            data: $('#editNewsForm').serialize(),
+            success: function () {
+                if(croppedImage.length > 0) {
+                    $.post('/newsImage?id=<%= article._id %>', {newsImg: croppedImage, newsImgMd: croppedImageMd, newsThumbnail: croppedThumbnail});
+                }
+                $.snackbar({content: 'Artikel gespeichert!', style: 'toast'})
+                setTimeout(() => { $(location).attr('href', "/aktuelles") }, 800);
+            }
+
+        })
+    })
 
 })
 

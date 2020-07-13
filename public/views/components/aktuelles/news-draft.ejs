@@ -1,7 +1,7 @@
 <div id="<%= article._id%>" class="card text" data-toggle="modal" data-target="#newsModal<%= article._id%>" >
     <% if(article.newsType === 'image') {%>
         <div class="image-container">
-            <img class="card-image" alt="<%= article.newsTitle%>" src="<%= article.newsImg %>" >
+            <img class="card-image" alt="<%= article.newsTitle%>" src="<%= article.newsImg%>" >
         </div>
     <% } %>
     <div class="card-body">

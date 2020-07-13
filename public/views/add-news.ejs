@@ -91,11 +91,14 @@
     });
 
     let croppedImage = ''
+    let croppedImageMd = ''
+    let croppedThumbnail = ''
 
     $('#saveTeaserImage').on('click', function(ev) {
         $('#newsImg').croppie('result', {
             type: 'canvas',
-            size: {width: 1600, height:1000}
+            size: {width: 1600, height:1000},
+            quality: 0.75
         }).then(function(resp) {
             $('#newsImg').attr('src', resp);
             $('.prevTeaserImage img').attr('src', resp);
@@ -105,8 +108,39 @@
             $('#cancelNewsImage').removeClass('hidden');
             $('#newsHeaderModal').modal('toggle');
             croppedImage = resp
-        });
+
+            resizeImage();
+            $('#submitBtn').attr('disabled', false);
+        })
     })
+
+
+    function resizeImage() {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = 350;
+        canvas.height = 219;
+
+        let image = new Image();
+
+        image.onload = function(e) {
+            ctx.drawImage(image,
+                0, 0, image.width, image.height,
+                0, 0, canvas.width, canvas.height
+            );
+            croppedImageMd = canvas.toDataURL();
+
+            canvas.width = 80;
+            canvas.height = 50;
+            ctx.drawImage(image,
+                0, 0, image.width, image.height,
+                0, 0, canvas.width, canvas.height
+            );
+            croppedThumbnail = canvas.toDataURL();
+        };
+        image.src = croppedImage
+    }
 
 
     $('#addNewsForm').submit(function(e) {
@@ -117,14 +151,11 @@
             type: 'POST',
             data: $('#addNewsForm').serialize(),
             success: function (id) {
-                console.log('Hallo hier')
                 if(croppedImage.length > 0) {
-                    console.log('Hallo hier 2')
-                    $.post('/newsImage?id='+id, {img: croppedImage});
+                    $.post('/newsImage?id='+id, {newsImg: croppedImage, newsImgMd: croppedImageMd, newsThumbnail: croppedThumbnail});
                 }
-                console.log('Hallo hier 3')
                 $.snackbar({content: 'Artikel gespeichert!', style: 'toast'})
-                //setTimeout(() => { $(location).attr('href', "/aktuelles") }, 800);
+                setTimeout(() => { $(location).attr('href', "/aktuelles") }, 800);
             }
 
         })

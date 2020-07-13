@@ -32,15 +32,21 @@
                     <% if(news) {%>
                         <ul class="list-group bmd-list-group-sm">
                             <% news.forEach( article => {%>
-                                <% if (article.newsReleased) {%>
                                     <a class="list-group-item" data-toggle="modal" data-target="#newsModal<%= article._id%>">
-                                        <div class="bmd-list-group-col">
-                                            <p class="list-group-item-heading"><%= article.newsTitle %></p>
-                                            <p class="list-group-item-text">vom <span class="datum" del-date="<%= article.createdAt %>"></span></p>
+
+                                        <div class="media">
+                                            <% if(article.newsThumbnail) { %>
+                                                <img class="align-self-start mr-3" src="<%= article.newsThumbnail %>" alt="Thumbnail <%= article.newsTitle %>">
+                                            <% } %>
+                                            <div class="media-body">
+                                                <div class="bmd-list-group-col">
+                                                    <h6 class="list-group-item-heading"><%= article.newsTitle %></h6>
+                                                    <p class="list-group-item-text">vom <span class="datum" del-date="<%= article.createdAt %>"></span></p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </a>
                                     <%- include('components/modals/modal', {modalType: "newsModal", article}) %>
-                                <% }%>
                             <%})%>
                         </ul>
                     <%} else {%>
@@ -97,4 +103,3 @@
 </script>
 
 <%- include('partials/footer/footer') %>
-

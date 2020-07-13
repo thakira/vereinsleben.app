@@ -73,7 +73,7 @@ module.exports = (app, passport) => {
     // Dashboard
     app.get('/dashboard', isLoggedin, async (req, res) => {
         tasks_active = await Club.findOne({shortName: "rvss"})
-        const news = await News.find({newsReleased: true}).sort({updatedAt: -1}).limit(5);
+        const news = await News.find({newsReleased: true}, 'newsTitle newsText newsImg newsThumbnail newsReleased newsType createdAt').sort({updatedAt: -1}).limit(5);
 
         let tasks = ''
         if (tasks_active.module.workhours.activate) {
@@ -345,7 +345,7 @@ module.exports = (app, passport) => {
     app.get('/aktuelles', isLoggedin, async (req, res) => {
         club = await Club.findOne({'shortName': 'rvss'})
         tasks = club.module.workhours.activate
-        const news = await News.find().sort({updatedAt: -1});
+        const news = await News.find({},'newsTitle newsText newsImg newsReleased newsType createdAt').sort({updatedAt: -1});
 
         res.render('views/aktuelles-site', {
             title: 'Aktuelles',
@@ -363,52 +363,6 @@ module.exports = (app, passport) => {
     })
 
     // News hinzufügen
-    // app.post('/addNews', isLoggedin, async (req, res) => {
-    //     try {
-    //         let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('newsImg');
-    //
-    //         upload(req, res, (err) => {
-    //             const newsTitle = req.body.newsTitle
-    //             const newsText = req.body.newsText
-    //             const newsReleased = req.body.newsReleased
-    //             const newsAuthor = req.user._id
-    //             let newsImg = req.body.newsImg
-    //             let newsType = 'text'
-    //
-    //             if (req.file) {
-    //                 newsImg = req.file.path
-    //                 newsType = 'image'
-    //             }
-    //             else if (req.fileValidationError) {
-    //                 return res.send(req.fileValidationError);
-    //             }
-    //             else if (err instanceof multer.MulterError) {
-    //                 return res.send(err);
-    //             }
-    //             else if (err) {
-    //                 return res.send(err);
-    //             }
-    //
-    //             new News({
-    //                 newsTitle: newsTitle,
-    //                 newsText: newsText,
-    //                 newsReleased: newsReleased,
-    //                 newsAuthor: newsAuthor,
-    //                 newsImg: newsImg,
-    //                 newsType: newsType
-    //             })
-    //                 .save()
-    //                 .then( () => {
-    //                     res.status(200).redirect('/aktuelles')
-    //                 })
-    //         });
-    //
-    //     } catch (exception) {
-    //         req.flash('error', exception.message)
-    //     }
-    // });
-
-    // News hinzufügen
     app.post('/addNews', isLoggedin, async (req, res) => {
         try {
             new News({
@@ -422,7 +376,6 @@ module.exports = (app, passport) => {
                     if(err) {
                         res.send(err)
                     }
-                    console.log(JSON.stringify(obj))
                     res.status(200).send(obj._id)
                 })
         } catch (exception) {
@@ -433,8 +386,10 @@ module.exports = (app, passport) => {
     app.post('/newsImage', isLoggedin, async (req, res) => {
         try {
             await News.findOneAndUpdate({_id: req.query.id},
-            {
-                    newsImg: req.body.img,
+                {
+                    newsImg: req.body.newsImg,
+                    newsImgMd: req.body.newsImgMd,
+                    newsThumbnail: req.body.newsThumbnail,
                     newsType: 'image'
                 }
             )
@@ -446,7 +401,7 @@ module.exports = (app, passport) => {
         }
     })
 
-    app.put('/deleteImage', isLoggedin, async (req, res) => {
+    app.get('/deleteImage', isLoggedin, async (req, res) => {
         try {
             await News.findOneAndUpdate({_id: req.query.id},
                 {
@@ -466,7 +421,7 @@ module.exports = (app, passport) => {
     app.get('/edit-news', isLoggedin, async (req,res) => {
         try {
             const newsId = req.query.id;
-            const article = await News.findOne({_id: newsId})
+            const article = await News.findOne({_id: newsId}, 'newsTitle newsText newsImg newsReleased newsType createdAt')
 
             return res.render('views/edit-news', {
                 title: 'Artikel bearbeiten',
@@ -478,9 +433,9 @@ module.exports = (app, passport) => {
         }
     });
 
+
     app.post('/edit-news', isLoggedin, async (req,res) => {
         try {
-            console.log('Hallo vom edit-news => ' + JSON.stringify(req.body))
             News.findOneAndUpdate({_id: req.query.id}, {
                 newsTitle: req.body.newsTitle,
                 newsText: req.body.newsText,

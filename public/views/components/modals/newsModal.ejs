@@ -8,7 +8,7 @@
 </nav>
 <% if(article.newsType === 'image') {%>
     <div class="modal-image-header">
-        <img class="card-img" alt="Card image" src="<%= article.newsImg %>" >
+        <img id="newsTeaserImage"  class="card-img" alt="Card image" src="<%= article.newsImg %>" >
     </div>
 <% } %>
 <div class="modal-header">
@@ -25,5 +25,3 @@
     <p class="card-text">Aktuelles vom <span class="datum" del-date="<%= article.createdAt %>"></span></p>
     <div class="newsText"><%- article.newsText %></div>
 </div>
-
-
